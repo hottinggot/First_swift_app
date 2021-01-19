@@ -10,14 +10,14 @@ import Foundation
 class Memo {
     var title: String
     var content: String
-    var insertDate: Date
+    //var insertDate: Date
     
     init(title: String, content: String) {
         self.title = title
         self.content = content
-        insertDate = Date()
+        //insertDate = Date()
     }
     
-    static var dummyMemoList = [ Memo(title: "first memo", content: "first memo content")]
+    static var dummyMemoList = [ Memo(title: "first memo", content: "first memo content"), Memo(title: "second memo", content: "naver.com second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content")]
     
 }

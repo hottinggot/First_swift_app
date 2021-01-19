@@ -8,23 +8,48 @@
 import UIKit
 import MobileCoreServices
 
-class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-
-    @IBOutlet var cameraBtn: UIButton!
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var cameraBtn: UIBarButtonItem!
     
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     var captureImage: UIImage!
     var flagImgSave = false
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
+        
+            if let vc = segue.destination as? EditViewController {
+                vc.memo = Memo.dummyMemoList[indexPath.row]
+            }
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        cameraBtn.layer.cornerRadius = 10
+        tableView.delegate = self
+        tableView.dataSource = self
+    
         tableView.layer.cornerRadius = 10
     }
     
-    @IBAction func cameraCapture(_ sender: Any) {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Memo.dummyMemoList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
+        let target = Memo.dummyMemoList[indexPath.row]
+        
+        cell.cellTitle.text = target.title
+        cell.cellContents.text = target.content
+        
+        return cell
+    }
+    
+    @IBAction func cameraCapture(_ sender: UIBarButtonItem) {
         if(UIImagePickerController.isSourceTypeAvailable(.camera)){
             flagImgSave = true
             
@@ -39,6 +64,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         }
     }
     
+        
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info : [UIImagePickerController.InfoKey : Any]){
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
         
