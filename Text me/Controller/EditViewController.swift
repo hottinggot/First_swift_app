@@ -25,8 +25,8 @@ class EditViewController: UIViewController, UITextViewDelegate {
         refImage.layer.cornerRadius = 5
         //navBackBtn.backButtonTitle = "뒤로"
         
-        detailTitle.text = memo?.title
-        mainTextView.text = memo?.content
+        detailTitle.text = memo?.titleText
+        mainTextView.text = memo?.mainText
         
         //link
         //mainTextView.delegate = self
@@ -46,7 +46,8 @@ class EditViewController: UIViewController, UITextViewDelegate {
     }
     
     @objc func dismissMyKeyboard() {
-            view.endEditing(true)
+        view.endEditing(true)
+
     }
     
     

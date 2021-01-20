@@ -17,6 +17,7 @@
 		040CA85D25B527DC00F632FE /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA85C25B527DC00F632FE /* EditViewController.swift */; };
 		045C313925B5AF1500373EA5 /* Memo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C313825B5AF1500373EA5 /* Memo.swift */; };
 		045C313C25B5B3C300373EA5 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C313B25B5B3C300373EA5 /* CustomTableViewCell.swift */; };
+		0487FB5925B70C3C006DFD3D /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0487FB5825B70C3C006DFD3D /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		040CA85C25B527DC00F632FE /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		045C313825B5AF1500373EA5 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		045C313B25B5B3C300373EA5 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		0487FB5825B70C3C006DFD3D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 		040CA83E25B51AEB00F632FE /* Text me */ = {
 			isa = PBXGroup;
 			children = (
+				0487FB5725B70C29006DFD3D /* Data */,
 				040CA85925B51B6400F632FE /* Model */,
 				040CA85825B51B3900F632FE /* View */,
 				040CA85725B51B2200F632FE /* Controller */,
@@ -101,6 +104,14 @@
 				045C313825B5AF1500373EA5 /* Memo.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0487FB5725B70C29006DFD3D /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				0487FB5825B70C3C006DFD3D /* DataManager.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -174,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				040CA85D25B527DC00F632FE /* EditViewController.swift in Sources */,
+				0487FB5925B70C3C006DFD3D /* DataManager.swift in Sources */,
 				040CA84425B51AEB00F632FE /* MainViewController.swift in Sources */,
 				040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */,
 				045C313C25B5B3C300373EA5 /* CustomTableViewCell.swift in Sources */,
@@ -327,6 +339,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V75GP346YD;
 				INFOPLIST_FILE = "Text me/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -345,6 +358,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V75GP346YD;
 				INFOPLIST_FILE = "Text me/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
