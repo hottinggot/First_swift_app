@@ -25,8 +25,9 @@ class EditViewController: UIViewController, UITextViewDelegate {
         refImage.layer.cornerRadius = 5
         //navBackBtn.backButtonTitle = "뒤로"
         
-        detailTitle.text = memo?.titleText
-        mainTextView.text = memo?.mainText
+//        detailTitle.text = memo?.title
+//        mainTextView.text = memo?.content
+//        refImage.image = memo?.refImage
         
         //link
         //mainTextView.delegate = self

@@ -6,18 +6,21 @@
 //
 
 import Foundation
+import UIKit
 
-//class Memo {
+//class DummyMemo {
 //    var title: String
 //    var content: String
+//    var refImage: UIImage
 //    //var insertDate: Date
 //    
-//    init(title: String, content: String) {
+//    init(title: String, content: String, refImage: UIImage) {
 //        self.title = title
 //        self.content = content
+//        self.refImage = refImage
 //        //insertDate = Date()
 //    }
 //    
-//    static var dummyMemoList = [ Memo(title: "first memo", content: "first memo content"), Memo(title: "second memo", content: "naver.com second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content second memo content")]
+//    static var dummyMemoList: Array<DummyMemo> = []
 //    
 //}

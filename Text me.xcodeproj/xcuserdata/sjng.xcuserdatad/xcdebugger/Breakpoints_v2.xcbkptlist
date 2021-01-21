@@ -14,10 +14,10 @@
             filePath = "Text me/Model/Memo.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "15"
-            endingLineNumber = "15"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "init(title:content:refImage:)"
+            landmarkType = "7">
             <Locations>
                <Location
                   uuid = "EA81BFA2-F357-4E7E-A975-56FA16DA5F29 - f03caf90fa59ba5d"
@@ -62,8 +62,8 @@
             filePath = "Text me/Controller/EditViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "36"
-            endingLineNumber = "36"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -78,8 +78,8 @@
             filePath = "Text me/Controller/MainViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "64"
-            endingLineNumber = "64"
+            startingLineNumber = "63"
+            endingLineNumber = "63"
             landmarkName = "cameraCapture(_:)"
             landmarkType = "7">
          </BreakpointContent>

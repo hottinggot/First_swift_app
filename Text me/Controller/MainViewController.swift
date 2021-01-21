@@ -15,17 +15,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     @IBOutlet var cameraBtn: UIBarButtonItem!
     
     let imagePicker: UIImagePickerController! = UIImagePickerController()
-    var captureImage: UIImage!
     var flagImgSave = false
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
-
-            if let vc = segue.destination as? EditViewController {
-                vc.memo = DataManager.shared.memoList[indexPath.row]
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
+//
+//            if let vc = segue.destination as? EditViewController {
+//                vc.memo = DataManager.shared.memoList[indexPath.row]
+//            }
+//        }
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +55,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             
             imagePicker.delegate = self
             imagePicker.sourceType = .camera
-            imagePicker.mediaTypes = [kUTTypeImage as String]
+            //imagePicker.mediaTypes = [kUTTypeImage as String]
             imagePicker.allowsEditing = true
             
             present(imagePicker, animated: true, completion: nil)
@@ -65,29 +64,41 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
+    var captureImage: UIImage!
+    
         
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info : [UIImagePickerController.InfoKey : Any]){
         let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
-        if let editVc = storyboard?.instantiateViewController(identifier: "editView") {
-            editVc.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
-            self.present(editVc, animated: true, completion: nil)
-        } else {
-            alertMsg("Cannot do work", message: "problem was generated")
+        
+        guard let editVc = self.storyboard?.instantiateViewController(identifier: "editView") as? EditViewController else {
+            return
         }
         
+        //editVc.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
+        
+        
         if(mediaType.isEqual(to: kUTTypeImage as NSString as String)) {
-            captureImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+            captureImage = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
             
-//            if flagImgSave {
-//
-////                editViewController.refImage.image = captureImage
-////                editViewController.detailTitle.text = "임시 제목"
-//            }
+            save(captureImage)
+            
             
         }
         
         self.dismiss(animated: true, completion: nil)
-        //present(editViewController, animated: true, completion: nil)
+        self.present(editVc, animated: true, completion: nil)
+        
+    }
+    
+    func save(_ image: UIImage) {
+        let memo = MemoVO()
+        memo.titleText = "새로운 메모"
+        memo.mainText = ""
+        memo.refImage = image
+        memo.subText = ""
+        memo.insertDate = Date()
+        
+        DataManager.shared.insertNewMemo(memo)
         
     }
     
