@@ -7,7 +7,6 @@
 
 import UIKit
 import MobileCoreServices
-import Vision
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
