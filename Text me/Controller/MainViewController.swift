@@ -74,13 +74,18 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             return
         }
         
-        //editVc.modalTransitionStyle = UIModalTransitionStyle.flipHorizontal
-        
         
         if(mediaType.isEqual(to: kUTTypeImage as NSString as String)) {
             captureImage = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
             
-            save(captureImage)
+           // save(captureImage)
+            let newMemo = MemoVO()
+            newMemo.refImage = captureImage
+            newMemo.titleText = "새 메모"
+            newMemo.mainText = ""
+            newMemo.subText = ""
+            
+            editVc.memo = newMemo
             
             
         }
@@ -90,17 +95,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
     }
     
-    func save(_ image: UIImage) {
-        let memo = MemoVO()
-        memo.titleText = "새로운 메모"
-        memo.mainText = ""
-        memo.refImage = image
-        memo.subText = ""
-        memo.insertDate = Date()
-        
-        DataManager.shared.insertNewMemo(memo)
-        
-    }
+//    func save(_ image: UIImage) {
+//        let memo = MemoVO()
+//        memo.titleText = "새로운 메모"
+//        memo.mainText = ""
+//        memo.refImage = image
+//        memo.subText = ""
+//        memo.insertDate = Date()
+//
+//        DataManager.shared.insertNewMemo(memo)
+//
+//    }
     
     
     func alertMsg(_ title: String, message: String) {

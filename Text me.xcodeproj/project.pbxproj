@@ -36,6 +36,7 @@
 		045C313825B5AF1500373EA5 /* Memo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memo.swift; sourceTree = "<group>"; };
 		045C313B25B5B3C300373EA5 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		0487FB5825B70C3C006DFD3D /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
+		04E0F26325BA65E6008AB37B /* Text_me 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Text_me 2.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -402,9 +403,10 @@
 		040CA84825B51AEB00F632FE /* Text_me.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				04E0F26325BA65E6008AB37B /* Text_me 2.xcdatamodel */,
 				040CA84925B51AEB00F632FE /* Text_me.xcdatamodel */,
 			);
-			currentVersion = 040CA84925B51AEB00F632FE /* Text_me.xcdatamodel */;
+			currentVersion = 04E0F26325BA65E6008AB37B /* Text_me 2.xcdatamodel */;
 			path = Text_me.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

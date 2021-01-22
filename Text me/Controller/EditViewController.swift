@@ -16,7 +16,7 @@ class EditViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var refImage: UIImageView!
     @IBOutlet var navBackBtn: UINavigationItem!
     
-    var memo: Memo?
+    var memo: MemoVO?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,9 +25,9 @@ class EditViewController: UIViewController, UITextViewDelegate {
         refImage.layer.cornerRadius = 5
         //navBackBtn.backButtonTitle = "뒤로"
         
-//        detailTitle.text = memo?.title
-//        mainTextView.text = memo?.content
-//        refImage.image = memo?.refImage
+        detailTitle.text = memo?.titleText
+        mainTextView.text = memo?.mainText
+        refImage.image = memo?.refImage
         
         //link
         //mainTextView.delegate = self

@@ -3,7 +3,7 @@
     <entity name="Memo" representedClassName="Memo" syncable="YES" codeGenerationType="class">
         <attribute name="insertDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="mainText" optional="YES" attributeType="String"/>
-        <attribute name="refImage" optional="YES" attributeType="URI"/>
+        <attribute name="refImage" optional="YES" attributeType="Binary"/>
         <attribute name="subText" optional="YES" attributeType="String"/>
         <attribute name="titleText" optional="YES" attributeType="String"/>
     </entity>
