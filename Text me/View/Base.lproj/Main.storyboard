@@ -243,7 +243,6 @@
                         <outlet property="activityIndicator" destination="aD8-kp-eJn" id="fRX-FW-Qm2"/>
                         <outlet property="detailTitle" destination="nTp-rC-b0B" id="CVr-jE-Y02"/>
                         <outlet property="mainTextView" destination="gJK-0N-jRt" id="IKQ-p5-nrb"/>
-                        <outlet property="navBackBtn" destination="kIP-He-u5T" id="nMS-EP-Zki"/>
                         <outlet property="refImage" destination="rJ6-wY-e29" id="9xr-i6-NYj"/>
                         <outlet property="subTextView" destination="SrB-Yf-pWi" id="SDc-96-hzi"/>
                     </connections>

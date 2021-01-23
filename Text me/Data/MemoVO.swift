@@ -14,9 +14,10 @@ class MemoVO {
     var titleText: String?
     var mainText: String?
     var subText: String?
-    var insertDate: Date?
+    var upadateDate: Date?
+    var isNew: Bool?
     
-    var objectID: NSManagedObjectID?
-    
+    //var objectID: NSManagedObjectID?
+
 }
 

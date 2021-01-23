@@ -16,6 +16,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     var flagImgSave = false
     
+    
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
 //
@@ -24,6 +25,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 //            }
 //        }
 //    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getAllMemoList()
+        tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,18 +40,25 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.layer.cornerRadius = 10
     }
     
+    func getAllMemoList() {
+        DataManager.shared.fetchMemo()
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return DataManager.shared.memoList.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
-        let target = DataManager.shared.memoList[indexPath.row]
-        
-        cell.cellTitle.text = target.titleText
-        cell.cellContents.text = target.titleText
+
+        let target = DataManager.shared.memoList
+        cell.cellTitle.text = target[indexPath.row].titleText
+        cell.cellContents.text = target[indexPath.row].mainText
+        cell.cellImage.image = target[indexPath.row].refImage
         
         return cell
+
     }
     
     @IBAction func cameraCapture(_ sender: UIBarButtonItem) {

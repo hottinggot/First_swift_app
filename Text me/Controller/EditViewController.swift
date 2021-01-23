@@ -52,11 +52,19 @@ class EditViewController: UIViewController, UITextViewDelegate {
         self.detailTitle.inputAccessoryView = toolbar
         self.mainTextView.inputAccessoryView = toolbar
         self.subTextView.inputAccessoryView = toolbar
+        
     }
     
     @objc func dismissMyKeyboard() {
         view.endEditing(true)
+        saveChanges()
 
+    }
+    
+    func saveChanges() {
+        memo?.mainText = mainTextView.text
+        memo?.subText = subTextView.text
+        memo?.titleText = detailTitle.text
     }
     
     private func startAnimating() {
@@ -85,6 +93,11 @@ class EditViewController: UIViewController, UITextViewDelegate {
                     self.stopAnimating()
                     self.mainTextView.text = textString
                 }
+            }
+            
+            if let makeMemo: MemoVO = self.memo {
+                makeMemo.mainText = textString
+                DataManager.shared.saveMemo(memo: makeMemo)
             }
             
         })
