@@ -63,8 +63,11 @@ class DataManager{
             newMemo.updateDate = Date()
             newMemo.titleText = memo.titleText
             
+            memoList.insert(memo, at: 0 )
+            
             do { try context.save() } catch { print(error.localizedDescription) }
             
         }
     }
+    
 }

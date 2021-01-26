@@ -25,13 +25,15 @@ class EditViewController: UIViewController, UITextViewDelegate {
         subTextView.layer.cornerRadius = 10
         refImage.layer.cornerRadius = 5
         
-        detailTitle.text = memo?.titleText
-        mainTextView.text = memo?.mainText
-        refImage.image = memo?.refImage
+        if let memo = memo {
+            detailTitle.text = memo.titleText
+            mainTextView.text = memo.mainText
+            refImage.image = memo.refImage
+            
+            setupVisionTextRecognizeImage(image: memo.refImage)
+        }
         
         startAnimating()
-        setupVisionTextRecognizeImage(image: (memo?.refImage)!)
-        
         
         mainTextView.delegate = self
         mainTextView.isEditable = false
@@ -93,11 +95,17 @@ class EditViewController: UIViewController, UITextViewDelegate {
                     self.stopAnimating()
                     self.mainTextView.text = textString
                 }
+                
             }
             
+            
             if let makeMemo: MemoVO = self.memo {
+                
                 makeMemo.mainText = textString
+                print("MAKEMEMO: \(makeMemo)")
                 DataManager.shared.saveMemo(memo: makeMemo)
+                NotificationCenter.default.post(name: EditViewController.newMemoDidInsert, object: nil)
+                
             }
             
         })
@@ -122,6 +130,8 @@ class EditViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    
-    
+}
+
+extension EditViewController {
+    static let newMemoDidInsert = Notification.Name(rawValue: "newMemoDidInsert")
 }

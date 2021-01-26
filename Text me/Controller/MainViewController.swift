@@ -30,9 +30,22 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         getAllMemoList()
         tableView.reloadData()
     }
+    
+    var token: NSObjectProtocol?
+    
+    deinit {
+        if let token = token {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        token =  NotificationCenter.default.addObserver(forName: EditViewController.newMemoDidInsert, object: nil, queue: OperationQueue.main) {
+            [weak self] (noti) in 
+            self?.tableView.reloadData()
+        }
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -61,6 +74,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     }
     
+    @IBAction func editing(_ sender: Any) {
+        
+    }
     @IBAction func cameraCapture(_ sender: UIBarButtonItem) {
         if(UIImagePickerController.isSourceTypeAvailable(.camera)){
             flagImgSave = true
@@ -106,18 +122,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.present(editVc, animated: true, completion: nil)
         
     }
-    
-//    func save(_ image: UIImage) {
-//        let memo = MemoVO()
-//        memo.titleText = "새로운 메모"
-//        memo.mainText = ""
-//        memo.refImage = image
-//        memo.subText = ""
-//        memo.insertDate = Date()
-//
-//        DataManager.shared.insertNewMemo(memo)
-//
-//    }
     
     
     func alertMsg(_ title: String, message: String) {
