@@ -61,6 +61,12 @@ class DataManager{
 
     }
     
+    func updateMemo() {
+        if let context = context {
+            do { try context.save() } catch { print(error.localizedDescription) }
+        }
+    }
+    
     func deleteMemo(indexNum: Int) {
         
         if let context = context {

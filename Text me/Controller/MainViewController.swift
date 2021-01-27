@@ -16,15 +16,30 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     var flagImgSave = false
     
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
-//
-//            if let vc = segue.destination as? EditViewController {
-//                vc.memo = DataManager.shared.memoList[indexPath.row]
-//            }
-//        }
-//    }
+    //Segueway
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
+
+            if let editVc = segue.destination as? EditViewController {
+                let detailMemo = MemoVO()
+                let target = DataManager.shared.memoList[indexPath.row]
+                detailMemo.isNew = false
+                detailMemo.mainText = target.mainText
+                detailMemo.subText = target.subText
+                detailMemo.titleText = target.titleText
+                detailMemo.upadateDate = target.updateDate
+                if let image = target.refImage {
+                    detailMemo.refImage = UIImage(data: image)
+                }
+                
+                let indexNum = indexPath.row
+                
+                
+                editVc.memo = detailMemo
+                editVc.index = indexNum
+            }
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         getAllMemoList()
@@ -47,12 +62,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             self?.tableView.reloadData()
         }
         
-        tableView.setEditing(true, animated: true)
         
         tableView.delegate = self
         tableView.dataSource = self
     
         tableView.layer.cornerRadius = 10
+
     }
     
     func getAllMemoList() {
@@ -71,7 +86,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.cellTitle.text = target[indexPath.row].titleText
         cell.cellContents.text = target[indexPath.row].mainText
         
-        print("PRiNTSTRING : \(cell.cellContents.text as String?)")
+        //print("PRiNTSTRING : \(cell.cellContents.text as String?)")
         
         if let image = target[indexPath.row].refImage {
             cell.cellImage.image = UIImage(data: image)
@@ -147,6 +162,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             newMemo.titleText = "새 메모"
             newMemo.mainText = ""
             newMemo.subText = ""
+            newMemo.isNew = true
             
             editVc.memo = newMemo
             

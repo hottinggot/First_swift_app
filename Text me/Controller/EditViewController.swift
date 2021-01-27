@@ -18,6 +18,7 @@ class EditViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var activityIndicator: UIActivityIndicatorView!
     
     var memo: MemoVO?
+    var index: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,14 +30,18 @@ class EditViewController: UIViewController, UITextViewDelegate {
             detailTitle.text = memo.titleText
             mainTextView.text = memo.mainText
             refImage.image = memo.refImage
+            subTextView.text = memo.subText
             
-            setupVisionTextRecognizeImage(image: memo.refImage)
+            if(memo.isNew == true) {
+                startAnimating()
+                setupVisionTextRecognizeImage(image: memo.refImage)
+            }
+            
         }
         
-        startAnimating()
         
         mainTextView.delegate = self
-        mainTextView.isEditable = false
+        //mainTextView.isEditable = false
         mainTextView.dataDetectorTypes = .link
         
         makeDoneAtToolbar()
@@ -64,6 +69,16 @@ class EditViewController: UIViewController, UITextViewDelegate {
     }
     
     func saveChanges() {
+        
+        if let index = index {
+            let target = DataManager.shared.memoList[index]
+            target.mainText = mainTextView.text
+            target.subText = subTextView.text
+            target.titleText = detailTitle.text
+            target.updateDate = Date()
+            DataManager.shared.updateMemo()
+            
+        }
         memo?.mainText = mainTextView.text
         memo?.subText = subTextView.text
         memo?.titleText = detailTitle.text
@@ -101,13 +116,15 @@ class EditViewController: UIViewController, UITextViewDelegate {
             
             if let makeMemo: MemoVO = self.memo {
                 
-                textString.remove(at: textString.startIndex)
-                
-                makeMemo.mainText = textString as String
-                
-                DataManager.shared.saveMemo(memo: makeMemo)
-                NotificationCenter.default.post(name: EditViewController.newMemoDidInsert, object: nil)
-                
+                if(makeMemo.isNew == true) {
+                    textString.remove(at: textString.startIndex)
+                    
+                    makeMemo.mainText = textString as String
+                    
+                    DataManager.shared.saveMemo(memo: makeMemo)
+                    NotificationCenter.default.post(name: EditViewController.newMemoDidInsert, object: nil)
+                    
+                }
             }
             
         })
