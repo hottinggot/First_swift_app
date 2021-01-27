@@ -47,6 +47,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             self?.tableView.reloadData()
         }
         
+        tableView.setEditing(true, animated: true)
+        
         tableView.delegate = self
         tableView.dataSource = self
     
@@ -68,15 +70,48 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         let target = DataManager.shared.memoList
         cell.cellTitle.text = target[indexPath.row].titleText
         cell.cellContents.text = target[indexPath.row].mainText
-        cell.cellImage.image = target[indexPath.row].refImage
+        
+        print("PRiNTSTRING : \(cell.cellContents.text as String?)")
+        
+        if let image = target[indexPath.row].refImage {
+            cell.cellImage.image = UIImage(data: image)
+        }
         
         return cell
 
     }
     
-    @IBAction func editing(_ sender: Any) {
-        
+    //ios 11~
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title:  "삭제", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+
+            DataManager.shared.deleteMemo(indexNum: indexPath.row)
+            DataManager.shared.memoList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            success(true)
+
+            })
+
+        return UISwipeActionsConfiguration(actions:[deleteAction])
+
     }
+    
+    
+    //~ios10 (deprecated)
+    
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//
+//            let deleteAction = UITableViewRowAction(style: .destructive, title: "삭제") { action, index in
+//
+//                //하고싶은 작업
+//
+//            }
+//
+//            return [deleteAction]
+//        }
+    
+    
     @IBAction func cameraCapture(_ sender: UIBarButtonItem) {
         if(UIImagePickerController.isSourceTypeAvailable(.camera)){
             flagImgSave = true

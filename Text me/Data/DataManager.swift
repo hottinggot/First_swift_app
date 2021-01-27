@@ -17,30 +17,18 @@ class DataManager{
     lazy var context = appDelegate?.persistentContainer.viewContext
     
     let modelName = "Memo"
-    var memoList = [MemoVO]()
+    var memoList = [Memo]()
     
     func fetchMemo() {
         
         if let context = context {
-            let request : NSFetchRequest<Memo> = Memo.fetchRequest()
+            let request : NSFetchRequest<NSManagedObject> = NSFetchRequest<NSManagedObject>(entityName: modelName)
             let sortByDateDesc = NSSortDescriptor(key: "updateDate", ascending: false)
             request.sortDescriptors = [sortByDateDesc]
             
             do{
-                let resultSet = try context.fetch(request)
-                
-                for result in resultSet {
-                    let data = MemoVO()
-                    data.mainText = result.mainText
-                    data.subText = result.subText
-                    data.isNew = false
-                    data.titleText = result.titleText
-                    data.upadateDate = result.updateDate
-                    
-                    if let image = result.refImage {
-                        data.refImage = UIImage(data: image)
-                    }
-                    memoList.append(data)
+                if let resultSet : [Memo] = try context.fetch(request) as? [Memo] {
+                    memoList = resultSet
                 }
                 
             } catch {
@@ -52,21 +40,32 @@ class DataManager{
     
     func saveMemo(memo: MemoVO) {
         
-        if let context = context {
-            let newMemo = Memo(context: context)
-            if let isNew = memo.isNew {
-                newMemo.isNew = isNew
+        if let context = context , let entity :NSEntityDescription = NSEntityDescription.entity(forEntityName: modelName, in: context) {
+                if let newMemo: Memo = NSManagedObject(entity: entity, insertInto: context) as? Memo {
+                    if let isNew = memo.isNew {
+                        newMemo.isNew = isNew
+                    }
+                    
+                    newMemo.mainText = memo.mainText
+                    newMemo.refImage = memo.refImage?.pngData()
+                    newMemo.subText = memo.subText
+                    newMemo.updateDate = Date()
+                    newMemo.titleText = memo.titleText
+                    
+                    memoList.insert(newMemo, at: 0 )
+                    
+                }
+            
+                do { try context.save() } catch { print(error.localizedDescription) }
             }
-            newMemo.mainText = memo.mainText
-            newMemo.refImage = memo.refImage?.pngData()
-            newMemo.subText = memo.subText
-            newMemo.updateDate = Date()
-            newMemo.titleText = memo.titleText
-            
-            memoList.insert(memo, at: 0 )
-            
+
+    }
+    
+    func deleteMemo(indexNum: Int) {
+        
+        if let context = context {
+            context.delete(memoList[indexNum])
             do { try context.save() } catch { print(error.localizedDescription) }
-            
         }
     }
     

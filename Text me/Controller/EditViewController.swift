@@ -101,8 +101,10 @@ class EditViewController: UIViewController, UITextViewDelegate {
             
             if let makeMemo: MemoVO = self.memo {
                 
-                makeMemo.mainText = textString
-                print("MAKEMEMO: \(makeMemo)")
+                textString.remove(at: textString.startIndex)
+                
+                makeMemo.mainText = textString as String
+                
                 DataManager.shared.saveMemo(memo: makeMemo)
                 NotificationCenter.default.post(name: EditViewController.newMemoDidInsert, object: nil)
                 
