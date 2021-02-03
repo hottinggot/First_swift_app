@@ -8,13 +8,25 @@
 import UIKit
 import MobileCoreServices
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
     
     @IBOutlet var tableView: UITableView!
     @IBOutlet var cameraBtn: UIBarButtonItem!
+   
+    var token: NSObjectProtocol?
     
     let imagePicker: UIImagePickerController! = UIImagePickerController()
-    var flagImgSave = false
+    let search = UISearchController(searchResultsController: nil)
+    var filteredMemoList = [Memo]()
+    
+    
+    deinit {
+        if let token = token {
+            NotificationCenter.default.removeObserver(token)
+        }
+    }
+
     
     //Segueway
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -45,14 +57,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         getAllMemoList()
         tableView.reloadData()
     }
-    
-    var token: NSObjectProtocol?
-    
-    deinit {
-        if let token = token {
-            NotificationCenter.default.removeObserver(token)
-        }
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,84 +66,34 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             self?.tableView.reloadData()
         }
         
+        //navigation item
+        self.navigationItem.largeTitleDisplayMode = .always
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         
+        //search bar
+        search.searchResultsUpdater = self  //search bar 내의 text 변경을 알림
+        search.obscuresBackgroundDuringPresentation = false //현재 뷰의 흐려짐 방지
+        search.searchBar.placeholder = "검색"
+        self.navigationItem.searchController = search
+        definesPresentationContext = true   //saerch view 가 활성화 되어있는 동안 다른 뷰로 이동하면 search bar 닫히도록
+
+        //tableView
         tableView.delegate = self
         tableView.dataSource = self
-    
         tableView.layer.cornerRadius = 10
 
     }
     
-    func getAllMemoList() {
+    private func getAllMemoList() {
         DataManager.shared.fetchMemo()
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return DataManager.shared.memoList.count
-        
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
-
-        let target = DataManager.shared.memoList
-        cell.cellTitle.text = target[indexPath.row].titleText
-        cell.cellContents.text = target[indexPath.row].mainText
-        
-        //print("PRiNTSTRING : \(cell.cellContents.text as String?)")
-        
-        if let image = target[indexPath.row].refImage {
-            cell.cellImage.image = UIImage(data: image)
-        }
-        
-        return cell
-
-    }
-    
-    //ios 11~
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title:  "삭제", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-
-            DataManager.shared.deleteMemo(indexNum: indexPath.row)
-            DataManager.shared.memoList.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-
-            success(true)
-
-            })
-
-        return UISwipeActionsConfiguration(actions:[deleteAction])
-
-    }
-    
-    
-    //~ios10 (deprecated)
-    
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//
-//            let deleteAction = UITableViewRowAction(style: .destructive, title: "삭제") { action, index in
-//
-//                //하고싶은 작업
-//
-//            }
-//
-//            return [deleteAction]
-//        }
-    
-    
     @IBAction func cameraCapture(_ sender: UIBarButtonItem) {
-        if(UIImagePickerController.isSourceTypeAvailable(.camera)){
-            flagImgSave = true
-            
-            imagePicker.delegate = self
-            imagePicker.sourceType = .camera
-            //imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = true
-            
-            present(imagePicker, animated: true, completion: nil)
-        } else {
-            alertMsg("Camera inaccessable", message: "Application cannot access the camera")
+
+        guard let cameraVc = self.storyboard?.instantiateViewController(identifier: "customCameraView") as? CameraViewController else {
+            return
         }
+        present(cameraVc, animated: true, completion: nil)
     }
     
     var captureImage: UIImage!
@@ -183,5 +137,92 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         alert.addAction(action)
         self.present(alert, animated: true, completion: nil)
     }
+    
+    private func searchBarIsEmpty() -> Bool {
+        return search.searchBar.text?.isEmpty ?? true
+    }
+    
+    private func filterContentForSearchText(_ searchText: String, scope: String = "All") {
+        let target = DataManager.shared.memoList;
+        filteredMemoList = target.filter({( memo: Memo) -> Bool in
+            return ((memo.titleText?.lowercased().contains(searchText.lowercased()) ?? true || memo.mainText?.lowercased().contains(searchText.lowercased()) ?? true))
+        })
+        
+        tableView.reloadData()
+        
+    }
+    
+    private func isFiltering() -> Bool {
+        return search.isActive && !searchBarIsEmpty()
+    }
 }
 
+extension MainViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if(isFiltering()) {
+            return filteredMemoList.count
+        }
+        return DataManager.shared.memoList.count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
+        let target: [Memo]
+        
+        if(isFiltering()) {
+            target = filteredMemoList
+        } else {
+            target = DataManager.shared.memoList
+        }
+        
+        cell.cellTitle.text = target[indexPath.row].titleText
+        cell.cellContents.text = target[indexPath.row].mainText
+        
+        if let image = target[indexPath.row].refImage {
+            cell.cellImage.image = UIImage(data: image)
+        }
+
+        return cell
+
+    }
+    
+    //ios 11~
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let deleteAction = UIContextualAction(style: .destructive, title: "삭제", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+
+            DataManager.shared.deleteMemo(indexNum: indexPath.row)
+            DataManager.shared.memoList.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+
+            success(true)
+
+            })
+
+        return UISwipeActionsConfiguration(actions:[deleteAction])
+
+    }
+    
+    
+    //~ios10 (deprecated)
+    
+//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//
+//            let deleteAction = UITableViewRowAction(style: .destructive, title: "삭제") { action, index in
+//
+//                //하고싶은 작업
+//
+//            }
+//
+//            return [deleteAction]
+//        }
+    
+}
+
+extension MainViewController: UISearchResultsUpdating  {
+    func updateSearchResults(for searchController: UISearchController) {
+        filterContentForSearchText(search.searchBar.text!)
+        
+    }
+}

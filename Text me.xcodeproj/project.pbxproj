@@ -20,6 +20,8 @@
 		045C04EF25BBFCA300485D4E /* Memo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C04ED25BBFCA300485D4E /* Memo+CoreDataClass.swift */; };
 		045C04F025BBFCA300485D4E /* Memo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C04EE25BBFCA300485D4E /* Memo+CoreDataProperties.swift */; };
 		045C313C25B5B3C300373EA5 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C313B25B5B3C300373EA5 /* CustomTableViewCell.swift */; };
+		04737C2E25C7036200C0EA4D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04737C2D25C7036200C0EA4D /* CameraViewController.swift */; };
+		04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		045C04ED25BBFCA300485D4E /* Memo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataClass.swift"; sourceTree = "<group>"; };
 		045C04EE25BBFCA300485D4E /* Memo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		045C313B25B5B3C300373EA5 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
+		04737C2D25C7036200C0EA4D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,8 @@
 			children = (
 				040CA84325B51AEB00F632FE /* MainViewController.swift */,
 				040CA85C25B527DC00F632FE /* EditViewController.swift */,
+				04737C2D25C7036200C0EA4D /* CameraViewController.swift */,
+				04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -190,6 +196,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04737C2E25C7036200C0EA4D /* CameraViewController.swift in Sources */,
 				040CA85D25B527DC00F632FE /* EditViewController.swift in Sources */,
 				045C04EB25BBFB1900485D4E /* DataManager.swift in Sources */,
 				040CA84425B51AEB00F632FE /* MainViewController.swift in Sources */,
@@ -197,6 +204,7 @@
 				045C04EF25BBFCA300485D4E /* Memo+CoreDataClass.swift in Sources */,
 				040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */,
 				045C313C25B5B3C300373EA5 /* CustomTableViewCell.swift in Sources */,
+				04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */,
 				045C04E525BBF55D00485D4E /* Model.xcdatamodeld in Sources */,
 				0403C01E25B99D0400EB8317 /* MemoVO.swift in Sources */,
 				040CA84225B51AEB00F632FE /* SceneDelegate.swift in Sources */,
