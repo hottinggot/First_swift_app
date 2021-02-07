@@ -7,6 +7,7 @@
 
 import UIKit
 import Vision
+import WebP
 
 class EditViewController: UIViewController, UITextViewDelegate {
 
@@ -149,8 +150,11 @@ class EditViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    
+    
 }
 
 extension EditViewController {
     static let newMemoDidInsert = Notification.Name(rawValue: "newMemoDidInsert")
 }
+

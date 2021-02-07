@@ -350,6 +350,13 @@
                                     <action selector="touchBackBtn:" destination="Ghf-Xh-ogo" eventType="touchUpInside" id="M8Q-Vi-FYP"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75d-bU-ldS">
+                                <rect key="frame" x="165.5" y="587" width="44" height="40"/>
+                                <state key="normal" title="Select"/>
+                                <connections>
+                                    <action selector="touchSelectBtn:" destination="Ghf-Xh-ogo" eventType="touchUpInside" id="WWX-kd-lny"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ORd-zD-B2w"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -357,10 +364,13 @@
                             <constraint firstItem="ORd-zD-B2w" firstAttribute="trailing" secondItem="1Ew-El-sEc" secondAttribute="trailing" constant="20" id="0Db-ZB-jzg"/>
                             <constraint firstItem="ORd-zD-B2w" firstAttribute="bottom" secondItem="1Ew-El-sEc" secondAttribute="bottom" constant="100" id="0yn-7P-mTn"/>
                             <constraint firstItem="1Ew-El-sEc" firstAttribute="leading" secondItem="ORd-zD-B2w" secondAttribute="leading" constant="20" id="1xQ-vK-boT"/>
+                            <constraint firstItem="ORd-zD-B2w" firstAttribute="bottom" secondItem="75d-bU-ldS" secondAttribute="bottom" constant="40" id="GsM-ip-yEw"/>
+                            <constraint firstItem="75d-bU-ldS" firstAttribute="top" secondItem="1Ew-El-sEc" secondAttribute="bottom" constant="20" id="Ltz-ga-onZ"/>
                             <constraint firstItem="1Ew-El-sEc" firstAttribute="top" secondItem="qlr-UM-0yS" secondAttribute="bottom" constant="20" id="N5N-FX-Kx6"/>
                             <constraint firstItem="qlr-UM-0yS" firstAttribute="top" secondItem="ORd-zD-B2w" secondAttribute="top" constant="20" id="a1A-LA-ZvO"/>
                             <constraint firstItem="qlr-UM-0yS" firstAttribute="leading" secondItem="ORd-zD-B2w" secondAttribute="leading" constant="20" id="dL8-YE-3W8"/>
                             <constraint firstItem="1Ew-El-sEc" firstAttribute="top" secondItem="ORd-zD-B2w" secondAttribute="top" constant="70" id="iC9-NX-Y2D"/>
+                            <constraint firstItem="75d-bU-ldS" firstAttribute="centerX" secondItem="d60-S3-aTg" secondAttribute="centerX" id="uDt-EQ-pgQ"/>
                         </constraints>
                     </view>
                     <connections>

@@ -18,11 +18,28 @@
 		045C04E525BBF55D00485D4E /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 045C04E325BBF55D00485D4E /* Model.xcdatamodeld */; };
 		045C04EB25BBFB1900485D4E /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C04EA25BBFB1900485D4E /* DataManager.swift */; };
 		045C04EF25BBFCA300485D4E /* Memo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C04ED25BBFCA300485D4E /* Memo+CoreDataClass.swift */; };
-		045C04F025BBFCA300485D4E /* Memo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C04EE25BBFCA300485D4E /* Memo+CoreDataProperties.swift */; };
 		045C313C25B5B3C300373EA5 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045C313B25B5B3C300373EA5 /* CustomTableViewCell.swift */; };
 		04737C2E25C7036200C0EA4D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04737C2D25C7036200C0EA4D /* CameraViewController.swift */; };
 		04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */; };
+		04BA711A25CB98840027B6E2 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; };
+		04BA711B25CB98840027B6E2 /* WebP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F92B1425CFAB8800EC85D1 /* ImageManager.swift */; };
+		04F92B1A25CFEBC800EC85D1 /* Memo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F92B1925CFEBC800EC85D1 /* Memo+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		04BA711C25CB98840027B6E2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				04BA711B25CB98840027B6E2 /* WebP.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0403C01D25B99D0400EB8317 /* MemoVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoVO.swift; sourceTree = "<group>"; };
@@ -38,10 +55,14 @@
 		045C04E425BBF55D00485D4E /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		045C04EA25BBFB1900485D4E /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		045C04ED25BBFCA300485D4E /* Memo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataClass.swift"; sourceTree = "<group>"; };
-		045C04EE25BBFCA300485D4E /* Memo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		045C313B25B5B3C300373EA5 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 		04737C2D25C7036200C0EA4D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
+		04BA711225CB92A40027B6E2 /* Swift-WebP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Swift-WebP"; path = "Carthage/Checkouts/Swift-WebP"; sourceTree = "<group>"; };
+		04BA711925CB98840027B6E2 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = Carthage/Build/iOS/WebP.framework; sourceTree = "<group>"; };
+		04F92B1425CFAB8800EC85D1 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		04F92B1625CFEB1600EC85D1 /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
+		04F92B1925CFEBC800EC85D1 /* Memo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04BA711A25CB98840027B6E2 /* WebP.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -60,6 +82,7 @@
 			children = (
 				040CA83E25B51AEB00F632FE /* Text me */,
 				040CA83D25B51AEB00F632FE /* Products */,
+				04BA711125CB92A40027B6E2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -111,8 +134,8 @@
 		040CA85925B51B6400F632FE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04F92B1925CFEBC800EC85D1 /* Memo+CoreDataProperties.swift */,
 				045C04ED25BBFCA300485D4E /* Memo+CoreDataClass.swift */,
-				045C04EE25BBFCA300485D4E /* Memo+CoreDataProperties.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -120,10 +143,20 @@
 		0487FB5725B70C29006DFD3D /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				04F92B1425CFAB8800EC85D1 /* ImageManager.swift */,
 				0403C01D25B99D0400EB8317 /* MemoVO.swift */,
 				045C04EA25BBFB1900485D4E /* DataManager.swift */,
 			);
 			path = Data;
+			sourceTree = "<group>";
+		};
+		04BA711125CB92A40027B6E2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				04BA711925CB98840027B6E2 /* WebP.framework */,
+				04BA711225CB92A40027B6E2 /* Swift-WebP */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -136,12 +169,16 @@
 				040CA83825B51AEB00F632FE /* Sources */,
 				040CA83925B51AEB00F632FE /* Frameworks */,
 				040CA83A25B51AEB00F632FE /* Resources */,
+				04BA711C25CB98840027B6E2 /* Embed Frameworks */,
+				04BA711D25CB989F0027B6E2 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "Text me";
+			packageProductDependencies = (
+			);
 			productName = "Text me";
 			productReference = 040CA83C25B51AEB00F632FE /* Text me.app */;
 			productType = "com.apple.product-type.application";
@@ -191,6 +228,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		04BA711D25CB989F0027B6E2 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/WebP.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		040CA83825B51AEB00F632FE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -199,9 +257,10 @@
 				04737C2E25C7036200C0EA4D /* CameraViewController.swift in Sources */,
 				040CA85D25B527DC00F632FE /* EditViewController.swift in Sources */,
 				045C04EB25BBFB1900485D4E /* DataManager.swift in Sources */,
+				04F92B1A25CFEBC800EC85D1 /* Memo+CoreDataProperties.swift in Sources */,
 				040CA84425B51AEB00F632FE /* MainViewController.swift in Sources */,
-				045C04F025BBFCA300485D4E /* Memo+CoreDataProperties.swift in Sources */,
 				045C04EF25BBFCA300485D4E /* Memo+CoreDataClass.swift in Sources */,
+				04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */,
 				040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */,
 				045C313C25B5B3C300373EA5 /* CustomTableViewCell.swift in Sources */,
 				04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */,
@@ -356,6 +415,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V75GP346YD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Text me/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -375,6 +438,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V75GP346YD;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "Text me/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -414,9 +481,10 @@
 		045C04E325BBF55D00485D4E /* Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				04F92B1625CFEB1600EC85D1 /* Model 2.xcdatamodel */,
 				045C04E425BBF55D00485D4E /* Model.xcdatamodel */,
 			);
-			currentVersion = 045C04E425BBF55D00485D4E /* Model.xcdatamodel */;
+			currentVersion = 04F92B1625CFEB1600EC85D1 /* Model 2.xcdatamodel */;
 			path = Model.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

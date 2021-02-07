@@ -2,7 +2,7 @@
 //  Memo+CoreDataProperties.swift
 //  Text me
 //
-//  Created by 서정 on 2021/01/23.
+//  Created by 서정 on 2021/02/07.
 //
 //
 
@@ -16,12 +16,12 @@ extension Memo {
         return NSFetchRequest<Memo>(entityName: "Memo")
     }
 
-    @NSManaged public var refImage: Data?
-    @NSManaged public var titleText: String?
-    @NSManaged public var mainText: String?
-    @NSManaged public var subText: String?
-    @NSManaged public var updateDate: Date?
     @NSManaged public var isNew: Bool
+    @NSManaged public var mainText: String?
+    @NSManaged public var refImage: String?
+    @NSManaged public var subText: String?
+    @NSManaged public var titleText: String?
+    @NSManaged public var updateDate: Date?
 
 }
 

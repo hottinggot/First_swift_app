@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import WebP
 
 class DataManager{
     static let shared = DataManager()
@@ -40,14 +41,22 @@ class DataManager{
     
     func saveMemo(memo: MemoVO) {
         
-        if let context = context , let entity :NSEntityDescription = NSEntityDescription.entity(forEntityName: modelName, in: context) {
+        let imageName = ImageManager.shared.saveImage(image: memo.refImage!)
+        
+        if let imageName = imageName, let context = context , let entity :NSEntityDescription = NSEntityDescription.entity(forEntityName: modelName, in: context) {
                 if let newMemo: Memo = NSManagedObject(entity: entity, insertInto: context) as? Memo {
                     if let isNew = memo.isNew {
                         newMemo.isNew = isNew
                     }
                     
+//                    let encoder = WebPEncoder()
+//                    let webPData = try! encoder.encode(memo.refImage!, config: .preset(.picture, quality: 95))
+//                    newMemo.refImage = webPData
+                    
+                    
+                    newMemo.refImage = imageName
                     newMemo.mainText = memo.mainText
-                    newMemo.refImage = memo.refImage?.pngData()
+                    
                     newMemo.subText = memo.subText
                     newMemo.updateDate = Date()
                     newMemo.titleText = memo.titleText

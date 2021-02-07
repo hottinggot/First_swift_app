@@ -27,6 +27,20 @@ class SelectImageViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func touchSelectBtn(_ sender: Any) {
+        guard let editVC = self.storyboard?.instantiateViewController(identifier: "editView") as? EditViewController else {
+            return
+        }
+        
+        let createdMemo = MemoVO()
+        createdMemo.isNew = true
+        createdMemo.refImage = receivedImage
+        
+        editVC.memo = createdMemo
+        
+        present(editVC, animated: true, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 

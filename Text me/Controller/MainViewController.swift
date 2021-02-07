@@ -7,6 +7,8 @@
 
 import UIKit
 import MobileCoreServices
+import WebP
+import ImageIO
 
 class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
@@ -145,7 +147,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     private func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         let target = DataManager.shared.memoList;
         filteredMemoList = target.filter({( memo: Memo) -> Bool in
-            return ((memo.titleText?.lowercased().contains(searchText.lowercased()) ?? true || memo.mainText?.lowercased().contains(searchText.lowercased()) ?? true))
+            return ((memo.titleText?.lowercased().contains(searchText.lowercased()) ?? false || memo.mainText?.lowercased().contains(searchText.lowercased()) ?? false))
         })
         
         tableView.reloadData()
@@ -155,6 +157,35 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     private func isFiltering() -> Bool {
         return search.isActive && !searchBarIsEmpty()
     }
+    
+    func downsample(imageAt imageURL: URL,
+                    to pointSize: CGSize,
+                    scale: CGFloat = UIScreen.main.scale) -> UIImage? {
+
+        // Create an CGImageSource that represent an image
+        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions) else {
+            return nil
+        }
+        
+        // Calculate the desired dimension
+        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
+        
+        // Perform downsampling
+        let downsampleOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
+        ] as CFDictionary
+        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else {
+            return nil
+        }
+        
+        // Return the downsampled image as UIImage
+        return UIImage(cgImage: downsampledImage)
+    }
+    
 }
 
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
@@ -181,7 +212,13 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.cellContents.text = target[indexPath.row].mainText
         
         if let image = target[indexPath.row].refImage {
-            cell.cellImage.image = UIImage(data: image)
+            let decoder = WebPDecoder()
+            var options = WebPDecoderOptions()
+            options.scaledWidth = Int(25)
+            options.scaledHeight = Int(25)
+            let cgimage = try! decoder.decode(image, options: options)
+            
+            cell.cellImage.image = UIImage(cgImage: cgimage)
         }
 
         return cell
@@ -211,7 +248,7 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 //
 //            let deleteAction = UITableViewRowAction(style: .destructive, title: "삭제") { action, index in
 //
-//                //하고싶은 작업
+//                //todo
 //
 //            }
 //
