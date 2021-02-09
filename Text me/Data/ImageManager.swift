@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import ImageIO
 
 class ImageManager {
     static let shared = ImageManager()
@@ -39,9 +40,11 @@ class ImageManager {
         }
     }
     
-    func fetchImage(imageName:String) -> UIImage? {
+    func fetchImage(imageName:String, to pointSize: CGSize,
+                    scale: CGFloat = UIScreen.main.scale) -> UIImage? {
         let imagePath = documentsPath.appendingPathComponent(imageName).path
         
+    
         guard fileManager.fileExists(atPath: imagePath) else {
             print("Image does not exist at path: \(imagePath)")
             
@@ -49,12 +52,25 @@ class ImageManager {
             
         }
         
-        if let imageData = UIImage(contentsOfFile: imagePath) {
-            return imageData
-        } else {
-            print("UIImage could not be created.")
-            return nil
-        }
+//        if let imageData = UIImage(contentsOfFile: imagePath) {
+//            return imageData
+//        } else {
+//            print("UIImage could not be created.")
+//            return nil
+//        }
+        
+        
+        
+        
+            if let resizedImage = downsample(imageAt:  URL(fileURLWithPath: imagePath), to: pointSize){
+                print("Returned downSample Image.")
+                return resizedImage
+            }
+            else {
+                print("Cannot downSample Image.")
+                return nil
+            }
+        
     }
     
     func deleteImage(imageName: String) {
@@ -74,4 +90,54 @@ class ImageManager {
             print("Could not delete \(imageName): \(error)")
         }
     }
+    
+   
+    
+    func resizedImage(at url: URL, for size: CGSize) -> UIImage? {
+        let options: [CFString: Any] = [
+            kCGImageSourceCreateThumbnailFromImageIfAbsent: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height)
+        ]
+            
+        guard let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
+            let image = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
+
+        else  {
+            return nil
+        }
+        
+        return UIImage(cgImage: image)
+    }
+
+    func downsample(imageAt imageURL: URL,
+                    to pointSize: CGSize,
+                    scale: CGFloat = UIScreen.main.scale) -> UIImage? {
+
+        // Create an CGImageSource that represent an image
+        let imageSourceOptions = [kCGImageSourceShouldCache: false] as CFDictionary
+        guard let imageSource = CGImageSourceCreateWithURL(imageURL as CFURL, imageSourceOptions) else {
+            return nil
+        }
+        
+        // Calculate the desired dimension
+        let maxDimensionInPixels = max(pointSize.width, pointSize.height) * scale
+        
+        // Perform downsampling
+        let downsampleOptions = [
+            kCGImageSourceCreateThumbnailFromImageAlways: true,
+            kCGImageSourceShouldCacheImmediately: true,
+            kCGImageSourceCreateThumbnailWithTransform: true,
+            kCGImageSourceThumbnailMaxPixelSize: maxDimensionInPixels
+        ] as CFDictionary
+        guard let downsampledImage = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, downsampleOptions) else {
+            return nil
+        }
+        
+        // Return the downsampled image as UIImage
+        return UIImage(cgImage: downsampledImage)
+    }
+        
+    
 }
