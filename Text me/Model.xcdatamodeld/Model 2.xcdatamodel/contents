@@ -3,7 +3,7 @@
     <entity name="Memo" representedClassName="Memo" syncable="YES">
         <attribute name="isNew" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="mainText" optional="YES" attributeType="String"/>
-        <attribute name="refImage" optional="YES" attributeType="String"/>
+        <attribute name="refImage" optional="YES" attributeType="String" elementID="refImage"/>
         <attribute name="subText" optional="YES" attributeType="String"/>
         <attribute name="titleText" optional="YES" attributeType="String"/>
         <attribute name="updateDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>

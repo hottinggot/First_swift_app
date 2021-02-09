@@ -42,8 +42,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
                 detailMemo.subText = target.subText
                 detailMemo.titleText = target.titleText
                 detailMemo.upadateDate = target.updateDate
-                if let image = target.refImage {
-                    detailMemo.refImage = UIImage(data: image)
+                if let imageName = target.refImage {
+                    detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName)
                 }
                 
                 let indexNum = indexPath.row
@@ -101,34 +101,34 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     var captureImage: UIImage!
     
         
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info : [UIImagePickerController.InfoKey : Any]){
-        let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
-        
-        guard let editVc = self.storyboard?.instantiateViewController(identifier: "editView") as? EditViewController else {
-            return
-        }
-        
-        
-        if(mediaType.isEqual(to: kUTTypeImage as NSString as String)) {
-            captureImage = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
-            
-           // save(captureImage)
-            let newMemo = MemoVO()
-            newMemo.refImage = captureImage
-            newMemo.titleText = "새 메모"
-            newMemo.mainText = ""
-            newMemo.subText = ""
-            newMemo.isNew = true
-            
-            editVc.memo = newMemo
-            
-            
-        }
-        
-        self.dismiss(animated: true, completion: nil)
-        self.present(editVc, animated: true, completion: nil)
-        
-    }
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info : [UIImagePickerController.InfoKey : Any]){
+//        let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
+//        
+//        guard let editVc = self.storyboard?.instantiateViewController(identifier: "editView") as? EditViewController else {
+//            return
+//        }
+//        
+//        
+//        if(mediaType.isEqual(to: kUTTypeImage as NSString as String)) {
+//            captureImage = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
+//            
+//           // save(captureImage)
+//            let newMemo = MemoVO()
+//            newMemo.refImage = captureImage
+//            newMemo.titleText = "새 메모"
+//            newMemo.mainText = ""
+//            newMemo.subText = ""
+//            newMemo.isNew = true
+//            
+//            editVc.memo = newMemo
+//            
+//            
+//        }
+//        
+//        self.dismiss(animated: true, completion: nil)
+//        self.present(editVc, animated: true, completion: nil)
+//        
+//    }
     
     
     func alertMsg(_ title: String, message: String) {
@@ -146,7 +146,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     private func filterContentForSearchText(_ searchText: String, scope: String = "All") {
         let target = DataManager.shared.memoList;
-        filteredMemoList = target.filter({( memo: Memo) -> Bool in
+        filteredMemoList = target.filter({(memo: Memo) -> Bool in
             return ((memo.titleText?.lowercased().contains(searchText.lowercased()) ?? false || memo.mainText?.lowercased().contains(searchText.lowercased()) ?? false))
         })
         
@@ -211,14 +211,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.cellTitle.text = target[indexPath.row].titleText
         cell.cellContents.text = target[indexPath.row].mainText
         
-        if let image = target[indexPath.row].refImage {
-            let decoder = WebPDecoder()
-            var options = WebPDecoderOptions()
-            options.scaledWidth = Int(25)
-            options.scaledHeight = Int(25)
-            let cgimage = try! decoder.decode(image, options: options)
+        if let imageName = target[indexPath.row].refImage {
+//            let decoder = WebPDecoder()
+//            var options = WebPDecoderOptions()
+//            options.scaledWidth = Int(25)
+//            options.scaledHeight = Int(25)
+//            let cgimage = try! decoder.decode(image, options: options)
             
-            cell.cellImage.image = UIImage(cgImage: cgimage)
+            cell.cellImage.image = ImageManager.shared.fetchImage(imageName: imageName)
         }
 
         return cell

@@ -2,7 +2,7 @@
 //  Memo+CoreDataProperties.swift
 //  Text me
 //
-//  Created by 서정 on 2021/02/07.
+//  Created by 서정 on 2021/02/09.
 //
 //
 

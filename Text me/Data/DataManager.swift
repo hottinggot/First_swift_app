@@ -20,6 +20,14 @@ class DataManager{
     let modelName = "Memo"
     var memoList = [Memo]()
     
+//    let psc = NSPersistentStoreCoordinator(managedObjectModel: Model)
+//    let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
+//    do {
+//        try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
+//    } catch {
+//        fatalError("Failed to add persistent store: \(error)")
+//    }
+    
     func fetchMemo() {
         
         if let context = context {
@@ -41,9 +49,8 @@ class DataManager{
     
     func saveMemo(memo: MemoVO) {
         
-        let imageName = ImageManager.shared.saveImage(image: memo.refImage!)
         
-        if let imageName = imageName, let context = context , let entity :NSEntityDescription = NSEntityDescription.entity(forEntityName: modelName, in: context) {
+        if let imageName : String = ImageManager.shared.saveImage(image: memo.refImage!), let context = context , let entity :NSEntityDescription = NSEntityDescription.entity(forEntityName: modelName, in: context) {
                 if let newMemo: Memo = NSManagedObject(entity: entity, insertInto: context) as? Memo {
                     if let isNew = memo.isNew {
                         newMemo.isNew = isNew
@@ -56,7 +63,6 @@ class DataManager{
                     
                     newMemo.refImage = imageName
                     newMemo.mainText = memo.mainText
-                    
                     newMemo.subText = memo.subText
                     newMemo.updateDate = Date()
                     newMemo.titleText = memo.titleText
@@ -79,8 +85,12 @@ class DataManager{
     func deleteMemo(indexNum: Int) {
         
         if let context = context {
-            context.delete(memoList[indexNum])
-            do { try context.save() } catch { print(error.localizedDescription) }
+            
+            if let imageName = memoList[indexNum].refImage {
+                ImageManager.shared.deleteImage(imageName: imageName )
+                context.delete(memoList[indexNum])
+                do { try context.save() } catch { print(error.localizedDescription) }
+            }
         }
     }
     
