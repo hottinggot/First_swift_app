@@ -35,6 +35,8 @@ class SelectImageViewController: UIViewController {
         let createdMemo = MemoVO()
         createdMemo.isNew = true
         createdMemo.refImage = receivedImage
+        createdMemo.mainText = ""
+        createdMemo.subText = ""
         
         editVC.memo = createdMemo
         

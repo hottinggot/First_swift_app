@@ -6,10 +6,8 @@
 //
 
 import UIKit
-import Vision
-import WebP
 
-class EditViewController: UIViewController, UITextViewDelegate {
+class EditViewController: UIViewController, UITextViewDelegate{
 
     
     @IBOutlet var detailTitle: UITextField!
@@ -34,8 +32,8 @@ class EditViewController: UIViewController, UITextViewDelegate {
             subTextView.text = memo.subText
             
             if(memo.isNew == true) {
-                startAnimating()
-                setupVisionTextRecognizeImage(image: memo.refImage)
+                self.startAnimating()
+                
             }
             
         }
@@ -69,7 +67,7 @@ class EditViewController: UIViewController, UITextViewDelegate {
 
     }
     
-    func saveChanges() {
+    private func saveChanges() {
         
         if let index = index {
             let target = DataManager.shared.memoList[index]
@@ -93,68 +91,13 @@ class EditViewController: UIViewController, UITextViewDelegate {
         activityIndicator.stopAnimating()
     }
     
-    var request = VNRecognizeTextRequest()
-    private func setupVisionTextRecognizeImage(image: UIImage?) {
-        var textString = ""
-        
-        request = VNRecognizeTextRequest(completionHandler: {(request, Error) in
-            guard let observations = request.results as? [VNRecognizedTextObservation] else {
-                fatalError("Received Invalid Observation")
-            }
-            for observation in observations {
-                guard let topCandidate = observation.topCandidates(1).first else {
-                    print("No candidate")
-                    continue
-                }
-                textString += "\n\(topCandidate.string)"
-                DispatchQueue.main.async {
-                    self.stopAnimating()
-                    self.mainTextView.text = textString
-                }
-                
-            }
-            
-            
-            if let makeMemo: MemoVO = self.memo {
-                
-                if(makeMemo.isNew == true) {
-                    textString.remove(at: textString.startIndex)
-                    
-                    makeMemo.mainText = textString as String
-                    
-                    DataManager.shared.saveMemo(memo: makeMemo)
-                    NotificationCenter.default.post(name: EditViewController.newMemoDidInsert, object: nil)
-                    
-                }
-            }
-            
-        })
-        
-        //add some properties
-        request.customWords = ["custom"]
-        request.minimumTextHeight = 0.03125
-        request.recognitionLevel = .accurate
-        request.recognitionLanguages = ["en_US"]
-        request.usesLanguageCorrection = true
-        
-        let requests = [request]
-        
-        //creating request handler
-         
-        DispatchQueue.global(qos: .userInitiated).async {
-            guard let img = image?.cgImage else {
-                fatalError("Missing image Scan")
-            }
-            let handle = VNImageRequestHandler(cgImage: img, options: [:])
-            try? handle.perform(requests)
-        }
-    }
-    
-    
     
 }
+    
+
 
 extension EditViewController {
     static let newMemoDidInsert = Notification.Name(rawValue: "newMemoDidInsert")
 }
+
 

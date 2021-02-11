@@ -90,26 +90,7 @@ class ImageManager {
             print("Could not delete \(imageName): \(error)")
         }
     }
-    
    
-    
-    func resizedImage(at url: URL, for size: CGSize) -> UIImage? {
-        let options: [CFString: Any] = [
-            kCGImageSourceCreateThumbnailFromImageIfAbsent: true,
-            kCGImageSourceCreateThumbnailWithTransform: true,
-            kCGImageSourceShouldCacheImmediately: true,
-            kCGImageSourceThumbnailMaxPixelSize: max(size.width, size.height)
-        ]
-            
-        guard let imageSource = CGImageSourceCreateWithURL(url as NSURL, nil),
-            let image = CGImageSourceCreateThumbnailAtIndex(imageSource, 0, options as CFDictionary)
-
-        else  {
-            return nil
-        }
-        
-        return UIImage(cgImage: image)
-    }
 
     func downsample(imageAt imageURL: URL,
                     to pointSize: CGSize,
