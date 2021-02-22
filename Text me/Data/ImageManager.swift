@@ -90,8 +90,7 @@ class ImageManager {
             print("Could not delete \(imageName): \(error)")
         }
     }
-   
-
+    
     func downsample(imageAt imageURL: URL,
                     to pointSize: CGSize,
                     scale: CGFloat = UIScreen.main.scale) -> UIImage? {
@@ -119,6 +118,9 @@ class ImageManager {
         // Return the downsampled image as UIImage
         return UIImage(cgImage: downsampledImage)
     }
+   
+
+    
         
     
 }
