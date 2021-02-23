@@ -15,7 +15,7 @@ class GoogleCloudOCR {
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(apiKey)")!
     }
     
-    func detect(from image: UIImage, completion: @escaping (String?) -> Void) {
+    func detect(from image: UIImage, completion: @escaping (OCRResult?) -> Void) {
         guard let base64Image = base64EncodeImage(image) else {
           print("Error while base64 encoding image")
           completion(nil)
@@ -25,7 +25,7 @@ class GoogleCloudOCR {
         
     }
     
-    private func callGoogleVisionAPI(with base64EncodeImage: String, completion: @escaping (String?) -> Void) {
+    private func callGoogleVisionAPI(with base64EncodeImage: String, completion: @escaping (OCRResult?) -> Void) {
         let parameters: Parameters = [
             "requests" : [
                 "image" : [
@@ -49,11 +49,12 @@ class GoogleCloudOCR {
             parameters: parameters,
             encoding: JSONEncoding.default,
             headers: headers
-        ).responseJSON {response in
+        ).responseData {response in
             
             switch response.result {
-            case .success(let json):
-                print(json)
+            case .success(let data):
+                let ocrResponse = try? JSONDecoder().decode(GoogleCloudOCRResponse.self, from: data)
+                completion(ocrResponse?.responses[0])
                 
             case .failure(let error):
                 print(error)
