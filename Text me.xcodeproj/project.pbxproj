@@ -25,6 +25,7 @@
 		0465808025D2300800F09D07 /* Memo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0465807E25D2300800F09D07 /* Memo+CoreDataProperties.swift */; };
 		04737C2E25C7036200C0EA4D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04737C2D25C7036200C0EA4D /* CameraViewController.swift */; };
 		04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */; };
+		04908F3325E6275B0077EF3D /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04908F3225E6275B0077EF3D /* CustomCollectionViewCell.swift */; };
 		04BA711A25CB98840027B6E2 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; };
 		04BA711B25CB98840027B6E2 /* WebP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F92B1425CFAB8800EC85D1 /* ImageManager.swift */; };
@@ -67,6 +68,7 @@
 		0465807E25D2300800F09D07 /* Memo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Memo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		04737C2D25C7036200C0EA4D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
+		04908F3225E6275B0077EF3D /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
 		04BA711225CB92A40027B6E2 /* Swift-WebP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Swift-WebP"; path = "Carthage/Checkouts/Swift-WebP"; sourceTree = "<group>"; };
 		04BA711925CB98840027B6E2 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = Carthage/Build/iOS/WebP.framework; sourceTree = "<group>"; };
 		04F92B1425CFAB8800EC85D1 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				040CA84B25B51AEC00F632FE /* Assets.xcassets */,
 				040CA84525B51AEB00F632FE /* Main.storyboard */,
 				045C313B25B5B3C300373EA5 /* CustomTableViewCell.swift */,
+				04908F3225E6275B0077EF3D /* CustomCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				0465808025D2300800F09D07 /* Memo+CoreDataProperties.swift in Sources */,
 				04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */,
 				040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */,
+				04908F3325E6275B0077EF3D /* CustomCollectionViewCell.swift in Sources */,
 				0453261A25D50E64008CBA34 /* GoogleVision.swift in Sources */,
 				045C313C25B5B3C300373EA5 /* CustomTableViewCell.swift in Sources */,
 				04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */,

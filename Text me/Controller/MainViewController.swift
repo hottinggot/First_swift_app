@@ -13,7 +13,12 @@ import ImageIO
 class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     
     
-    @IBOutlet var tableView: UITableView!
+    @IBOutlet var collectionView: UICollectionView!
+    
+    struct ReuseIdentifier {
+        static let cellIdentifier = "CollectionViewCell"
+    }
+    
     @IBOutlet var cameraBtn: UIBarButtonItem!
    
     var token: NSObjectProtocol?
@@ -31,33 +36,33 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
 
     
     //Segueway
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
-
-            if let editVc = segue.destination as? EditViewController {
-                let detailMemo = MemoVO()
-                let target = DataManager.shared.memoList[indexPath.row]
-                detailMemo.isNew = false
-                detailMemo.mainText = target.mainText
-                detailMemo.subText = target.subText
-                detailMemo.titleText = target.titleText
-                detailMemo.upadateDate = target.updateDate
-                if let imageName = target.refImage {
-                    detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName, to: detailMemo.refImage!.size)
-                }
-                
-                let indexNum = indexPath.row
-                
-                
-                editVc.memo = detailMemo
-                editVc.index = indexNum
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
+//
+//            if let editVc = segue.destination as? EditViewController {
+//                let detailMemo = MemoVO()
+//                let target = DataManager.shared.memoList[indexPath.row]
+//                detailMemo.isNew = false
+//                detailMemo.mainText = target.mainText
+//                detailMemo.subText = target.subText
+//                detailMemo.titleText = target.titleText
+//                detailMemo.upadateDate = target.updateDate
+//                if let imageName = target.refImage {
+//                    detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName, to: detailMemo.refImage!.size)
+//                }
+//                
+//                let indexNum = indexPath.row
+//                
+//                
+//                editVc.memo = detailMemo
+//                editVc.index = indexNum
+//            }
+//        }
+//    }
     
     override func viewWillAppear(_ animated: Bool) {
         getAllMemoList()
-        tableView.reloadData()
+        //tableView.reloadData()
     }
 
     override func viewDidLoad() {
@@ -65,7 +70,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         
         token =  NotificationCenter.default.addObserver(forName: EditViewController.newMemoDidInsert, object: nil, queue: OperationQueue.main) {
             [weak self] (noti) in 
-            self?.tableView.reloadData()
+            //self?.tableView.reloadData()
         }
         
         //navigation item
@@ -80,9 +85,14 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         definesPresentationContext = true   //saerch view 가 활성화 되어있는 동안 다른 뷰로 이동하면 search bar 닫히도록
 
         //tableView
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.layer.cornerRadius = 10
+//        tableView.delegate = self
+//        tableView.dataSource = self
+//        tableView.layer.cornerRadius = 10
+        
+        //collectionView
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.reloadData()
 
     }
     
@@ -99,36 +109,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     var captureImage: UIImage!
-    
-        
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info : [UIImagePickerController.InfoKey : Any]){
-//        let mediaType = info[UIImagePickerController.InfoKey.mediaType] as! NSString
-//        
-//        guard let editVc = self.storyboard?.instantiateViewController(identifier: "editView") as? EditViewController else {
-//            return
-//        }
-//        
-//        
-//        if(mediaType.isEqual(to: kUTTypeImage as NSString as String)) {
-//            captureImage = (info[UIImagePickerController.InfoKey.originalImage] as? UIImage)!
-//            
-//           // save(captureImage)
-//            let newMemo = MemoVO()
-//            newMemo.refImage = captureImage
-//            newMemo.titleText = "새 메모"
-//            newMemo.mainText = ""
-//            newMemo.subText = ""
-//            newMemo.isNew = true
-//            
-//            editVc.memo = newMemo
-//            
-//            
-//        }
-//        
-//        self.dismiss(animated: true, completion: nil)
-//        self.present(editVc, animated: true, completion: nil)
-//        
-//    }
     
     
     func alertMsg(_ title: String, message: String) {
@@ -150,7 +130,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             return ((memo.titleText?.lowercased().contains(searchText.lowercased()) ?? false || memo.mainText?.lowercased().contains(searchText.lowercased()) ?? false))
         })
         
-        tableView.reloadData()
+        //tableView.reloadData()
         
     }
     
@@ -241,4 +221,70 @@ extension MainViewController: UISearchResultsUpdating  {
         filterContentForSearchText(search.searchBar.text!)
         
     }
+}
+
+
+extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if(isFiltering()) {
+            return filteredMemoList.count
+        }
+        return DataManager.shared.memoList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.cellIdentifier, for: indexPath) as! CustomCollectionViewCell
+        
+        let target: [Memo]
+        
+        if(isFiltering()) {
+            target = filteredMemoList
+        } else {
+            target = DataManager.shared.memoList
+        }
+        
+        collectionCell.titleLabel.text = target[indexPath.row].titleText
+        if let imageName = target[indexPath.row].refImage {
+//            let decoder = WebPDecoder()
+//            var options = WebPDecoderOptions()
+//            options.scaledWidth = Int(25)
+//            options.scaledHeight = Int(25)
+//            let cgimage = try! decoder.decode(image, options: options)
+            
+            collectionCell.collectionImage.image = ImageManager.shared.fetchImage(imageName: imageName, to: collectionCell.collectionImage.bounds.size)
+        }
+
+        return collectionCell
+
+    }
+}
+
+extension MainViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var columns: CGFloat
+        let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
+        
+        if orientation == .landscapeLeft || orientation == .landscapeRight {
+            columns = 4
+        } else {
+            columns = 2
+        }
+        
+        let spacing:CGFloat = 20
+        let totalHorizontalSpacing = (columns-1)*spacing
+        
+        let itemWidth = (collectionView.bounds.width - totalHorizontalSpacing)/columns
+        let itemSize = CGSize(width: itemWidth, height: itemWidth*1.4)
+        
+        return itemSize
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 20
+    }
+    
 }
