@@ -19,7 +19,12 @@ class SelectImageViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        capturedImage.layer.cornerRadius = 5
+        capturedImage.layer.cornerRadius = 10
+        
+        capturedImage.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
+        capturedImage.layer.shadowColor = UIColor.gray.cgColor
+        capturedImage.layer.shadowRadius = 5
+        capturedImage.layer.shadowOpacity = 1
         
         
         if let image = receivedImage {
@@ -29,6 +34,8 @@ class SelectImageViewController: UIViewController {
             capturedImage.image = resizeImage
             detectBoundingBoxes(for: resizeImage)
         }
+        
+        
     }
     
     @IBAction func touchBackBtn(_ sender: Any) {

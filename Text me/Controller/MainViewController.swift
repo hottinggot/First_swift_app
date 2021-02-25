@@ -19,8 +19,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         static let cellIdentifier = "CollectionViewCell"
     }
     
-    @IBOutlet var cameraBtn: UIBarButtonItem!
-   
+    
+    @IBOutlet var cameraBtn: UIButton!
+    
     var token: NSObjectProtocol?
     
     let imagePicker: UIImagePickerController! = UIImagePickerController()
@@ -69,7 +70,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         super.viewDidLoad()
         
         token =  NotificationCenter.default.addObserver(forName: EditViewController.newMemoDidInsert, object: nil, queue: OperationQueue.main) {
-            [weak self] (noti) in 
+            [weak self] (noti) in
+            self?.collectionView.reloadData()
             //self?.tableView.reloadData()
         }
         
@@ -92,7 +94,16 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         //collectionView
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.layer.cornerRadius = 10
         collectionView.reloadData()
+        
+        //cameraBtn
+        cameraBtn.layer.cornerRadius = 8
+        cameraBtn.layer.shadowOffset = CGSize(width: 0, height: 0)
+        cameraBtn.layer.shadowColor = UIColor.gray.cgColor
+        cameraBtn.layer.shadowRadius = 5
+        cameraBtn.layer.shadowOpacity = 0.9
+        cameraBtn.layer.masksToBounds = false
 
     }
     
@@ -100,13 +111,13 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         DataManager.shared.fetchMemo()
     }
     
-    @IBAction func cameraCapture(_ sender: UIBarButtonItem) {
-
+    @IBAction func cameraBtnTouch(_ sender: UIButton) {
         guard let cameraVc = self.storyboard?.instantiateViewController(identifier: "customCameraView") as? CameraViewController else {
             return
         }
         present(cameraVc, animated: true, completion: nil)
     }
+    
     
     var captureImage: UIImage!
     
@@ -130,7 +141,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             return ((memo.titleText?.lowercased().contains(searchText.lowercased()) ?? false || memo.mainText?.lowercased().contains(searchText.lowercased()) ?? false))
         })
         
-        //tableView.reloadData()
+        collectionView.reloadData()
         
     }
     
@@ -223,6 +234,12 @@ extension MainViewController: UISearchResultsUpdating  {
     }
 }
 
+//extension MainViewController: UISearchBarDelegate {
+//    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+//        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
+//      }
+//}
+
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -234,6 +251,16 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.cellIdentifier, for: indexPath) as! CustomCollectionViewCell
+        
+        //style
+        collectionCell.collectionImage.layer.cornerRadius = 8
+        collectionCell.collectionImage.layer.shadowOffset = CGSize(width: 1, height: 1)
+        collectionCell.collectionImage.layer.shadowOpacity = 0.9
+        collectionCell.collectionImage.layer.shadowRadius = 5
+        collectionCell.collectionImage.layer.shadowColor = UIColor.gray.cgColor
+        
+        
+        
         
         let target: [Memo]
         
@@ -271,10 +298,10 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         }
         
         let spacing:CGFloat = 20
-        let totalHorizontalSpacing = (columns-1)*spacing
+        let totalHorizontalSpacing = (columns+1)*spacing
         
         let itemWidth = (collectionView.bounds.width - totalHorizontalSpacing)/columns
-        let itemSize = CGSize(width: itemWidth, height: itemWidth*1.4)
+        let itemSize = CGSize(width: itemWidth, height: itemWidth*1.3)
         
         return itemSize
     }
@@ -287,4 +314,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         return 20
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
+    }
 }

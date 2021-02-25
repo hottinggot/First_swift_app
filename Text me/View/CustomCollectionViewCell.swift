@@ -11,4 +11,9 @@ class CustomCollectionViewCell: UICollectionViewCell {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var collectionImage: UIImageView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+        
+    }
 }
