@@ -9,7 +9,11 @@ import UIKit
 import AVFoundation
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
+    @IBOutlet var stackView: UIStackView!
     @IBOutlet var previewView: UIView!
+    
+    @IBOutlet var downSubView: UIView!
+    var previewViewMode: Int = 0
     
     var captureSession: AVCaptureSession!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
@@ -44,22 +48,86 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        stackView.distribution = .fillProportionally
+        
+        //intrinsic(본질적인) 크기 설정
+        
+        let tempHeight = self.view.frame.height*2/3
+        previewView.heightAnchor.constraint(equalToConstant: tempHeight).isActive = true
+        
+        switch previewViewMode {
+        case 0:
+            //downSubView.isHidden = true
+            previewView.frame.size.height = self.view.frame.height
+            
+        case 1:
+            //downSubView.isHidden = false
+            previewView.frame.size.height = self.view.frame.height * 3/4
+        default:
+            previewView.frame.size.height = self.view.frame.height
+        }
 
-        // Do any additional setup after loading the view.
     }
     
+    @IBAction func touchChangeRatioBtn(_ sender: Any) {
+        
+        if(previewViewMode == 0) {
+            
+            let downSubView = UIView()
+            downSubView.layer.backgroundColor = UIColor.white.cgColor
+//            downSubView.frame.size.height = (self.view.frame.height) - (self.view.frame.width * 4/3)
+            
+            //intrinsic(본질적인) 크기 설정
+            
+            let tempHeight = self.view.frame.height/3
+            downSubView.heightAnchor.constraint(equalToConstant: tempHeight).isActive = true
+            downSubView.isHidden = true
+            previewViewMode = 1
+            
+            //previewView.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh+1, for: .vertical)
+            
+            stackView.addArrangedSubview(downSubView)
+            UIView.animate(withDuration: 0.25, delay: 0, options: [], animations: {
+                //self.previewView.frame.size.height = (self.view.frame.height) - (self.downSubView.frame.height)
+                
+                downSubView.isHidden = false
+            })
+            
+            print("ratio button touched1")
+        } else if (previewViewMode == 1) {
+            
+            if stackView.arrangedSubviews.count == 0 {
+                return
+            }
+            
+            let target = stackView.arrangedSubviews[stackView.arrangedSubviews.count-1]
+            
+            previewViewMode = 0
+            
+            UIView.animate(withDuration: 0.25, animations: {
+                self.previewView.frame.size.height = self.view.frame.height
+                target.isHidden = true
+            }, completion: {_ in
+                target.removeFromSuperview()
+            })
+            
+        
+            print("ratio button touched2")
+            
+        }
+        
+    }
     @IBAction func touchCloseBtn(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func takePhoto(_ sender: Any) {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
     }
     
-    @IBAction func callAlbumPhoto(_ sender: Any) {
-    }
-    
+   
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation()

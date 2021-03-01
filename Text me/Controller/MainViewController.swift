@@ -37,29 +37,29 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
 
     
     //Segueway
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if let cell = sender as? UITableViewCell, let indexPath = tableView.indexPath(for: cell){
-//
-//            if let editVc = segue.destination as? EditViewController {
-//                let detailMemo = MemoVO()
-//                let target = DataManager.shared.memoList[indexPath.row]
-//                detailMemo.isNew = false
-//                detailMemo.mainText = target.mainText
-//                detailMemo.subText = target.subText
-//                detailMemo.titleText = target.titleText
-//                detailMemo.upadateDate = target.updateDate
-//                if let imageName = target.refImage {
-//                    detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName, to: detailMemo.refImage!.size)
-//                }
-//                
-//                let indexNum = indexPath.row
-//                
-//                
-//                editVc.memo = detailMemo
-//                editVc.index = indexNum
-//            }
-//        }
-//    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let cell = sender as? UICollectionViewCell, let indexPath = collectionView.indexPath(for: cell){
+
+            if let editVc = segue.destination as? EditViewController {
+                let detailMemo = MemoVO()
+                let target = DataManager.shared.memoList[indexPath.row]
+                detailMemo.isNew = false
+                detailMemo.mainText = target.mainText
+                detailMemo.subText = target.subText
+                detailMemo.titleText = target.titleText
+                detailMemo.upadateDate = target.updateDate
+                if let imageName = target.refImage {
+                    detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName, to: detailMemo.refImage!.size)
+                }
+                
+                let indexNum = indexPath.row
+                
+                
+                editVc.memo = detailMemo
+                editVc.index = indexNum
+            }
+        }
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         getAllMemoList()
@@ -234,12 +234,6 @@ extension MainViewController: UISearchResultsUpdating  {
     }
 }
 
-//extension MainViewController: UISearchBarDelegate {
-//    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-//        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-//      }
-//}
-
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -270,7 +264,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             target = DataManager.shared.memoList
         }
         
-        collectionCell.titleLabel.text = target[indexPath.row].titleText
+        //collectionCell.titleLabel.text = target[indexPath.row].titleText
         if let imageName = target[indexPath.row].refImage {
 //            let decoder = WebPDecoder()
 //            var options = WebPDecoderOptions()
@@ -301,7 +295,7 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
         let totalHorizontalSpacing = (columns+1)*spacing
         
         let itemWidth = (collectionView.bounds.width - totalHorizontalSpacing)/columns
-        let itemSize = CGSize(width: itemWidth, height: itemWidth*1.3)
+        let itemSize = CGSize(width: itemWidth, height: itemWidth*0.9)
         
         return itemSize
     }
