@@ -11,8 +11,11 @@ import AVFoundation
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     @IBOutlet var stackView: UIStackView!
     @IBOutlet var previewView: UIView!
+    @IBOutlet var photoLibraryBtn: UIButton!
     
-    @IBOutlet var downSubView: UIView!
+    let imagePicker: UIImagePickerController! = UIImagePickerController()
+    
+    
     var previewViewMode: Int = 0
     
     var captureSession: AVCaptureSession!
@@ -51,6 +54,26 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         stackView.distribution = .fillProportionally
         
+        
+        let captureButton = UIButton(type: .custom)
+        captureButton.frame = CGRect()
+        captureButton.layer.cornerRadius = 0.5 * 70
+        captureButton.clipsToBounds = true
+        captureButton.layer.borderColor = UIColor.white.cgColor
+        captureButton.layer.borderWidth = 3
+        captureButton.addTarget(self, action: #selector(touchCaptureButton), for: .touchUpInside)
+        
+        
+        view.addSubview(captureButton)
+        
+        //constraint(superview 에 붙인 후 작성)
+        captureButton.translatesAutoresizingMaskIntoConstraints = false
+        captureButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        captureButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        captureButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
+        captureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        
+        
         //intrinsic(본질적인) 크기 설정
         
         let tempHeight = self.view.frame.height*2/3
@@ -68,6 +91,23 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             previewView.frame.size.height = self.view.frame.height
         }
 
+    }
+    
+    @objc func touchCaptureButton() {
+        
+    }
+    
+    @IBAction func touchPhotoAlbumBtn(_ sender: Any) {
+        if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = false
+            
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            print("cannot access to photo album.")
+        }
+        
     }
     
     @IBAction func touchChangeRatioBtn(_ sender: Any) {
@@ -177,4 +217,21 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     */
 
+}
+
+extension CameraViewController: UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        capturedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        
+        guard let pickedImageVC = self.storyboard?.instantiateViewController(identifier: "pickedImageView") as? PickedImageViewController else {
+            return
+        }
+        pickedImageVC.pickedImage = capturedImage
+        
+        self.dismiss(animated: true, completion: nil)
+        
+        self.present(pickedImageVC, animated: true, completion: nil)
+    }
 }

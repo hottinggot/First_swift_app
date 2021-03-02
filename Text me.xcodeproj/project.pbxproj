@@ -26,6 +26,8 @@
 		04737C2E25C7036200C0EA4D /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04737C2D25C7036200C0EA4D /* CameraViewController.swift */; };
 		04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */; };
 		04908F3325E6275B0077EF3D /* CustomCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04908F3225E6275B0077EF3D /* CustomCollectionViewCell.swift */; };
+		04987A4325EE756C00D0876C /* photoLibrary.png in Resources */ = {isa = PBXBuildFile; fileRef = 04987A4225EE756C00D0876C /* photoLibrary.png */; };
+		04987A4525EE795300D0876C /* PickedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04987A4425EE795300D0876C /* PickedImageViewController.swift */; };
 		04BA711A25CB98840027B6E2 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; };
 		04BA711B25CB98840027B6E2 /* WebP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F92B1425CFAB8800EC85D1 /* ImageManager.swift */; };
@@ -69,6 +71,8 @@
 		04737C2D25C7036200C0EA4D /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
 		04908F3225E6275B0077EF3D /* CustomCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewCell.swift; sourceTree = "<group>"; };
+		04987A4225EE756C00D0876C /* photoLibrary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photoLibrary.png; sourceTree = SOURCE_ROOT; };
+		04987A4425EE795300D0876C /* PickedImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedImageViewController.swift; sourceTree = "<group>"; };
 		04BA711225CB92A40027B6E2 /* Swift-WebP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Swift-WebP"; path = "Carthage/Checkouts/Swift-WebP"; sourceTree = "<group>"; };
 		04BA711925CB98840027B6E2 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = Carthage/Build/iOS/WebP.framework; sourceTree = "<group>"; };
 		04F92B1425CFAB8800EC85D1 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
@@ -111,6 +115,7 @@
 		040CA83E25B51AEB00F632FE /* Text me */ = {
 			isa = PBXGroup;
 			children = (
+				04987A4225EE756C00D0876C /* photoLibrary.png */,
 				0487FB5725B70C29006DFD3D /* Data */,
 				040CA85925B51B6400F632FE /* Model */,
 				040CA85825B51B3900F632FE /* View */,
@@ -131,6 +136,7 @@
 				040CA85C25B527DC00F632FE /* EditViewController.swift */,
 				04737C2D25C7036200C0EA4D /* CameraViewController.swift */,
 				04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */,
+				04987A4425EE795300D0876C /* PickedImageViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -250,6 +256,7 @@
 			files = (
 				040CA84F25B51AEC00F632FE /* LaunchScreen.storyboard in Resources */,
 				040CA84C25B51AEC00F632FE /* Assets.xcassets in Resources */,
+				04987A4325EE756C00D0876C /* photoLibrary.png in Resources */,
 				040CA84725B51AEB00F632FE /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,6 +334,7 @@
 				045C04EB25BBFB1900485D4E /* DataManager.swift in Sources */,
 				040CA84425B51AEB00F632FE /* MainViewController.swift in Sources */,
 				0465808025D2300800F09D07 /* Memo+CoreDataProperties.swift in Sources */,
+				04987A4525EE795300D0876C /* PickedImageViewController.swift in Sources */,
 				04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */,
 				040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */,
 				04908F3325E6275B0077EF3D /* CustomCollectionViewCell.swift in Sources */,

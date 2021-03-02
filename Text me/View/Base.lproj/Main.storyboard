@@ -246,9 +246,18 @@
                                     </view>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcN-Ry-5kw">
-                                <rect key="frame" x="30" y="607" width="48" height="30"/>
-                                <state key="normal" title="Library"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcN-Ry-5kw">
+                                <rect key="frame" x="40" y="577" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Bo0-im-L3h"/>
+                                    <constraint firstAttribute="height" constant="40" id="ni5-iT-EVQ"/>
+                                </constraints>
+                                <state key="normal" image="photoLibrary.png">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="touchPhotoAlbumBtn:" destination="6vW-63-CaI" eventType="touchUpInside" id="ldc-C3-n4N"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="np1-us-7F9">
                                 <rect key="frame" x="172" y="10" width="31" height="30"/>
@@ -268,19 +277,20 @@
                         <viewLayoutGuide key="safeArea" id="6gc-Ch-Ghr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="fcN-Ry-5kw" secondAttribute="bottom" constant="30" id="1Bu-Rv-YJy"/>
+                            <constraint firstAttribute="bottom" secondItem="fcN-Ry-5kw" secondAttribute="bottom" constant="50" id="1Bu-Rv-YJy"/>
                             <constraint firstItem="np1-us-7F9" firstAttribute="centerX" secondItem="XVf-ga-Sf5" secondAttribute="centerX" id="6a5-mF-8aW"/>
                             <constraint firstItem="6gc-Ch-Ghr" firstAttribute="trailing" secondItem="Got-Yh-m8z" secondAttribute="trailing" constant="20" id="C5r-rZ-dnm"/>
                             <constraint firstAttribute="bottom" secondItem="qZO-Nb-pWy" secondAttribute="bottom" id="Fj2-Q3-Npn"/>
                             <constraint firstItem="np1-us-7F9" firstAttribute="top" secondItem="6gc-Ch-Ghr" secondAttribute="top" constant="10" id="HWJ-56-IM7"/>
                             <constraint firstItem="qZO-Nb-pWy" firstAttribute="leading" secondItem="6gc-Ch-Ghr" secondAttribute="leading" id="dyN-x2-1Kh"/>
-                            <constraint firstItem="fcN-Ry-5kw" firstAttribute="leading" secondItem="XVf-ga-Sf5" secondAttribute="leading" constant="30" id="f7k-1e-2di"/>
+                            <constraint firstItem="fcN-Ry-5kw" firstAttribute="leading" secondItem="XVf-ga-Sf5" secondAttribute="leading" constant="40" id="f7k-1e-2di"/>
                             <constraint firstItem="qZO-Nb-pWy" firstAttribute="top" secondItem="6gc-Ch-Ghr" secondAttribute="top" id="gCf-PU-siX"/>
                             <constraint firstItem="6gc-Ch-Ghr" firstAttribute="trailing" secondItem="qZO-Nb-pWy" secondAttribute="trailing" id="lbC-OZ-qRB"/>
                             <constraint firstItem="Got-Yh-m8z" firstAttribute="top" secondItem="6gc-Ch-Ghr" secondAttribute="top" constant="10" id="slh-0r-Gdo"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="photoLibraryBtn" destination="fcN-Ry-5kw" id="FFC-Fk-2xd"/>
                         <outlet property="previewView" destination="XfY-8W-UrN" id="ezW-Mn-NvR"/>
                         <outlet property="stackView" destination="qZO-Nb-pWy" id="mcH-xh-1CI"/>
                     </connections>
@@ -288,6 +298,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x10-PR-kHL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="805.60000000000002" y="804.64767616191909"/>
+        </scene>
+        <!--Picked Image View Controller-->
+        <scene sceneID="57u-E6-FK8">
+            <objects>
+                <viewController storyboardIdentifier="pickedImageView" modalPresentationStyle="overFullScreen" id="nyc-Wj-QWA" customClass="PickedImageViewController" customModule="Text_me" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="kol-L7-nM1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="iJd-Yu-Yyb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qMj-0B-xgB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1502" y="805"/>
         </scene>
         <!--Select Image View Controller-->
         <scene sceneID="r4Q-H0-b1j">
@@ -337,11 +362,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v7E-sz-Ugl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1535" y="805"/>
+            <point key="canvasLocation" x="2191" y="805"/>
         </scene>
     </scenes>
     <resources>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
+        <image name="photoLibrary.png" width="100" height="100"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="labelColor">
