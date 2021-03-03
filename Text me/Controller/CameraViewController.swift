@@ -13,6 +13,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     @IBOutlet var previewView: UIView!
     @IBOutlet var photoLibraryBtn: UIButton!
     
+    @IBOutlet var closeBtn: UIButton!
+    
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     
     
@@ -54,6 +56,12 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         stackView.distribution = .fillProportionally
         
+        closeBtn.setTitle("✕", for: .normal)
+        closeBtn.setTitleColor(UIColor.white, for: .normal)
+        closeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 32)
+        
+        
+        
         
         let captureButton = UIButton(type: .custom)
         captureButton.frame = CGRect()
@@ -72,6 +80,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         captureButton.heightAnchor.constraint(equalToConstant: 70).isActive = true
         captureButton.widthAnchor.constraint(equalToConstant: 70).isActive = true
         captureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
+        
+        photoLibraryBtn.centerYAnchor.constraint(equalTo: captureButton.centerYAnchor).isActive = true
         
         
         //intrinsic(본질적인) 크기 설정
@@ -93,9 +103,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     }
     
-    @objc func touchCaptureButton() {
-        
-    }
+    
     
     @IBAction func touchPhotoAlbumBtn(_ sender: Any) {
         if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
@@ -120,7 +128,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             
             //intrinsic(본질적인) 크기 설정
             
-            let tempHeight = self.view.frame.height/3
+            let tempHeight = self.view.frame.width*4/3
             downSubView.heightAnchor.constraint(equalToConstant: tempHeight).isActive = true
             downSubView.isHidden = true
             previewViewMode = 1
@@ -162,9 +170,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         self.dismiss(animated: true, completion: nil)
     }
 
-    @IBAction func takePhoto(_ sender: Any) {
+    
+    @objc func touchCaptureButton() {
         let settings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
         stillImageOutput.capturePhoto(with: settings, delegate: self)
+        
     }
     
    
@@ -178,7 +188,23 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let image = UIImage(data: imageData)
         self.capturedImage = image
         
-        changeView()
+//        guard let pickedImageVC = self.storyboard?.instantiateViewController(identifier: "pickedImageView") as? PickedImageViewController else {
+//            return
+//        }
+        
+        
+        fixOrientation(image: capturedImage, completion: { fixedImage -> Void in
+            self.cropImage(image: fixedImage, to: 3/4, completion: { image -> Void in
+                DispatchQueue.main.async {
+                    let pickedImageVC = self.storyboard?.instantiateViewController(identifier: "pickedImageView") as? PickedImageViewController
+                    
+                    pickedImageVC?.pickedImage = image
+                    self.present(pickedImageVC!, animated: true, completion: nil)
+                }
+            })
+            
+        })
+
         
     }
     
@@ -207,15 +233,44 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         self.present(selectVC, animated: true, completion: nil)
         
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    private func fixOrientation(image: UIImage, completion: @escaping (UIImage) -> ()) {
+        DispatchQueue.global(qos: .background).async {
+            if(image.imageOrientation == .up) {
+                completion(image)
+            }
+            UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+            
+            let rect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+            
+            image.draw(in: rect)
+            let normalSizedImage = UIGraphicsGetImageFromCurrentImageContext()!
+            
+            UIGraphicsEndImageContext()
+            completion(normalSizedImage)
+        }
     }
-    */
+   
+    private func cropImage(image: UIImage, to aspectRatio: CGFloat, completion: @escaping (UIImage) -> ()) {
+        
+        DispatchQueue.global(qos: .background).async {
+            let imageAspectRatio = image.size.height/image.size.width
+            var newSize = image.size
+            
+            if imageAspectRatio > aspectRatio {
+                newSize.height = image.size.height * aspectRatio
+            } else {
+                completion(image)
+            }
+            
+            let cgCroppedImage = image.cgImage!.cropping(to: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: newSize.width, height: newSize.height)))!
+            
+            let croppedImage = UIImage(cgImage: cgCroppedImage)
+            
+            completion(croppedImage)
+        }
+    
+    }
 
 }
 

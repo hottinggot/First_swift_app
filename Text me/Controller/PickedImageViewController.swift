@@ -8,6 +8,10 @@
 import UIKit
 
 class PickedImageViewController: UIViewController {
+    @IBOutlet var backBtn: UIButton!
+    
+    @IBOutlet var editBtn: UIButton!
+    @IBOutlet var nextBtn: UIButton!
     
     var pickedImage: UIImage?
 
@@ -22,9 +26,10 @@ class PickedImageViewController: UIViewController {
         outerView.translatesAutoresizingMaskIntoConstraints = false
         
         
-        if let pickedImage = pickedImage, let image = resize(image: pickedImage, to: CGSize(width: view.frame.size.width, height: view.frame.size.height-100) )  {
+        if let pickedImage = pickedImage, let image = resize(image: pickedImage, to: CGSize(width: view.frame.size.width, height: view.frame.size.height-150) )  {
             outerView.heightAnchor.constraint(equalToConstant: image.size.height-40).isActive = true
             outerView.widthAnchor.constraint(equalToConstant: image.size.width-40).isActive = true
+            self.pickedImage = image
         }
         
         outerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -64,6 +69,24 @@ class PickedImageViewController: UIViewController {
         
         
     }
+    
+    @IBAction func touchBackBtn(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func touchEditBtn(_ sender: Any) {
+        
+    }
+    
+    @IBAction func touchNextBtn(_ sender: Any) {
+        guard let selectVC = self.storyboard?.instantiateViewController(identifier: "selectImageView") as? SelectImageViewController else {
+            return
+        }
+        
+        selectVC.receivedImage = pickedImage
+        present(selectVC, animated: true, completion: nil)
+    }
+    
     
     private func resize(image: UIImage, to targetSize: CGSize) -> UIImage? {
       let size = image.size
