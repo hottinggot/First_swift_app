@@ -13,21 +13,24 @@ class SelectImageViewController: UIViewController {
     
     var receivedImage: UIImage?
     var activityIndicator: UIActivityIndicatorView!
+    let outerView = UIView(frame: CGRect())
+    
+    var memo = MemoVO()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        let outerView = UIView(frame: CGRect())
+        
         view.addSubview(outerView)
         
         //outerView constraint
         outerView.translatesAutoresizingMaskIntoConstraints = false
         
         if let image = receivedImage {
-            outerView.widthAnchor.constraint(equalToConstant: image.size.width-40).isActive = true
-            outerView.heightAnchor.constraint(equalToConstant: image.size.height-40).isActive = true
+            outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
+            outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
         }
         
         outerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -71,13 +74,8 @@ class SelectImageViewController: UIViewController {
             return
         }
         
-        let createdMemo = MemoVO()
-        createdMemo.isNew = true
-        createdMemo.refImage = receivedImage
-        createdMemo.mainText = ""
-        createdMemo.subText = ""
         
-        editVC.memo = createdMemo
+        editVC.memo = self.memo
         
         present(editVC, animated: true, completion: nil)
     }
@@ -90,48 +88,26 @@ class SelectImageViewController: UIViewController {
             }
             //print("Found \(ocrResult.annotations.count) bounding box annotations in the image!")
             self.displayBoundingBoxes(for: ocrResult)
+            self.memo = self.createMemoVO(for: ocrResult)
         }
     }
     
     private func setUpActivityIndicator() {
         activityIndicator = UIActivityIndicatorView(style: .large)
         activityIndicator.color = UIColor.white
-        view.addSubview(activityIndicator)
+        outerView.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         activityIndicator.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         activityIndicator.startAnimating()
     }
-    
-//    private func resize(image: UIImage, to targetSize: CGSize) -> UIImage? {
-//      let size = image.size
-//
-//      let widthRatio  = targetSize.width  / size.width
-//      let heightRatio = targetSize.height / size.height
-//
-//      // Figure out what our orientation is, and use that to form the rectangle.
-//      var newSize: CGSize
-//      if(widthRatio > heightRatio) {
-//        newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-//      } else {
-//        newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
-//      }
-//
-//      let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height + 1)
-//
-//      UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-//      image.draw(in: rect)
-//      let newImage = UIGraphicsGetImageFromCurrentImageContext()
-//      UIGraphicsEndImageContext()
-//
-//      return newImage
-//    }
+
     
     private func displayBoundingBoxes(for ocrResult: OCRResult) {
       for annotation in ocrResult.annotations[1...] {
         let path = createBoundingBoxPath(along: annotation.boundingBox.vertices)
         let shape = shapeForBoundingBox(path: path)
-        view.layer.addSublayer(shape)
+        outerView.layer.addSublayer(shape)
       }
     }
     
@@ -148,10 +124,21 @@ class SelectImageViewController: UIViewController {
     private func shapeForBoundingBox(path: UIBezierPath) -> CAShapeLayer {
       let shape = CAShapeLayer()
       shape.lineWidth = 1
-        shape.strokeColor = UIColor.purple.cgColor
+      shape.strokeColor = UIColor.purple.cgColor
       shape.fillColor = UIColor.purple.withAlphaComponent(0.1).cgColor
       shape.path = path.cgPath
       return shape
+    }
+    
+    private func createMemoVO(for ocrResult: OCRResult) -> MemoVO {
+        
+        let createdMemo = MemoVO()
+        createdMemo.isNew = true
+        createdMemo.refImage = receivedImage
+        createdMemo.mainText = ocrResult.annotations[0].text
+        createdMemo.subText = ""
+        
+        return createdMemo
     }
 
 }

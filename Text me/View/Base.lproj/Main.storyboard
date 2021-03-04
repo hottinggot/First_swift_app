@@ -57,6 +57,7 @@
                                         <connections>
                                             <outlet property="collectionImage" destination="OoS-bs-z2t" id="aeX-Yo-ykt"/>
                                             <outlet property="titleLabel" destination="P21-xX-HOo" id="0Yw-BS-OKg"/>
+                                            <segue destination="1Gz-ai-gKP" kind="show" identifier="ShowDetail" id="p9Q-lX-dTc"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -122,14 +123,34 @@
         <!--Edit View Controller-->
         <scene sceneID="rVP-rh-bP2">
             <objects>
-                <viewController storyboardIdentifier="editView" id="1Gz-ai-gKP" customClass="EditViewController" customModule="Text_me" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="editView" modalPresentationStyle="fullScreen" id="1Gz-ai-gKP" customClass="EditViewController" customModule="Text_me" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yRE-7w-Hiy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjr-4Z-Rsr">
+                                <rect key="frame" x="25" y="69" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="QKg-9c-xux"/>
+                                    <constraint firstAttribute="height" constant="20" id="gr6-a2-me3"/>
+                                </constraints>
+                                <state key="normal" image="back.png"/>
+                                <connections>
+                                    <action selector="touchBackBtn:" destination="1Gz-ai-gKP" eventType="touchUpInside" id="sf8-3z-Nfc"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="7BS-0q-Zic"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="zjr-4Z-Rsr" firstAttribute="top" secondItem="7BS-0q-Zic" secondAttribute="top" constant="25" id="8X9-Gq-X5g"/>
+                            <constraint firstItem="zjr-4Z-Rsr" firstAttribute="leading" secondItem="7BS-0q-Zic" secondAttribute="leading" constant="25" id="hVk-08-Q7O"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="kIP-He-u5T"/>
+                    <connections>
+                        <outlet property="backBtn" destination="zjr-4Z-Rsr" id="kfk-Us-US4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nvh-BJ-FGZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -289,7 +310,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ORd-zD-B2w"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93825995080000002" green="0.90196078430000004" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="ORd-zD-B2w" firstAttribute="bottom" secondItem="75d-bU-ldS" secondAttribute="bottom" constant="40" id="GsM-ip-yEw"/>
                             <constraint firstItem="qlr-UM-0yS" firstAttribute="top" secondItem="ORd-zD-B2w" secondAttribute="top" constant="20" id="a1A-LA-ZvO"/>

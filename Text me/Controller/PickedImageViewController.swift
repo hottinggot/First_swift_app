@@ -26,9 +26,9 @@ class PickedImageViewController: UIViewController {
         outerView.translatesAutoresizingMaskIntoConstraints = false
         
         
-        if let pickedImage = pickedImage, let image = resize(image: pickedImage, to: CGSize(width: view.frame.size.width, height: view.frame.size.height-150) )  {
-            outerView.heightAnchor.constraint(equalToConstant: image.size.height-40).isActive = true
-            outerView.widthAnchor.constraint(equalToConstant: image.size.width-40).isActive = true
+        if let pickedImage = pickedImage, let image = resize(image: pickedImage, to: CGSize(width: view.frame.size.width-40, height: view.frame.size.height-190) )  {
+            outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
+            outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
             self.pickedImage = image
         }
         

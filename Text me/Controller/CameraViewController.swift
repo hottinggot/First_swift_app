@@ -188,11 +188,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let image = UIImage(data: imageData)
         self.capturedImage = image
         
-//        guard let pickedImageVC = self.storyboard?.instantiateViewController(identifier: "pickedImageView") as? PickedImageViewController else {
-//            return
-//        }
-        
-        
+
         fixOrientation(image: capturedImage, completion: { fixedImage -> Void in
             self.cropImage(image: fixedImage, to: 3/4, completion: { image -> Void in
                 DispatchQueue.main.async {

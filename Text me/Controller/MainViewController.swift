@@ -38,7 +38,12 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     //Segueway
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let cell = sender as? UICollectionViewCell, let indexPath = collectionView.indexPath(for: cell){
+        
+        if(segue.identifier == "ShowDetail") {
+            
+            
+        
+        if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell){
 
             if let editVc = segue.destination as? EditViewController {
                 let detailMemo = MemoVO()
@@ -50,7 +55,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
                 detailMemo.upadateDate = target.updateDate
                 if let imageName = target.refImage {
                     detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName, to: detailMemo.refImage!.size)
-                }
+                }   
                 
                 let indexNum = indexPath.row
                 
@@ -59,11 +64,12 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
                 editVc.index = indexNum
             }
         }
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getAllMemoList()
-        //tableView.reloadData()
+        collectionView.reloadData()
     }
 
     override func viewDidLoad() {
@@ -72,7 +78,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         token =  NotificationCenter.default.addObserver(forName: EditViewController.newMemoDidInsert, object: nil, queue: OperationQueue.main) {
             [weak self] (noti) in
             self?.collectionView.reloadData()
-            //self?.tableView.reloadData()
         }
         
         //navigation item
@@ -86,10 +91,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         self.navigationItem.searchController = search
         definesPresentationContext = true   //saerch view 가 활성화 되어있는 동안 다른 뷰로 이동하면 search bar 닫히도록
 
-        //tableView
-//        tableView.delegate = self
-//        tableView.dataSource = self
-//        tableView.layer.cornerRadius = 10
         
         //collectionView
         collectionView.delegate = self
@@ -211,20 +212,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
 
     }
     
-    
-    //~ios10 (deprecated)
-    
-//    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-//
-//            let deleteAction = UITableViewRowAction(style: .destructive, title: "삭제") { action, index in
-//
-//                //todo
-//
-//            }
-//
-//            return [deleteAction]
-//        }
-    
 }
 
 extension MainViewController: UISearchResultsUpdating  {
@@ -311,4 +298,5 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
+    
 }
