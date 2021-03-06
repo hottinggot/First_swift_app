@@ -39,32 +39,36 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     //Segueway
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if(segue.identifier == "ShowDetail") {
-            
-            
-        
-        if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell){
+//        if let dest = segue.destination as? EditViewController, let index = collectionView.indexPathsForSelectedItems?.first {
+//            dest.selection
+//        }
 
-            if let editVc = segue.destination as? EditViewController {
-                let detailMemo = MemoVO()
-                let target = DataManager.shared.memoList[indexPath.row]
-                detailMemo.isNew = false
-                detailMemo.mainText = target.mainText
-                detailMemo.subText = target.subText
-                detailMemo.titleText = target.titleText
-                detailMemo.upadateDate = target.updateDate
-                if let imageName = target.refImage {
-                    detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName, to: detailMemo.refImage!.size)
-                }   
-                
-                let indexNum = indexPath.row
-                
-                
-                editVc.memo = detailMemo
-                editVc.index = indexNum
-            }
-        }
-        }
+//        if(segue.identifier == "ShowDetail") {
+//
+//
+//
+//            if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell){
+//
+//                if let editVc = segue.destination as? EditViewController {
+//                    let detailMemo = MemoVO()
+//                    let target = DataManager.shared.memoList[indexPath.row]
+//                    detailMemo.isNew = false
+//                    detailMemo.mainText = target.mainText
+//                    detailMemo.subText = target.subText
+//                    detailMemo.titleText = target.titleText
+//                    detailMemo.upadateDate = target.updateDate
+//                    if let imageName = target.refImage {
+//                        detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName, to: detailMemo.refImage!.size)
+//                    }
+//
+//                    let indexNum = indexPath.row
+//
+//
+//                    editVc.memo = detailMemo
+//                    editVc.index = indexNum
+//                }
+//            }
+//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -149,70 +153,10 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     private func isFiltering() -> Bool {
         return search.isActive && !searchBarIsEmpty()
     }
-    
-    
-    
+ 
     
 }
 
-extension MainViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if(isFiltering()) {
-            return filteredMemoList.count
-        }
-        return DataManager.shared.memoList.count
-        
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CustomTableViewCell
-        let target: [Memo]
-        
-        if(isFiltering()) {
-            target = filteredMemoList
-        } else {
-            target = DataManager.shared.memoList
-        }
-        
-        cell.cellTitle.text = target[indexPath.row].titleText
-        cell.cellContents.text = target[indexPath.row].mainText
-        
-        if let imageName = target[indexPath.row].refImage {
-//            let decoder = WebPDecoder()
-//            var options = WebPDecoderOptions()
-//            options.scaledWidth = Int(25)
-//            options.scaledHeight = Int(25)
-//            let cgimage = try! decoder.decode(image, options: options)
-            
-                
-            cell.cellImage.image = ImageManager.shared.fetchImage(imageName: imageName, to: cell.cellImage.bounds.size)
-          
-            
-            
-        }
-
-        return cell
-
-    }
-    
-    //ios 11~
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "삭제", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-
-            DataManager.shared.deleteMemo(indexNum: indexPath.row)
-            DataManager.shared.memoList.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-
-            success(true)
-
-            })
-
-        return UISwipeActionsConfiguration(actions:[deleteAction])
-
-    }
-    
-}
 
 extension MainViewController: UISearchResultsUpdating  {
     func updateSearchResults(for searchController: UISearchController) {
@@ -223,6 +167,12 @@ extension MainViewController: UISearchResultsUpdating  {
 
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        print("hehe")
+//        present(EditViewController(), animated: true, completion: nil)
+//    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(isFiltering()) {
             return filteredMemoList.count
@@ -233,14 +183,15 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.cellIdentifier, for: indexPath) as! CustomCollectionViewCell
         
+        //collectionCell.isUserInteractionEnabled = true
+        collectionCell.contentView.isUserInteractionEnabled = false
+        
         //style
         collectionCell.collectionImage.layer.cornerRadius = 8
         collectionCell.collectionImage.layer.shadowOffset = CGSize(width: 1, height: 1)
         collectionCell.collectionImage.layer.shadowOpacity = 0.9
         collectionCell.collectionImage.layer.shadowRadius = 5
         collectionCell.collectionImage.layer.shadowColor = UIColor.gray.cgColor
-        
-        
         
         
         let target: [Memo]
@@ -265,6 +216,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         return collectionCell
 
     }
+    
+    
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
