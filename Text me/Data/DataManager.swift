@@ -52,22 +52,18 @@ class DataManager{
         
         if let imageName : String = ImageManager.shared.saveImage(image: memo.refImage!), let context = context , let entity :NSEntityDescription = NSEntityDescription.entity(forEntityName: modelName, in: context) {
                 if let newMemo: Memo = NSManagedObject(entity: entity, insertInto: context) as? Memo {
-                    if let isNew = memo.isNew {
-                        newMemo.isNew = isNew
-                    }
+                    
                     
 //                    let encoder = WebPEncoder()
 //                    let webPData = try! encoder.encode(memo.refImage!, config: .preset(.picture, quality: 95))
 //                    newMemo.refImage = webPData
-                    
-                    
-                    newMemo.refImage = imageName
                     newMemo.mainText = memo.mainText
-                    newMemo.subText = memo.subText
-                    newMemo.updateDate = Date()
+                    newMemo.refImage = imageName
                     newMemo.titleText = memo.titleText
+                    newMemo.updateDate = Date()
+                
                     
-                    memoList.insert(newMemo, at: 0 )
+                    memoList.insert(newMemo, at: 0)
                     
                 }
             
@@ -82,7 +78,9 @@ class DataManager{
         }
     }
     
-    func deleteMemo(indexNum: Int) {
+    func deleteMemo(indexNum : Int) {
+        
+        print("hehehe")
         
         if let context = context {
             

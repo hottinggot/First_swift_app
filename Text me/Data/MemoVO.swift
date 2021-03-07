@@ -2,10 +2,9 @@
 //  File.swift
 //  Text me
 //
-//  Created by 서정 on 2021/01/21.
+//  Created by 서정 on 2021/03/07.
 //
 
-import Foundation
 import UIKit
 import CoreData
 
@@ -16,8 +15,4 @@ class MemoVO {
     var subText: String?
     var upadateDate: Date?
     var isNew: Bool?
-    
-    //var objectID: NSManagedObjectID?
-
 }
-

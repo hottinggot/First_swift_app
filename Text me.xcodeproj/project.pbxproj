@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0403C01E25B99D0400EB8317 /* MemoVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0403C01D25B99D0400EB8317 /* MemoVO.swift */; };
 		040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA83F25B51AEB00F632FE /* AppDelegate.swift */; };
 		040CA84225B51AEB00F632FE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA84125B51AEB00F632FE /* SceneDelegate.swift */; };
 		040CA84425B51AEB00F632FE /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA84325B51AEB00F632FE /* MainViewController.swift */; };
@@ -29,6 +28,7 @@
 		04987A4525EE795300D0876C /* PickedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04987A4425EE795300D0876C /* PickedImageViewController.swift */; };
 		04987A4925EE8DB500D0876C /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 04987A4825EE8DB500D0876C /* back.png */; };
 		04987A4F25EE924000D0876C /* photoLibrary.png in Resources */ = {isa = PBXBuildFile; fileRef = 04987A4E25EE924000D0876C /* photoLibrary.png */; };
+		04A6499625F4FC5A00741529 /* MemoVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A6499525F4FC5A00741529 /* MemoVO.swift */; };
 		04BA711A25CB98840027B6E2 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; };
 		04BA711B25CB98840027B6E2 /* WebP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F92B1425CFAB8800EC85D1 /* ImageManager.swift */; };
@@ -50,7 +50,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0403C01D25B99D0400EB8317 /* MemoVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoVO.swift; sourceTree = "<group>"; };
 		040CA83C25B51AEB00F632FE /* Text me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Text me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		040CA83F25B51AEB00F632FE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		040CA84125B51AEB00F632FE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		04987A4425EE795300D0876C /* PickedImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedImageViewController.swift; sourceTree = "<group>"; };
 		04987A4825EE8DB500D0876C /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		04987A4E25EE924000D0876C /* photoLibrary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photoLibrary.png; sourceTree = "<group>"; };
+		04A6499525F4FC5A00741529 /* MemoVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoVO.swift; sourceTree = "<group>"; };
 		04BA711225CB92A40027B6E2 /* Swift-WebP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Swift-WebP"; path = "Carthage/Checkouts/Swift-WebP"; sourceTree = "<group>"; };
 		04BA711925CB98840027B6E2 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = Carthage/Build/iOS/WebP.framework; sourceTree = "<group>"; };
 		04F92B1425CFAB8800EC85D1 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
@@ -169,10 +169,10 @@
 			isa = PBXGroup;
 			children = (
 				04F92B1425CFAB8800EC85D1 /* ImageManager.swift */,
-				0403C01D25B99D0400EB8317 /* MemoVO.swift */,
 				045C04EA25BBFB1900485D4E /* DataManager.swift */,
 				0453261925D50E64008CBA34 /* GoogleVision.swift */,
 				040DBB4625E4A98900D86852 /* Structures.swift */,
+				04A6499525F4FC5A00741529 /* MemoVO.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -339,6 +339,7 @@
 				040CA84425B51AEB00F632FE /* MainViewController.swift in Sources */,
 				0465808025D2300800F09D07 /* Memo+CoreDataProperties.swift in Sources */,
 				04987A4525EE795300D0876C /* PickedImageViewController.swift in Sources */,
+				04A6499625F4FC5A00741529 /* MemoVO.swift in Sources */,
 				04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */,
 				040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */,
 				04908F3325E6275B0077EF3D /* CustomCollectionViewCell.swift in Sources */,
@@ -346,7 +347,6 @@
 				045C313C25B5B3C300373EA5 /* CustomTableViewCell.swift in Sources */,
 				04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */,
 				0465807825D1029900F09D07 /* MappingModelV1toV2.xcmappingmodel in Sources */,
-				0403C01E25B99D0400EB8317 /* MemoVO.swift in Sources */,
 				0465807F25D2300800F09D07 /* Memo+CoreDataClass.swift in Sources */,
 				040CA84225B51AEB00F632FE /* SceneDelegate.swift in Sources */,
 				040DBB4725E4A98900D86852 /* Structures.swift in Sources */,

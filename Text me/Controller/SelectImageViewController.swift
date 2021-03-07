@@ -134,8 +134,8 @@ class SelectImageViewController: UIViewController {
         
         let createdMemo = MemoVO()
         createdMemo.isNew = true
-        createdMemo.refImage = receivedImage
         createdMemo.mainText = ocrResult.annotations[0].text
+        createdMemo.refImage = receivedImage
         createdMemo.subText = ""
         
         return createdMemo

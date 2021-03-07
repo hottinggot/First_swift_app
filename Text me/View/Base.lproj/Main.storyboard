@@ -12,13 +12,21 @@
         <!--HISTORY-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController title="HISTORY" id="BYZ-38-t0r" customClass="MainViewController" customModule="Text_me" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="HISTORY" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="MainViewController" customModule="Text_me" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CeM-NT-lcp">
-                                <rect key="frame" x="16" y="44" width="345" height="623"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Dr-eT-1eq">
+                                <rect key="frame" x="15" y="44" width="345" height="30"/>
+                                <color key="backgroundColor" red="0.89739984269999995" green="0.93512159589999999" blue="0.85708886380000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="OCR"/>
+                                <connections>
+                                    <action selector="cameraBtnTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5b3-EJ-0x9"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CeM-NT-lcp">
+                                <rect key="frame" x="15" y="89" width="345" height="578"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hgA-et-bKA">
                                     <size key="itemSize" width="128" height="128"/>
@@ -34,8 +42,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020.03.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P21-xX-HOo">
-                                                    <rect key="frame" x="3" y="106" width="90" height="22"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P21-xX-HOo">
+                                                    <rect key="frame" x="3" y="106" width="35" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -62,42 +70,28 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVh-VL-aac">
-                                <rect key="frame" x="295" y="587" width="50" height="50"/>
-                                <color key="backgroundColor" systemColor="systemGray3Color"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="8PI-3Q-FqX"/>
-                                    <constraint firstAttribute="height" constant="50" id="ycn-tZ-68P"/>
-                                </constraints>
-                                <color key="tintColor" red="0.92155393839999999" green="1" blue="0.79963077910000002" alpha="0.63794948630000003" colorSpace="calibratedRGB"/>
-                                <state key="normal" image="camera.fill" catalog="system">
-                                    <color key="titleColor" red="0.92155393839999999" green="1" blue="0.79963077910000002" alpha="0.63794948630000003" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="cameraBtnTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bpo-C1-qP5"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="0.93825995081251679" green="0.90196078431372551" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="nVh-VL-aac" secondAttribute="trailing" constant="30" id="AhU-bQ-3BM"/>
+                            <constraint firstItem="CeM-NT-lcp" firstAttribute="top" secondItem="0Dr-eT-1eq" secondAttribute="bottom" constant="15" id="B9G-oP-HaO"/>
                             <constraint firstItem="CeM-NT-lcp" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Jl6-J5-WmD"/>
-                            <constraint firstItem="CeM-NT-lcp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tqb-0A-5Jb"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0Dr-eT-1eq" secondAttribute="trailing" constant="15" id="NvT-KG-NpM"/>
+                            <constraint firstItem="0Dr-eT-1eq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="le3-bX-l8e"/>
                             <constraint firstItem="CeM-NT-lcp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="lqF-2S-NzM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CeM-NT-lcp" secondAttribute="trailing" constant="15" id="mJb-Sf-8Rj"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="nVh-VL-aac" secondAttribute="bottom" constant="30" id="mgI-J9-4xF"/>
+                            <constraint firstItem="0Dr-eT-1eq" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rCa-Zi-FoB"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="HISTORY" id="GJI-fJ-tXh"/>
+                    <navigationItem key="navigationItem" title="HISTORY" largeTitleDisplayMode="never" id="GJI-fJ-tXh"/>
                     <connections>
-                        <outlet property="cameraBtn" destination="nVh-VL-aac" id="4eA-q9-W16"/>
+                        <outlet property="cameraBtn" destination="0Dr-eT-1eq" id="rkg-G1-jBg"/>
                         <outlet property="collectionView" destination="CeM-NT-lcp" id="ydz-RM-Lb8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="929" y="102"/>
+            <point key="canvasLocation" x="928.79999999999995" y="101.19940029985008"/>
         </scene>
         <!--HISTORY-->
         <scene sceneID="2Th-JR-mZ3">
@@ -329,13 +323,9 @@
     </scenes>
     <resources>
         <image name="back.png" width="50" height="50"/>
-        <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="photoLibrary.png" width="96" height="96"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

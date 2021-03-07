@@ -10,7 +10,7 @@ import UIKit
 class EditViewController: UIViewController, UITextViewDelegate{
 
     var memo: MemoVO?
-    var index: Int?
+    var indexNum: Int?
     
     @IBOutlet var backBtn: UIButton!
     
@@ -22,12 +22,13 @@ class EditViewController: UIViewController, UITextViewDelegate{
     let copyButton = UIButton(frame: CGRect())
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.largeTitleDisplayMode = .never
+        
         //textview outer view
-        
-        
         view.addSubview(outerView)
         
         //constraint
@@ -131,7 +132,6 @@ class EditViewController: UIViewController, UITextViewDelegate{
             if(memo.isNew == true) {
                 
                 DataManager.shared.saveMemo(memo: memo)
-                memo.isNew = false
                 
             }
         }
@@ -158,7 +158,10 @@ class EditViewController: UIViewController, UITextViewDelegate{
         
     }
     
-   
+//    override func willMove(toParent parent: UIViewController?) {
+//        parent?.navigationItem.largeTitleDisplayMode = .always
+//    }
+//   
     private func makeDoneAtToolbar() {
         let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -201,18 +204,24 @@ class EditViewController: UIViewController, UITextViewDelegate{
     }
     
     @objc func onDeleteButtonTouched() {
-        if let index = index {
-            DataManager.shared.deleteMemo(indexNum: index)
+        print("delete button touched")
+        if let indexNum = indexNum {
+            DataManager.shared.deleteMemo(indexNum: indexNum)
+        }
+        if(memo?.isNew == true) {
             self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-        } 
+        } else {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        
         
     }
     
 
     private func saveChanges() {
 
-        if let index = index {
-            let target = DataManager.shared.memoList[index]
+        if let indexNum = indexNum {
+            let target = DataManager.shared.memoList[indexNum]
             target.mainText = self.mainTextView.text
             target.titleText = self.titleText.text
             target.updateDate = Date()

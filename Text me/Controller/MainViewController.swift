@@ -15,12 +15,11 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     @IBOutlet var collectionView: UICollectionView!
     
+    @IBOutlet var cameraBtn: UIButton!
     struct ReuseIdentifier {
         static let cellIdentifier = "CollectionViewCell"
     }
     
-    
-    @IBOutlet var cameraBtn: UIButton!
     
     var token: NSObjectProtocol?
     
@@ -39,42 +38,34 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     //Segueway
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-//        if let dest = segue.destination as? EditViewController, let index = collectionView.indexPathsForSelectedItems?.first {
-//            dest.selection
-//        }
 
-//        if(segue.identifier == "ShowDetail") {
-//
-//
-//
-//            if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell){
-//
-//                if let editVc = segue.destination as? EditViewController {
-//                    let detailMemo = MemoVO()
-//                    let target = DataManager.shared.memoList[indexPath.row]
-//                    detailMemo.isNew = false
-//                    detailMemo.mainText = target.mainText
-//                    detailMemo.subText = target.subText
-//                    detailMemo.titleText = target.titleText
-//                    detailMemo.upadateDate = target.updateDate
-//                    if let imageName = target.refImage {
-//                        detailMemo.refImage = ImageManager.shared.fetchImage(imageName: imageName, to: detailMemo.refImage!.size)
-//                    }
-//
-//                    let indexNum = indexPath.row
-//
-//
-//                    editVc.memo = detailMemo
-//                    editVc.index = indexNum
-//                }
-//            }
-//        }
+
+            if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell){
+
+                if let editVc = segue.destination as? EditViewController {
+            
+                    let target = DataManager.shared.memoList[indexPath.row]
+                    editVc.indexNum = indexPath.row
+                    
+                    let m = MemoVO()
+                    m.isNew = false
+                    m.mainText = target.mainText
+                    m.upadateDate = target.updateDate
+                    m.titleText = target.titleText
+                   
+                    editVc.memo = m
+                }
+            }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getAllMemoList()
         collectionView.reloadData()
+        
     }
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,17 +75,20 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
             self?.collectionView.reloadData()
         }
         
-        //navigation item
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.navigationBar.prefersLargeTitles = true
         
         //search bar
         search.searchResultsUpdater = self  //search bar 내의 text 변경을 알림
         search.obscuresBackgroundDuringPresentation = false //현재 뷰의 흐려짐 방지
         search.searchBar.placeholder = "검색"
         self.navigationItem.searchController = search
+        self.navigationItem.hidesSearchBarWhenScrolling = true
+
+        
         definesPresentationContext = true   //saerch view 가 활성화 되어있는 동안 다른 뷰로 이동하면 search bar 닫히도록
 
+        //navigation item
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+        self.navigationItem.largeTitleDisplayMode = .always
         
         //collectionView
         collectionView.delegate = self
@@ -109,7 +103,30 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         cameraBtn.layer.shadowRadius = 5
         cameraBtn.layer.shadowOpacity = 0.9
         cameraBtn.layer.masksToBounds = false
+//        let cameraBtn = UIButton(frame: CGRect())
+//
+//        view.addSubview(cameraBtn)
+//        //view.sendSubviewToBack(cameraBtn)
+//        //cameraBtn.sendSubviewToBack(cameraBtn)
+//        cameraBtn.layer.backgroundColor = UIColor(red: 206, green: 206, blue: 210, alpha: 1).cgColor
+//        cameraBtn.translatesAutoresizingMaskIntoConstraints = false
+//        cameraBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
+//        cameraBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
+//        cameraBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
+//        cameraBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//        cameraBtn.layer.cornerRadius = 8
+//        cameraBtn.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        cameraBtn.layer.shadowColor = UIColor.gray.cgColor
+//        cameraBtn.layer.shadowRadius = 5
+//        cameraBtn.layer.shadowOpacity = 0.9
+//        cameraBtn.layer.masksToBounds = false
+        
+        
 
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        
     }
     
     private func getAllMemoList() {
@@ -168,10 +185,6 @@ extension MainViewController: UISearchResultsUpdating  {
 
 extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        print("hehe")
-//        present(EditViewController(), animated: true, completion: nil)
-//    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(isFiltering()) {
@@ -253,3 +266,5 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
     }
     
 }
+
+
