@@ -135,7 +135,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="7BS-0q-Zic"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93825995080000002" green="0.90196078430000004" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="zjr-4Z-Rsr" firstAttribute="top" secondItem="7BS-0q-Zic" secondAttribute="top" constant="25" id="8X9-Gq-X5g"/>
                             <constraint firstItem="zjr-4Z-Rsr" firstAttribute="leading" secondItem="7BS-0q-Zic" secondAttribute="leading" constant="25" id="hVk-08-Q7O"/>
@@ -180,6 +180,17 @@
                                     <action selector="touchPhotoAlbumBtn:" destination="6vW-63-CaI" eventType="touchUpInside" id="ldc-C3-n4N"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jKI-hc-2bW">
+                                <rect key="frame" x="295" y="297" width="40" height="72"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="12q-lw-ZWH"/>
+                                    <constraint firstAttribute="width" constant="40" id="H1P-K5-gLg"/>
+                                </constraints>
+                                <state key="normal" image="cameraSwitch.png"/>
+                                <connections>
+                                    <action selector="touchCameraSwitchBtn:" destination="6vW-63-CaI" eventType="touchUpInside" id="Joh-ur-wCX"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="np1-us-7F9">
                                 <rect key="frame" x="172" y="10" width="31" height="30"/>
                                 <state key="normal" title="ratio"/>
@@ -188,7 +199,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Got-Yh-m8z">
-                                <rect key="frame" x="316" y="10" width="39" height="30"/>
+                                <rect key="frame" x="20" y="10" width="39" height="30"/>
                                 <state key="normal" title="Close"/>
                                 <connections>
                                     <action selector="touchCloseBtn:" destination="6vW-63-CaI" eventType="touchUpInside" id="yci-Jm-d1u"/>
@@ -198,10 +209,11 @@
                         <viewLayoutGuide key="safeArea" id="6gc-Ch-Ghr"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Got-Yh-m8z" firstAttribute="leading" secondItem="6gc-Ch-Ghr" secondAttribute="leading" constant="20" id="3SK-Ar-ouz"/>
                             <constraint firstItem="np1-us-7F9" firstAttribute="centerX" secondItem="XVf-ga-Sf5" secondAttribute="centerX" id="6a5-mF-8aW"/>
-                            <constraint firstItem="6gc-Ch-Ghr" firstAttribute="trailing" secondItem="Got-Yh-m8z" secondAttribute="trailing" constant="20" id="C5r-rZ-dnm"/>
                             <constraint firstAttribute="bottom" secondItem="qZO-Nb-pWy" secondAttribute="bottom" id="Fj2-Q3-Npn"/>
                             <constraint firstItem="np1-us-7F9" firstAttribute="top" secondItem="6gc-Ch-Ghr" secondAttribute="top" constant="10" id="HWJ-56-IM7"/>
+                            <constraint firstItem="6gc-Ch-Ghr" firstAttribute="trailing" secondItem="jKI-hc-2bW" secondAttribute="trailing" constant="40" id="SAj-64-lPS"/>
                             <constraint firstItem="qZO-Nb-pWy" firstAttribute="leading" secondItem="6gc-Ch-Ghr" secondAttribute="leading" id="dyN-x2-1Kh"/>
                             <constraint firstItem="fcN-Ry-5kw" firstAttribute="leading" secondItem="XVf-ga-Sf5" secondAttribute="leading" constant="40" id="f7k-1e-2di"/>
                             <constraint firstItem="qZO-Nb-pWy" firstAttribute="top" secondItem="6gc-Ch-Ghr" secondAttribute="top" id="gCf-PU-siX"/>
@@ -210,6 +222,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cameraSwitchBtn" destination="jKI-hc-2bW" id="TpM-YR-Xl2"/>
                         <outlet property="closeBtn" destination="Got-Yh-m8z" id="LNH-Tc-bZJ"/>
                         <outlet property="photoLibraryBtn" destination="fcN-Ry-5kw" id="FFC-Fk-2xd"/>
                         <outlet property="previewView" destination="XfY-8W-UrN" id="ezW-Mn-NvR"/>
@@ -323,7 +336,8 @@
     </scenes>
     <resources>
         <image name="back.png" width="50" height="50"/>
-        <image name="photoLibrary.png" width="96" height="96"/>
+        <image name="cameraSwitch.png" width="72" height="72"/>
+        <image name="photoLibrary.png" width="72" height="72"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

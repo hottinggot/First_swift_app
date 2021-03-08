@@ -12,6 +12,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     @IBOutlet var stackView: UIStackView!
     @IBOutlet var previewView: UIView!
     @IBOutlet var photoLibraryBtn: UIButton!
+    @IBOutlet var cameraSwitchBtn: UIButton!
     
     @IBOutlet var closeBtn: UIButton!
     
@@ -19,36 +20,17 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     
     var previewViewMode: Int = 0
+    var camera: Bool = true
     
     var captureSession: AVCaptureSession!
+    var cameraDevice: AVCaptureDevice!
     var videoPreviewLayer: AVCaptureVideoPreviewLayer!
     var stillImageOutput: AVCapturePhotoOutput!
     
     var capturedImage: UIImage!
     
     override func viewDidAppear(_ animated: Bool) {
-        captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .high
-        
-        guard let backCamera = AVCaptureDevice.default(for: AVMediaType.video)
-        else {
-            print("Unable to access back camera!")
-            return
-        }
-        
-        do {
-            let input = try AVCaptureDeviceInput(device: backCamera)
-            
-            stillImageOutput = AVCapturePhotoOutput()
-            
-            if(captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput)) {
-                captureSession.addInput(input)
-                captureSession.addOutput(stillImageOutput)
-                setupLivePreview()
-            }
-        } catch let error {
-            print("Error Unable to initialize back camera:  \(error.localizedDescription)")
-        }
+        reloadCamera()
     }
     
     override func viewDidLoad() {
@@ -59,8 +41,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         closeBtn.setTitle("✕", for: .normal)
         closeBtn.setTitleColor(UIColor.white, for: .normal)
         closeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 32)
-        
-        
         
         
         let captureButton = UIButton(type: .custom)
@@ -82,8 +62,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         captureButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50).isActive = true
         
         photoLibraryBtn.centerYAnchor.constraint(equalTo: captureButton.centerYAnchor).isActive = true
+        cameraSwitchBtn.centerYAnchor.constraint(equalTo: captureButton.centerYAnchor).isActive = true
         
-        
+
         //intrinsic(본질적인) 크기 설정
         
         let tempHeight = self.view.frame.height*2/3
@@ -116,6 +97,11 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             print("cannot access to photo album.")
         }
         
+    }
+    
+    @IBAction func touchCameraSwitchBtn(_ sender: Any) {
+        camera = !camera
+        reloadCamera()
     }
     
     @IBAction func touchChangeRatioBtn(_ sender: Any) {
@@ -201,6 +187,44 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             
         })
 
+        
+    }
+    
+    private func reloadCamera() {
+        
+        captureSession = AVCaptureSession()
+        captureSession.sessionPreset = .high
+        
+        
+        
+        if(camera == false) {
+            guard let videoDevices = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
+                print("Unable to access front camera!")
+                return
+            }
+            self.cameraDevice = videoDevices
+        } else {
+            guard let videoDevices = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+                print("Unable to access front camera!")
+                return
+            }
+            self.cameraDevice = videoDevices
+        }
+        
+        
+        do {
+            let input = try AVCaptureDeviceInput(device: cameraDevice)
+            
+            stillImageOutput = AVCapturePhotoOutput()
+            
+            if(captureSession.canAddInput(input) && captureSession.canAddOutput(stillImageOutput)) {
+                captureSession.addInput(input)
+                captureSession.addOutput(stillImageOutput)
+                setupLivePreview()
+            }
+        } catch let error {
+            print("Error Unable to initialize back camera:  \(error.localizedDescription)")
+        }
         
     }
     
