@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MetalKit
 
 class PickedImageViewController: UIViewController {
     @IBOutlet var backBtn: UIButton!
@@ -14,13 +15,14 @@ class PickedImageViewController: UIViewController {
     @IBOutlet var nextBtn: UIButton!
     
     var pickedImage: UIImage?
+    let outerView = UIView(frame: CGRect())
+    var pickedImageView: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
-        let outerView = UIView(frame: CGRect())
         view.addSubview(outerView)
         
         outerView.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +45,7 @@ class PickedImageViewController: UIViewController {
         outerView.layer.masksToBounds = false
         
         
-       let  pickedImageView = UIImageView(image: pickedImage)
+        pickedImageView = UIImageView(image: pickedImage)
         pickedImageView.layer.cornerRadius = 10
         
         
@@ -62,19 +64,89 @@ class PickedImageViewController: UIViewController {
         pickedImageView.layer.masksToBounds = true
         pickedImageView.layer.cornerRadius = 10
         
-        
-        
-//        pickedImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        pickedImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        
-        
     }
     
     @IBAction func touchBackBtn(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    var editingArea :UIView!
+    var point1: UIView!
+    var panGesture: UIPanGestureRecognizer!
     
+    var currentMoveX: CGFloat!
+    var currentMoveY: CGFloat!
+    
+    //var resizingArea: ResizingView!
     @IBAction func touchEditBtn(_ sender: Any) {
+        pickedImageView.layer.cornerRadius = 0;
+            
+//        editingArea = UIView(frame: CGRect())
+//        editingArea.layer.borderColor = UIColor.red.cgColor
+//        editingArea.layer.borderWidth = 2
+//
+//        pickedImageView.addSubview(editingArea)
+//
+//        editingArea.translatesAutoresizingMaskIntoConstraints = false
+////        editingArea.leadingAnchor.constraint(equalTo: pickedImageView.leadingAnchor).isActive = true
+////        editingArea.topAnchor.constraint(equalTo: pickedImageView.topAnchor).isActive = true
+////        editingArea.trailingAnchor.constraint(equalTo: pickedImageView.trailingAnchor).isActive = true
+////        editingArea.bottomAnchor.constraint(equalTo: pickedImageView.bottomAnchor).isActive = true
+//
+//        editingArea.widthAnchor.constraint(equalToConstant: pickedImageView.frame.width).isActive = true
+//        editingArea.heightAnchor.constraint(equalToConstant: pickedImageView.frame.height).isActive = true
+//        editingArea.centerXAnchor.constraint(equalTo: pickedImageView.centerXAnchor).isActive = true
+//        editingArea.centerYAnchor.constraint(equalTo: pickedImageView.centerYAnchor).isActive = true
+//
+//
+//        point1 = UIView(frame: CGRect())
+//        point1.layer.cornerRadius = 20*0.5
+//        point1.layer.backgroundColor = UIColor.black.cgColor
+//        point1.isUserInteractionEnabled = true
+//
+//        view.addSubview(point1)
+//
+//        point1.translatesAutoresizingMaskIntoConstraints = false
+//        point1.widthAnchor.constraint(equalToConstant: 20).isActive =  true
+//        point1.heightAnchor.constraint(equalToConstant: 20).isActive = true
+//        point1.centerXAnchor.constraint(greaterThanOrEqualTo: outerView.centerXAnchor, constant: outerView.frame.width/2).isActive = true
+//        point1.centerYAnchor.constraint(greaterThanOrEqualTo: outerView.centerYAnchor, constant: -outerView.frame.height/2 ).isActive = true
+        
+        
+        let resizingArea = ResizingView(width: outerView.frame.width, height: outerView.frame.height, circleRadius: 20)
+        
+        outerView.addSubview(resizingArea)
+
+//        resizingArea.translatesAutoresizingMaskIntoConstraints = false
+//        resizingArea.centerXAnchor.constraint(equalTo: outerView.centerXAnchor).isActive = true
+//        resizingArea.centerYAnchor.constraint(equalTo: outerView.centerYAnchor).isActive = true
+        
+//        panGesture = UIPanGestureRecognizer(target: self, action: #selector(cropAction))
+//        panGesture.minimumNumberOfTouches = 1
+//        panGesture.maximumNumberOfTouches = 1
+//
+//
+//
+//        point1.addGestureRecognizer(panGesture)
+        
+            
+    }
+    
+    @objc func cropAction() {
+
+        let translation = panGesture.translation(in: point1)
+        point1.center = CGPoint(x: point1.center.x + translation.x, y: point1.center.y + translation.y)
+        
+        editingArea.center = CGPoint(x: editingArea.center.x + translation.x, y: editingArea.center.y + translation.y)
+        
+        if(panGesture.state == .began) {
+            
+        } else if (panGesture.state == .changed) {
+            
+        }
+        
+        panGesture.setTranslation(CGPoint.zero, in: point1)
+        panGesture.setTranslation(CGPoint.zero, in: editingArea)
+
         
     }
     
@@ -86,6 +158,7 @@ class PickedImageViewController: UIViewController {
         selectVC.receivedImage = pickedImage
         present(selectVC, animated: true, completion: nil)
     }
+    
     
     
     private func resize(image: UIImage, to targetSize: CGSize) -> UIImage? {
@@ -112,15 +185,4 @@ class PickedImageViewController: UIViewController {
       return newImage
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
