@@ -333,6 +333,44 @@
             </objects>
             <point key="canvasLocation" x="2191" y="805"/>
         </scene>
+        <!--Crop View Controller-->
+        <scene sceneID="60m-Pi-Gb9">
+            <objects>
+                <viewController storyboardIdentifier="cropVC" id="Luc-uu-Jgy" customClass="CropViewController" customModule="Text_me" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZXw-4t-Z0u">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3D-ZQ-Oyg">
+                                <rect key="frame" x="50" y="587" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hjb-sE-EpH">
+                                <rect key="frame" x="25" y="25" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="Lvi-4G-kcK"/>
+                                    <constraint firstAttribute="height" constant="20" id="t8v-Eb-VRo"/>
+                                </constraints>
+                                <state key="normal" image="back.png"/>
+                                <connections>
+                                    <action selector="touchBackBtn:" destination="Luc-uu-Jgy" eventType="touchUpInside" id="1m8-Ot-Y4p"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="JsT-dw-aHW"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Hjb-sE-EpH" firstAttribute="top" secondItem="JsT-dw-aHW" secondAttribute="top" constant="25" id="5J0-4B-TcU"/>
+                            <constraint firstItem="Y3D-ZQ-Oyg" firstAttribute="leading" secondItem="JsT-dw-aHW" secondAttribute="leading" constant="50" id="Geq-Ds-pua"/>
+                            <constraint firstItem="JsT-dw-aHW" firstAttribute="bottom" secondItem="Y3D-ZQ-Oyg" secondAttribute="bottom" constant="50" id="V7w-7z-E5b"/>
+                            <constraint firstItem="Hjb-sE-EpH" firstAttribute="leading" secondItem="JsT-dw-aHW" secondAttribute="leading" constant="25" id="vQ2-46-5tv"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TLy-Am-FlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1502" y="1465"/>
+        </scene>
     </scenes>
     <resources>
         <image name="back.png" width="50" height="50"/>

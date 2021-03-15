@@ -16,6 +16,9 @@
 		040CA85D25B527DC00F632FE /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040CA85C25B527DC00F632FE /* EditViewController.swift */; };
 		040DBB4725E4A98900D86852 /* Structures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040DBB4625E4A98900D86852 /* Structures.swift */; };
 		0436697825FDBDC7008E5056 /* ResizingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436697725FDBDC7008E5056 /* ResizingView.swift */; };
+		0436697A25FF3D71008E5056 /* ExtraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436697925FF3D71008E5056 /* ExtraView.swift */; };
+		0436697C25FF798A008E5056 /* CropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436697B25FF798A008E5056 /* CropViewController.swift */; };
+		0436697E25FF7B5C008E5056 /* DisplayImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0436697D25FF7B5C008E5056 /* DisplayImageView.swift */; };
 		0453261A25D50E64008CBA34 /* GoogleVision.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453261925D50E64008CBA34 /* GoogleVision.swift */; };
 		0458355125F64FD9001C3546 /* photoLibrary.png in Resources */ = {isa = PBXBuildFile; fileRef = 0458355025F64FD9001C3546 /* photoLibrary.png */; };
 		0458355525F650A2001C3546 /* cameraSwitch.png in Resources */ = {isa = PBXBuildFile; fileRef = 0458355425F650A2001C3546 /* cameraSwitch.png */; };
@@ -63,6 +66,9 @@
 		040CA85C25B527DC00F632FE /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		040DBB4625E4A98900D86852 /* Structures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structures.swift; sourceTree = "<group>"; };
 		0436697725FDBDC7008E5056 /* ResizingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResizingView.swift; sourceTree = "<group>"; };
+		0436697925FF3D71008E5056 /* ExtraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraView.swift; sourceTree = "<group>"; };
+		0436697B25FF798A008E5056 /* CropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropViewController.swift; sourceTree = "<group>"; };
+		0436697D25FF7B5C008E5056 /* DisplayImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayImageView.swift; sourceTree = "<group>"; };
 		0453261925D50E64008CBA34 /* GoogleVision.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleVision.swift; sourceTree = "<group>"; };
 		0458355025F64FD9001C3546 /* photoLibrary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = photoLibrary.png; sourceTree = "<group>"; };
 		0458355425F650A2001C3546 /* cameraSwitch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cameraSwitch.png; sourceTree = "<group>"; };
@@ -146,6 +152,7 @@
 				04737C2D25C7036200C0EA4D /* CameraViewController.swift */,
 				04737C3025C9993D00C0EA4D /* SelectImageViewController.swift */,
 				04987A4425EE795300D0876C /* PickedImageViewController.swift */,
+				0436697B25FF798A008E5056 /* CropViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -158,6 +165,8 @@
 				040CA84525B51AEB00F632FE /* Main.storyboard */,
 				04908F3225E6275B0077EF3D /* CustomCollectionViewCell.swift */,
 				0436697725FDBDC7008E5056 /* ResizingView.swift */,
+				0436697925FF3D71008E5056 /* ExtraView.swift */,
+				0436697D25FF7B5C008E5056 /* DisplayImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -346,6 +355,7 @@
 				045C04EB25BBFB1900485D4E /* DataManager.swift in Sources */,
 				040CA84425B51AEB00F632FE /* MainViewController.swift in Sources */,
 				0465808025D2300800F09D07 /* Memo+CoreDataProperties.swift in Sources */,
+				0436697C25FF798A008E5056 /* CropViewController.swift in Sources */,
 				04987A4525EE795300D0876C /* PickedImageViewController.swift in Sources */,
 				04A6499625F4FC5A00741529 /* MemoVO.swift in Sources */,
 				04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */,
@@ -356,6 +366,8 @@
 				04737C3125C9993D00C0EA4D /* SelectImageViewController.swift in Sources */,
 				0465807825D1029900F09D07 /* MappingModelV1toV2.xcmappingmodel in Sources */,
 				0465807F25D2300800F09D07 /* Memo+CoreDataClass.swift in Sources */,
+				0436697A25FF3D71008E5056 /* ExtraView.swift in Sources */,
+				0436697E25FF7B5C008E5056 /* DisplayImageView.swift in Sources */,
 				040CA84225B51AEB00F632FE /* SceneDelegate.swift in Sources */,
 				040DBB4725E4A98900D86852 /* Structures.swift in Sources */,
 			);

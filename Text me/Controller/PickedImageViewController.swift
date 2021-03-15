@@ -78,77 +78,22 @@ class PickedImageViewController: UIViewController {
     
     //var resizingArea: ResizingView!
     @IBAction func touchEditBtn(_ sender: Any) {
-        pickedImageView.layer.cornerRadius = 0;
-            
-//        editingArea = UIView(frame: CGRect())
-//        editingArea.layer.borderColor = UIColor.red.cgColor
-//        editingArea.layer.borderWidth = 2
-//
-//        pickedImageView.addSubview(editingArea)
-//
-//        editingArea.translatesAutoresizingMaskIntoConstraints = false
-////        editingArea.leadingAnchor.constraint(equalTo: pickedImageView.leadingAnchor).isActive = true
-////        editingArea.topAnchor.constraint(equalTo: pickedImageView.topAnchor).isActive = true
-////        editingArea.trailingAnchor.constraint(equalTo: pickedImageView.trailingAnchor).isActive = true
-////        editingArea.bottomAnchor.constraint(equalTo: pickedImageView.bottomAnchor).isActive = true
-//
-//        editingArea.widthAnchor.constraint(equalToConstant: pickedImageView.frame.width).isActive = true
-//        editingArea.heightAnchor.constraint(equalToConstant: pickedImageView.frame.height).isActive = true
-//        editingArea.centerXAnchor.constraint(equalTo: pickedImageView.centerXAnchor).isActive = true
-//        editingArea.centerYAnchor.constraint(equalTo: pickedImageView.centerYAnchor).isActive = true
-//
-//
-//        point1 = UIView(frame: CGRect())
-//        point1.layer.cornerRadius = 20*0.5
-//        point1.layer.backgroundColor = UIColor.black.cgColor
-//        point1.isUserInteractionEnabled = true
-//
-//        view.addSubview(point1)
-//
-//        point1.translatesAutoresizingMaskIntoConstraints = false
-//        point1.widthAnchor.constraint(equalToConstant: 20).isActive =  true
-//        point1.heightAnchor.constraint(equalToConstant: 20).isActive = true
-//        point1.centerXAnchor.constraint(greaterThanOrEqualTo: outerView.centerXAnchor, constant: outerView.frame.width/2).isActive = true
-//        point1.centerYAnchor.constraint(greaterThanOrEqualTo: outerView.centerYAnchor, constant: -outerView.frame.height/2 ).isActive = true
         
-        
-        let resizingArea = ResizingView(width: outerView.frame.width, height: outerView.frame.height, circleRadius: 20)
-        
-        outerView.addSubview(resizingArea)
+        guard let cropVC = self.storyboard?.instantiateViewController(identifier: "cropVC") as? CropViewController else {
+            return
+        }
+        cropVC.modalPresentationStyle = .fullScreen
+        cropVC.receivedmage = pickedImage
 
-//        resizingArea.translatesAutoresizingMaskIntoConstraints = false
-//        resizingArea.centerXAnchor.constraint(equalTo: outerView.centerXAnchor).isActive = true
-//        resizingArea.centerYAnchor.constraint(equalTo: outerView.centerYAnchor).isActive = true
-        
-//        panGesture = UIPanGestureRecognizer(target: self, action: #selector(cropAction))
-//        panGesture.minimumNumberOfTouches = 1
-//        panGesture.maximumNumberOfTouches = 1
+         present(cropVC, animated: true, completion: nil)
+//        pickedImageView.layer.cornerRadius = 0;
+//        let resizingArea = ResizingView(width: outerView.frame.width, height: outerView.frame.height, circleRadius: 20)
 //
-//
-//
-//        point1.addGestureRecognizer(panGesture)
-        
+//        outerView.addSubview(resizingArea)
+
             
     }
     
-    @objc func cropAction() {
-
-        let translation = panGesture.translation(in: point1)
-        point1.center = CGPoint(x: point1.center.x + translation.x, y: point1.center.y + translation.y)
-        
-        editingArea.center = CGPoint(x: editingArea.center.x + translation.x, y: editingArea.center.y + translation.y)
-        
-        if(panGesture.state == .began) {
-            
-        } else if (panGesture.state == .changed) {
-            
-        }
-        
-        panGesture.setTranslation(CGPoint.zero, in: point1)
-        panGesture.setTranslation(CGPoint.zero, in: editingArea)
-
-        
-    }
     
     @IBAction func touchNextBtn(_ sender: Any) {
         guard let selectVC = self.storyboard?.instantiateViewController(identifier: "selectImageView") as? SelectImageViewController else {
