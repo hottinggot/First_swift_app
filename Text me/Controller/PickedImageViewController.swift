@@ -8,7 +8,7 @@
 import UIKit
 import MetalKit
 
-class PickedImageViewController: UIViewController {
+class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
     @IBOutlet var backBtn: UIButton!
     
     @IBOutlet var editBtn: UIButton!
@@ -17,6 +17,18 @@ class PickedImageViewController: UIViewController {
     var pickedImage: UIImage?
     let outerView = UIView(frame: CGRect())
     var pickedImageView: UIImageView!
+    
+
+    override func viewWillAppear(_ animated: Bool) {
+        if let image = pickedImage {
+            outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
+            outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
+            pickedImageView.heightAnchor.constraint(equalTo: outerView.heightAnchor).isActive = true
+            pickedImageView.widthAnchor.constraint(equalTo: outerView.widthAnchor).isActive = true
+            pickedImageView.image = pickedImage
+        }
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,14 +94,12 @@ class PickedImageViewController: UIViewController {
         guard let cropVC = self.storyboard?.instantiateViewController(identifier: "cropVC") as? CropViewController else {
             return
         }
+        cropVC.delegate = self
         cropVC.modalPresentationStyle = .fullScreen
-        cropVC.receivedmage = pickedImage
+        cropVC.receivedImage = pickedImage
 
-         present(cropVC, animated: true, completion: nil)
-//        pickedImageView.layer.cornerRadius = 0;
-//        let resizingArea = ResizingView(width: outerView.frame.width, height: outerView.frame.height, circleRadius: 20)
-//
-//        outerView.addSubview(resizingArea)
+        present(cropVC, animated: true, completion: nil)
+
 
             
     }
@@ -130,4 +140,13 @@ class PickedImageViewController: UIViewController {
       return newImage
     }
     
+    func sendData(image: UIImage) {
+        self.pickedImage = image
+    }
+    
+}
+
+protocol ModalViewControllerDelegate
+{
+    func sendData(image: UIImage)
 }

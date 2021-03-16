@@ -342,8 +342,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3D-ZQ-Oyg">
-                                <rect key="frame" x="50" y="587" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
+                                <rect key="frame" x="50" y="587" width="53" height="30"/>
+                                <state key="normal" title="Restore"/>
+                                <connections>
+                                    <action selector="touchRestoreBtn:" destination="Luc-uu-Jgy" eventType="touchUpInside" id="j2I-1q-0bx"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hjb-sE-EpH">
                                 <rect key="frame" x="25" y="25" width="20" height="20"/>
@@ -356,6 +359,13 @@
                                     <action selector="touchBackBtn:" destination="Luc-uu-Jgy" eventType="touchUpInside" id="1m8-Ot-Y4p"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9DT-ys-HPG">
+                                <rect key="frame" x="281" y="587" width="44" height="30"/>
+                                <state key="normal" title="Select"/>
+                                <connections>
+                                    <action selector="touchSelectBtn:" destination="Luc-uu-Jgy" eventType="touchUpInside" id="UPV-3V-uFP"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JsT-dw-aHW"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -363,6 +373,8 @@
                             <constraint firstItem="Hjb-sE-EpH" firstAttribute="top" secondItem="JsT-dw-aHW" secondAttribute="top" constant="25" id="5J0-4B-TcU"/>
                             <constraint firstItem="Y3D-ZQ-Oyg" firstAttribute="leading" secondItem="JsT-dw-aHW" secondAttribute="leading" constant="50" id="Geq-Ds-pua"/>
                             <constraint firstItem="JsT-dw-aHW" firstAttribute="bottom" secondItem="Y3D-ZQ-Oyg" secondAttribute="bottom" constant="50" id="V7w-7z-E5b"/>
+                            <constraint firstItem="JsT-dw-aHW" firstAttribute="trailing" secondItem="9DT-ys-HPG" secondAttribute="trailing" constant="50" id="dTo-yh-QaP"/>
+                            <constraint firstItem="JsT-dw-aHW" firstAttribute="bottom" secondItem="9DT-ys-HPG" secondAttribute="bottom" constant="50" id="gCe-4r-mbe"/>
                             <constraint firstItem="Hjb-sE-EpH" firstAttribute="leading" secondItem="JsT-dw-aHW" secondAttribute="leading" constant="25" id="vQ2-46-5tv"/>
                         </constraints>
                     </view>
