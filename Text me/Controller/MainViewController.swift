@@ -27,6 +27,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     let search = UISearchController(searchResultsController: nil)
     var filteredMemoList = [Memo]()
     
+    var captureImage: UIImage!
+    
     
     deinit {
         if let token = token {
@@ -101,31 +103,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         cameraBtn.layer.shadowOffset = CGSize(width: 0, height: 0)
         cameraBtn.layer.shadowColor = UIColor.gray.cgColor
         cameraBtn.layer.shadowRadius = 5
-        cameraBtn.layer.shadowOpacity = 0.9
+        cameraBtn.layer.shadowOpacity = 0.6
         cameraBtn.layer.masksToBounds = false
-//        let cameraBtn = UIButton(frame: CGRect())
-//
-//        view.addSubview(cameraBtn)
-//        //view.sendSubviewToBack(cameraBtn)
-//        //cameraBtn.sendSubviewToBack(cameraBtn)
-//        cameraBtn.layer.backgroundColor = UIColor(red: 206, green: 206, blue: 210, alpha: 1).cgColor
-//        cameraBtn.translatesAutoresizingMaskIntoConstraints = false
-//        cameraBtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 40).isActive = true
-//        cameraBtn.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40).isActive = true
-//        cameraBtn.widthAnchor.constraint(equalToConstant: 50).isActive = true
-//        cameraBtn.heightAnchor.constraint(equalToConstant: 50).isActive = true
-//        cameraBtn.layer.cornerRadius = 8
-//        cameraBtn.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        cameraBtn.layer.shadowColor = UIColor.gray.cgColor
-//        cameraBtn.layer.shadowRadius = 5
-//        cameraBtn.layer.shadowOpacity = 0.9
-//        cameraBtn.layer.masksToBounds = false
         
-        
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         
     }
     
@@ -139,9 +119,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         }
         present(cameraVc, animated: true, completion: nil)
     }
-    
-    
-    var captureImage: UIImage!
     
     
     func alertMsg(_ title: String, message: String) {
@@ -178,7 +155,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
 extension MainViewController: UISearchResultsUpdating  {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(search.searchBar.text!)
-        
     }
 }
 
@@ -196,7 +172,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let collectionCell = collectionView.dequeueReusableCell(withReuseIdentifier: ReuseIdentifier.cellIdentifier, for: indexPath) as! CustomCollectionViewCell
         
-        //collectionCell.isUserInteractionEnabled = true
         collectionCell.contentView.isUserInteractionEnabled = false
         
         //style
@@ -206,7 +181,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         collectionCell.collectionImage.layer.shadowRadius = 5
         collectionCell.collectionImage.layer.shadowColor = UIColor.gray.cgColor
         
-        
         let target: [Memo]
         
         if(isFiltering()) {
@@ -215,7 +189,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
             target = DataManager.shared.memoList
         }
         
-        //collectionCell.titleLabel.text = target[indexPath.row].titleText
+        collectionCell.titleLabel.text = target[indexPath.row].titleText
         if let imageName = target[indexPath.row].refImage {
 //            let decoder = WebPDecoder()
 //            var options = WebPDecoderOptions()
@@ -227,10 +201,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
 
         return collectionCell
-
     }
-    
-    
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {

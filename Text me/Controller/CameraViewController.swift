@@ -9,17 +9,24 @@ import UIKit
 import AVFoundation
 
 class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
-    @IBOutlet var stackView: UIStackView!
-    @IBOutlet var previewView: UIView!
+
+    
+    enum Ratio {
+        case ratio9per16, ratio3per4, ratio1per1, ratio2per1
+    }
+    
+    var constraintArray:[Ratio:[NSLayoutConstraint]] = [:]
+    
     @IBOutlet var photoLibraryBtn: UIButton!
     @IBOutlet var cameraSwitchBtn: UIButton!
     
     @IBOutlet var closeBtn: UIButton!
     
+    @IBOutlet var ratioButton: UIButton!
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     
-    
-    var previewViewMode: Int = 0
+    var beforePreviewViewMode: Ratio?
+    var previewViewMode: Ratio = .ratio9per16
     var camera: Bool = true
     
     var captureSession: AVCaptureSession!
@@ -28,6 +35,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var stillImageOutput: AVCapturePhotoOutput!
     
     var capturedImage: UIImage!
+    var previewView: UIView!
     
     override func viewDidAppear(_ animated: Bool) {
         reloadCamera()
@@ -36,7 +44,19 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stackView.distribution = .fillProportionally
+        
+        previewView = UIView()
+        
+        previewView.isHidden = false
+        view.insertSubview(previewView, at: 0)
+        previewView.translatesAutoresizingMaskIntoConstraints = false
+        initializeConstaintDic()
+        //print("DICTIONARY: \(constraintArray)")
+        NSLayoutConstraint.activate(constraintArray[previewViewMode]!)
+        ratioButton.setImage(UIImage(named: "ratio9per16_"), for: .normal)
+        ratioButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+        ratioButton.tintColor = UIColor.white
+
         
         closeBtn.setTitle("✕", for: .normal)
         closeBtn.setTitleColor(UIColor.white, for: .normal)
@@ -64,23 +84,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         photoLibraryBtn.centerYAnchor.constraint(equalTo: captureButton.centerYAnchor).isActive = true
         cameraSwitchBtn.centerYAnchor.constraint(equalTo: captureButton.centerYAnchor).isActive = true
         
-
-        //intrinsic(본질적인) 크기 설정
         
-        let tempHeight = self.view.frame.height*2/3
-        previewView.heightAnchor.constraint(equalToConstant: tempHeight).isActive = true
         
-        switch previewViewMode {
-        case 0:
-            //downSubView.isHidden = true
-            previewView.frame.size.height = self.view.frame.height
-            
-        case 1:
-            //downSubView.isHidden = false
-            previewView.frame.size.height = self.view.frame.height * 3/4
-        default:
-            previewView.frame.size.height = self.view.frame.height
-        }
+        //view.layoutIfNeeded()
 
     }
     
@@ -105,51 +111,38 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
     @IBAction func touchChangeRatioBtn(_ sender: Any) {
-        
-        if(previewViewMode == 0) {
+        switch previewViewMode {
+        case .ratio9per16:
+            beforePreviewViewMode = .ratio9per16
+            previewViewMode = .ratio3per4
+            //ratioButton.setImage(UIImage(named: "ratio9per16_"), for: .normal)
+            ratioButton.setImage(UIImage(named: "ratio3per4_"), for: .normal)
+            //setPreviewConstraint(before: .ratio9per16, ratio: .ratio3per4)
             
-            let downSubView = UIView()
-            downSubView.layer.backgroundColor = UIColor.white.cgColor
-//            downSubView.frame.size.height = (self.view.frame.height) - (self.view.frame.width * 4/3)
+        case .ratio3per4:
+            beforePreviewViewMode = .ratio3per4
+            previewViewMode = .ratio1per1
+            //ratioButton.setImage(UIImage(named: "ratio3per4_"), for: .normal)
+            ratioButton.setImage(UIImage(named: "ratio1per1_"), for: .normal)
+            //setPreviewConstraint(before: .ratio3per4, ratio: .ratio1per1)
             
-            //intrinsic(본질적인) 크기 설정
+        case .ratio1per1:
+            beforePreviewViewMode = .ratio1per1
+            previewViewMode = .ratio2per1
+            //ratioButton.setImage(UIImage(named: "ratio1per1_"), for: .normal)
+            ratioButton.setImage(UIImage(named: "ratio2per1_"), for: .normal)
+            //setPreviewConstraint(before: .ratio1per1, ratio: .ratio2per1)
             
-            let tempHeight = self.view.frame.width*4/3
-            downSubView.heightAnchor.constraint(equalToConstant: tempHeight).isActive = true
-            downSubView.isHidden = true
-            previewViewMode = 1
-            
-            //previewView.setContentCompressionResistancePriority(UILayoutPriority.defaultHigh+1, for: .vertical)
-            
-            stackView.addArrangedSubview(downSubView)
-            UIView.animate(withDuration: 0.25, delay: 0, options: [], animations: {
-                //self.previewView.frame.size.height = (self.view.frame.height) - (self.downSubView.frame.height)
-                
-                downSubView.isHidden = false
-            })
-            
-            print("ratio button touched1")
-        } else if (previewViewMode == 1) {
-            
-            if stackView.arrangedSubviews.count == 0 {
-                return
-            }
-            
-            let target = stackView.arrangedSubviews[stackView.arrangedSubviews.count-1]
-            
-            previewViewMode = 0
-            
-            UIView.animate(withDuration: 0.25, animations: {
-                self.previewView.frame.size.height = self.view.frame.height
-                target.isHidden = true
-            }, completion: {_ in
-                target.removeFromSuperview()
-            })
-            
-        
-            print("ratio button touched2")
+        case .ratio2per1:
+            beforePreviewViewMode = .ratio2per1
+            previewViewMode = .ratio9per16
+            //ratioButton.setImage(UIImage(named: "ratio2per1_"), for: .normal)
+            ratioButton.setImage(UIImage(named: "ratio9per16_"), for: .normal)
+            //setPreviewConstraint(before: .ratio2per1, ratio: .ratio9per16)
             
         }
+        setPreviewConstraint()
+        
         
     }
     @IBAction func touchCloseBtn(_ sender: Any) {
@@ -194,8 +187,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         captureSession = AVCaptureSession()
         captureSession.sessionPreset = .high
-        
-        
         
         if(camera == false) {
             guard let videoDevices = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
@@ -242,6 +233,54 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 self.videoPreviewLayer.frame = self.previewView.bounds
             }
         }
+    }
+    
+    private func initializeConstaintDic() {
+        
+        
+        let width: NSLayoutConstraint = previewView.widthAnchor.constraint(equalTo: view.widthAnchor)
+        let xAnchor: NSLayoutConstraint = previewView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        
+        //9per16
+        let height1 = previewView.heightAnchor.constraint(equalToConstant: view.frame.height)
+        let top1 = previewView.topAnchor.constraint(equalTo: view.topAnchor)
+        constraintArray.updateValue([top1, xAnchor, height1, width], forKey: .ratio9per16)
+        
+        //3per4
+        let height2 = previewView.heightAnchor.constraint(equalToConstant: view.frame.width * 4/3)
+        let top2 = previewView.topAnchor.constraint(equalTo: view.topAnchor)
+        
+        constraintArray.updateValue([top2, xAnchor, height2, width], forKey: .ratio3per4)
+        
+        //1per1
+        let height3 = previewView.heightAnchor.constraint(equalToConstant: view.frame.width)
+        let top3 = previewView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 1/8)
+        constraintArray.updateValue([top3, xAnchor, height3, width], forKey: .ratio1per1)
+        
+        //2per1
+        let height4 = previewView.heightAnchor.constraint(equalToConstant: view.frame.width/2)
+        let top4 = previewView.topAnchor.constraint(equalTo: view.topAnchor, constant: view.frame.height * 1/8)
+       
+        constraintArray.updateValue([top4, xAnchor, height4, width], forKey: .ratio2per1)
+        
+        
+    }
+    
+    private func setPreviewConstraint() {
+
+       
+        if let before = beforePreviewViewMode, let constraint = constraintArray[before] {
+            //print("BEFORE: \(constraint)")
+            NSLayoutConstraint.deactivate(constraint)
+            
+        }
+        
+        
+        NSLayoutConstraint.activate(self.constraintArray[previewViewMode]!)
+           
+        let constraints: [NSLayoutConstraint] = self.constraintArray[previewViewMode]!
+        self.videoPreviewLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: constraints[2].constant)
+        
     }
     
     private func changeView() {

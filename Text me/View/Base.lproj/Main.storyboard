@@ -17,16 +17,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Dr-eT-1eq">
-                                <rect key="frame" x="15" y="44" width="345" height="30"/>
-                                <color key="backgroundColor" red="0.89739984269999995" green="0.93512159589999999" blue="0.85708886380000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" title="OCR"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Dr-eT-1eq">
+                                <rect key="frame" x="15" y="44" width="345" height="50"/>
+                                <color key="backgroundColor" red="0.792156862745098" green="0.74901960784313726" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="WOm-cC-ILZ"/>
+                                </constraints>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Scan Image" image="camera.fill" catalog="system"/>
                                 <connections>
                                     <action selector="cameraBtnTouch:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5b3-EJ-0x9"/>
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CeM-NT-lcp">
-                                <rect key="frame" x="15" y="89" width="345" height="578"/>
+                                <rect key="frame" x="15" y="109" width="345" height="558"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hgA-et-bKA">
                                     <size key="itemSize" width="128" height="128"/>
@@ -158,15 +162,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="qZO-Nb-pWy">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XfY-8W-UrN">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                    </view>
-                                </subviews>
-                            </stackView>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fcN-Ry-5kw">
                                 <rect key="frame" x="40" y="577" width="40" height="40"/>
                                 <constraints>
@@ -192,8 +187,11 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="np1-us-7F9">
-                                <rect key="frame" x="172" y="10" width="31" height="30"/>
-                                <state key="normal" title="ratio"/>
+                                <rect key="frame" x="167.5" y="10" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="6fX-Vn-EgX"/>
+                                    <constraint firstAttribute="height" constant="40" id="RsM-zc-pS0"/>
+                                </constraints>
                                 <connections>
                                     <action selector="touchChangeRatioBtn:" destination="6vW-63-CaI" eventType="touchUpInside" id="p5u-Jf-nWG"/>
                                 </connections>
@@ -207,17 +205,13 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6gc-Ch-Ghr"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.90196078430000004" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="Got-Yh-m8z" firstAttribute="leading" secondItem="6gc-Ch-Ghr" secondAttribute="leading" constant="20" id="3SK-Ar-ouz"/>
                             <constraint firstItem="np1-us-7F9" firstAttribute="centerX" secondItem="XVf-ga-Sf5" secondAttribute="centerX" id="6a5-mF-8aW"/>
-                            <constraint firstAttribute="bottom" secondItem="qZO-Nb-pWy" secondAttribute="bottom" id="Fj2-Q3-Npn"/>
                             <constraint firstItem="np1-us-7F9" firstAttribute="top" secondItem="6gc-Ch-Ghr" secondAttribute="top" constant="10" id="HWJ-56-IM7"/>
                             <constraint firstItem="6gc-Ch-Ghr" firstAttribute="trailing" secondItem="jKI-hc-2bW" secondAttribute="trailing" constant="40" id="SAj-64-lPS"/>
-                            <constraint firstItem="qZO-Nb-pWy" firstAttribute="leading" secondItem="6gc-Ch-Ghr" secondAttribute="leading" id="dyN-x2-1Kh"/>
                             <constraint firstItem="fcN-Ry-5kw" firstAttribute="leading" secondItem="XVf-ga-Sf5" secondAttribute="leading" constant="40" id="f7k-1e-2di"/>
-                            <constraint firstItem="qZO-Nb-pWy" firstAttribute="top" secondItem="6gc-Ch-Ghr" secondAttribute="top" id="gCf-PU-siX"/>
-                            <constraint firstItem="6gc-Ch-Ghr" firstAttribute="trailing" secondItem="qZO-Nb-pWy" secondAttribute="trailing" id="lbC-OZ-qRB"/>
                             <constraint firstItem="Got-Yh-m8z" firstAttribute="top" secondItem="6gc-Ch-Ghr" secondAttribute="top" constant="10" id="slh-0r-Gdo"/>
                         </constraints>
                     </view>
@@ -225,8 +219,7 @@
                         <outlet property="cameraSwitchBtn" destination="jKI-hc-2bW" id="TpM-YR-Xl2"/>
                         <outlet property="closeBtn" destination="Got-Yh-m8z" id="LNH-Tc-bZJ"/>
                         <outlet property="photoLibraryBtn" destination="fcN-Ry-5kw" id="FFC-Fk-2xd"/>
-                        <outlet property="previewView" destination="XfY-8W-UrN" id="ezW-Mn-NvR"/>
-                        <outlet property="stackView" destination="qZO-Nb-pWy" id="mcH-xh-1CI"/>
+                        <outlet property="ratioButton" destination="np1-us-7F9" id="DiR-Qs-ERB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x10-PR-kHL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -252,30 +245,41 @@
                                     <action selector="touchBackBtn:" destination="nyc-Wj-QWA" eventType="touchUpInside" id="5jb-LA-45z"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNf-CK-DLF">
-                                <rect key="frame" x="100" y="587" width="30" height="30"/>
-                                <state key="normal" title="Edit"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNf-CK-DLF">
+                                <rect key="frame" x="50" y="577" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.79215686269999996" green="0.74901960779999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="G9F-gE-wAy"/>
+                                    <constraint firstAttribute="width" constant="40" id="lNc-lW-Cil"/>
+                                </constraints>
+                                <state key="normal" image="crop.png"/>
                                 <connections>
+                                    <action selector="editBtn:" destination="IZJ-hI-zK1" eventType="touchUpInside" id="nf3-iI-rtO"/>
                                     <action selector="touchEditBtn:" destination="nyc-Wj-QWA" eventType="touchUpInside" id="sfq-O6-w4L"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJB-WL-LGe">
-                                <rect key="frame" x="243" y="587" width="32" height="30"/>
-                                <state key="normal" title="Next"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cJB-WL-LGe">
+                                <rect key="frame" x="285" y="577" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.79215686269999996" green="0.74901960779999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="YVU-Ga-Qnn"/>
+                                    <constraint firstAttribute="width" constant="40" id="vWX-Cu-Jcf"/>
+                                </constraints>
+                                <state key="normal" image="check.png"/>
                                 <connections>
                                     <action selector="touchNextBtn:" destination="nyc-Wj-QWA" eventType="touchUpInside" id="rDl-kh-Acp"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iJd-Yu-Yyb"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.90196078430000004" blue="0.84313725490000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="iJd-Yu-Yyb" firstAttribute="bottom" secondItem="gNf-CK-DLF" secondAttribute="bottom" constant="50" id="acE-fB-UH9"/>
                             <constraint firstItem="9Tf-Pb-bOg" firstAttribute="top" secondItem="iJd-Yu-Yyb" secondAttribute="top" constant="25" id="afA-xd-kVd"/>
                             <constraint firstItem="9Tf-Pb-bOg" firstAttribute="leading" secondItem="iJd-Yu-Yyb" secondAttribute="leading" constant="25" id="fMI-Il-S7g"/>
                             <constraint firstItem="iJd-Yu-Yyb" firstAttribute="bottom" secondItem="cJB-WL-LGe" secondAttribute="bottom" constant="50" id="gnK-w0-JX5"/>
-                            <constraint firstItem="gNf-CK-DLF" firstAttribute="leading" secondItem="iJd-Yu-Yyb" secondAttribute="leading" constant="100" id="scg-N9-7yX"/>
-                            <constraint firstItem="iJd-Yu-Yyb" firstAttribute="trailing" secondItem="cJB-WL-LGe" secondAttribute="trailing" constant="100" id="yMd-rK-tMx"/>
+                            <constraint firstItem="gNf-CK-DLF" firstAttribute="leading" secondItem="iJd-Yu-Yyb" secondAttribute="leading" constant="50" id="scg-N9-7yX"/>
+                            <constraint firstItem="iJd-Yu-Yyb" firstAttribute="trailing" secondItem="cJB-WL-LGe" secondAttribute="trailing" constant="50" id="yMd-rK-tMx"/>
                         </constraints>
                     </view>
                     <connections>
@@ -285,6 +289,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMj-0B-xgB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="IZJ-hI-zK1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1501.5999999999999" y="804.64767616191909"/>
         </scene>
@@ -308,9 +313,10 @@
                                     <action selector="touchBackBtn:" destination="Ghf-Xh-ogo" eventType="touchUpInside" id="M8Q-Vi-FYP"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75d-bU-ldS">
-                                <rect key="frame" x="165.5" y="597" width="44" height="30"/>
-                                <state key="normal" title="Select"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75d-bU-ldS">
+                                <rect key="frame" x="169.5" y="591" width="36" height="36"/>
+                                <color key="backgroundColor" red="0.79215686269999996" green="0.74901960779999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" image="next.png"/>
                                 <connections>
                                     <action selector="touchSelectBtn:" destination="Ghf-Xh-ogo" eventType="touchUpInside" id="WWX-kd-lny"/>
                                 </connections>
@@ -327,6 +333,7 @@
                     </view>
                     <connections>
                         <outlet property="backBtn" destination="qlr-UM-0yS" id="Nyy-zb-up0"/>
+                        <outlet property="selectButton" destination="75d-bU-ldS" id="Wry-VW-sUJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v7E-sz-Ugl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -341,9 +348,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3D-ZQ-Oyg">
-                                <rect key="frame" x="50" y="587" width="53" height="30"/>
-                                <state key="normal" title="Restore"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y3D-ZQ-Oyg">
+                                <rect key="frame" x="50" y="577" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.79215686269999996" green="0.74901960779999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Cuf-y3-WEp"/>
+                                    <constraint firstAttribute="width" constant="40" id="gEm-VW-iyz"/>
+                                </constraints>
+                                <state key="normal" image="restore.png"/>
                                 <connections>
                                     <action selector="touchRestoreBtn:" destination="Luc-uu-Jgy" eventType="touchUpInside" id="j2I-1q-0bx"/>
                                 </connections>
@@ -359,16 +371,21 @@
                                     <action selector="touchBackBtn:" destination="Luc-uu-Jgy" eventType="touchUpInside" id="1m8-Ot-Y4p"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9DT-ys-HPG">
-                                <rect key="frame" x="281" y="587" width="44" height="30"/>
-                                <state key="normal" title="Select"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9DT-ys-HPG">
+                                <rect key="frame" x="285" y="577" width="40" height="40"/>
+                                <color key="backgroundColor" red="0.79215686269999996" green="0.74901960779999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="CoM-y8-SVt"/>
+                                    <constraint firstAttribute="width" constant="40" id="b2h-Kk-DEK"/>
+                                </constraints>
+                                <state key="normal" image="check.png"/>
                                 <connections>
                                     <action selector="touchSelectBtn:" destination="Luc-uu-Jgy" eventType="touchUpInside" id="UPV-3V-uFP"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JsT-dw-aHW"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.95825654270000005" green="0.93315011260000003" blue="0.89340871570000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstItem="Hjb-sE-EpH" firstAttribute="top" secondItem="JsT-dw-aHW" secondAttribute="top" constant="25" id="5J0-4B-TcU"/>
                             <constraint firstItem="Y3D-ZQ-Oyg" firstAttribute="leading" secondItem="JsT-dw-aHW" secondAttribute="leading" constant="50" id="Geq-Ds-pua"/>
@@ -378,6 +395,10 @@
                             <constraint firstItem="Hjb-sE-EpH" firstAttribute="leading" secondItem="JsT-dw-aHW" secondAttribute="leading" constant="25" id="vQ2-46-5tv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="restoreButton" destination="Y3D-ZQ-Oyg" id="pWt-j5-zDj"/>
+                        <outlet property="selectButton" destination="9DT-ys-HPG" id="Wje-1L-Bhk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLy-Am-FlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -386,8 +407,13 @@
     </scenes>
     <resources>
         <image name="back.png" width="50" height="50"/>
+        <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="cameraSwitch.png" width="72" height="72"/>
+        <image name="check.png" width="36" height="36"/>
+        <image name="crop.png" width="36" height="36"/>
+        <image name="next.png" width="36" height="36"/>
         <image name="photoLibrary.png" width="72" height="72"/>
+        <image name="restore.png" width="36" height="36"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

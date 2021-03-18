@@ -14,6 +14,7 @@ class SelectImageViewController: UIViewController {
     var receivedImage: UIImage?
     var activityIndicator: UIActivityIndicatorView!
     let outerView = UIView(frame: CGRect())
+    @IBOutlet var selectButton: UIButton!
     
     var memo = MemoVO()
     
@@ -22,6 +23,8 @@ class SelectImageViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
+        selectButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        selectButton.layer.cornerRadius = 8
         
         view.addSubview(outerView)
         
@@ -61,8 +64,6 @@ class SelectImageViewController: UIViewController {
             detectBoundingBoxes(for: image)
             
         }
-        
-        
     }
     
     @IBAction func touchBackBtn(_ sender: Any) {

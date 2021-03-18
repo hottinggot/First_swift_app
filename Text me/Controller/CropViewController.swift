@@ -15,9 +15,9 @@ class CropViewController: UIViewController {
     let outerView = UIView(frame: CGRect())
     var imageView: UIImageView!
     var resizingArea: ResizingView!
-   
-    var okayBtn: UIButton!
-    var restoreBtn: UIButton!
+
+    @IBOutlet var restoreButton: UIButton!
+    @IBOutlet var selectButton: UIButton!
     
     var delegate: ModalViewControllerDelegate?
 
@@ -54,8 +54,10 @@ class CropViewController: UIViewController {
         outerView.addSubview(resizingArea)
         
 
-//        cancelBtn = UIButton(frame: CGRect())
-//        view.addSubview(cancelBtn)
+        restoreButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        selectButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        restoreButton.layer.cornerRadius = 8
+        selectButton.layer.cornerRadius = 8
         
         
     }

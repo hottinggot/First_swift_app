@@ -59,6 +59,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         mainTextView.layer.masksToBounds = true
         mainTextView.layer.cornerRadius = 10
         mainTextView.font = UIFont.systemFont(ofSize: 15)
+        mainTextView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         
         //mainTextView.text = memo?.mainText
         
@@ -78,7 +79,8 @@ class EditViewController: UIViewController, UITextViewDelegate{
         
         
         //delete button
-        
+        deleteButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        deleteButton.setImage(UIImage(named: "delete"), for: .normal)
         view.addSubview(deleteButton)
         
         deleteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -86,7 +88,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         deleteButton.bottomAnchor.constraint(equalTo: outerView.topAnchor, constant: -10).isActive = true
         deleteButton.layer.masksToBounds = true
         deleteButton.layer.cornerRadius = 8
-        deleteButton.backgroundColor = UIColor.brown
+        deleteButton.backgroundColor = UIColor(rgb: 0xCABFB7)
         deleteButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         deleteButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -94,7 +96,8 @@ class EditViewController: UIViewController, UITextViewDelegate{
         
         
         //edit button
-        
+        editButton.setImage(UIImage(named: "edit"), for: .normal)
+        editButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         view.addSubview(editButton)
         
         editButton.translatesAutoresizingMaskIntoConstraints = false
@@ -102,7 +105,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         editButton.bottomAnchor.constraint(equalTo: outerView.topAnchor, constant: -10).isActive = true
         editButton.layer.masksToBounds = true
         editButton.layer.cornerRadius = 8
-        editButton.backgroundColor = UIColor.brown
+        editButton.backgroundColor = UIColor(rgb: 0xCABFB7)
         editButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         editButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -110,7 +113,9 @@ class EditViewController: UIViewController, UITextViewDelegate{
         
     
         //copy button
-        
+        copyButton.setImage(UIImage(named: "copy"), for: .normal)
+        copyButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+    
         view.addSubview(copyButton)
         
         copyButton.translatesAutoresizingMaskIntoConstraints = false
@@ -118,7 +123,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         copyButton.bottomAnchor.constraint(equalTo: outerView.topAnchor, constant: -10).isActive = true
         copyButton.layer.masksToBounds = true
         copyButton.layer.cornerRadius = 8
-        copyButton.backgroundColor = UIColor.brown
+        copyButton.backgroundColor = UIColor(rgb: 0xCABFB7)
         copyButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         copyButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
@@ -152,9 +157,11 @@ class EditViewController: UIViewController, UITextViewDelegate{
         okayButton.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 10).isActive = true
         okayButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         okayButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        okayButton.layer.cornerRadius = okayButton.frame.width*0.5
+        okayButton.layer.cornerRadius = 8
+        okayButton.setImage(UIImage(named: "check"), for: .normal)
+        okayButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10                                                                                                                                                                                                      )
         okayButton.layer.masksToBounds = true
-        okayButton.backgroundColor = UIColor.brown
+        okayButton.backgroundColor = UIColor(rgb: 0xCABFB7)
         
     }
     
@@ -201,6 +208,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
     @objc func onCopyButtonTouched() {
         UIPasteboard.general.string = mainTextView.text
         //클립보드에 복사되었습니다. 알리기
+        showToast(message: "클립보드에 복사되었습니다.")
     }
     
     @objc func onDeleteButtonTouched() {
@@ -228,9 +236,28 @@ class EditViewController: UIViewController, UITextViewDelegate{
             DataManager.shared.updateMemo()
             
             //저장되었습니다. 알리기
+            showToast(message: "저장되었습니다.")
 
         }
     }
+    
+    func showToast(message : String, font: UIFont = UIFont.systemFont(ofSize: 14.0)) {
+        let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height-100, width: 250, height: 35))
+        
+        toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
+        toastLabel.textColor = UIColor.white
+        toastLabel.font = font
+        toastLabel.textAlignment = .center
+        toastLabel.text = message
+        toastLabel.alpha = 1.0
+        toastLabel.layer.cornerRadius = 10
+        toastLabel.clipsToBounds = true
+        self.view.addSubview(toastLabel)
+        
+        UIView.animate(withDuration: 10.0, delay: 0.1, options: .curveEaseOut, animations: { toastLabel.alpha = 0.0 }, completion: {(isCompleted) in toastLabel.removeFromSuperview() })
+        
+    }
+
         
 }
     
@@ -240,21 +267,20 @@ extension EditViewController {
     static let newMemoDidInsert = Notification.Name(rawValue: "newMemoDidInsert")
 }
 
+extension UIColor {
+   convenience init(red: Int, green: Int, blue: Int) {
+       assert(red >= 0 && red <= 255, "Invalid red component")
+       assert(green >= 0 && green <= 255, "Invalid green component")
+       assert(blue >= 0 && blue <= 255, "Invalid blue component")
 
-//extension UITextView {
-//
-//  func underlined() {
-//    let border = CALayer()
-//    let width = CGFloat(1.0)
-//    border.borderColor = UIColor.lightGray.cgColor
-//    border.frame = CGRect(x: 0, y: self.frame.size.height - 5, width:  self.frame.size.width, height: 1)
-//    border.borderWidth = width
-//    self.layer.addSublayer(border)
-//    self.layer.masksToBounds = true
-//    let style = NSMutableParagraphStyle()
-//    style.lineSpacing = 15
-//    let attributes = [NSAttributedString.Key.paragraphStyle : style, NSAttributedString.Key.foregroundColor : UIColor.darkGray, NSAttributedString.Key.font :  UIFont.systemFont(ofSize: 13)]
-//    self.attributedText = NSAttributedString(string: self.text, attributes: attributes)
-//  }
-//
-//}
+       self.init(red: CGFloat(red) / 255.0, green: CGFloat(green) / 255.0, blue: CGFloat(blue) / 255.0, alpha: 1.0)
+   }
+
+   convenience init(rgb: Int) {
+       self.init(
+           red: (rgb >> 16) & 0xFF,
+           green: (rgb >> 8) & 0xFF,
+           blue: rgb & 0xFF
+       )
+   }
+}

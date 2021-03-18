@@ -35,6 +35,11 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
 
         // Do any additional setup after loading the view.
         
+        editBtn.layer.cornerRadius = 8
+        nextBtn.layer.cornerRadius = 8
+        editBtn.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        nextBtn.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
         view.addSubview(outerView)
         
         outerView.translatesAutoresizingMaskIntoConstraints = false
