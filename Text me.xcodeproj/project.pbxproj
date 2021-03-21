@@ -48,6 +48,7 @@
 		04BDB5C72603A3F70072E0AB /* ratio1per1_.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5C62603A3F70072E0AB /* ratio1per1_.png */; };
 		04BDB5C92603A4270072E0AB /* ratio2per1_.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5C82603A4270072E0AB /* ratio2per1_.png */; };
 		04BDB5CB2603A49E0072E0AB /* ratio9per16_.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5CA2603A49E0072E0AB /* ratio9per16_.png */; };
+		04D08FC6260794E00048971B /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D08FC5260794E00048971B /* Functions.swift */; };
 		04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F92B1425CFAB8800EC85D1 /* ImageManager.swift */; };
 		6DB46ADB060653820415EE3D /* Pods_Text_me.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CC6A1C39E7F655B222615A2 /* Pods_Text_me.framework */; };
 /* End PBXBuildFile section */
@@ -111,6 +112,7 @@
 		04BDB5C62603A3F70072E0AB /* ratio1per1_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratio1per1_.png; sourceTree = "<group>"; };
 		04BDB5C82603A4270072E0AB /* ratio2per1_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratio2per1_.png; sourceTree = "<group>"; };
 		04BDB5CA2603A49E0072E0AB /* ratio9per16_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratio9per16_.png; sourceTree = "<group>"; };
+		04D08FC5260794E00048971B /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		04F92B1425CFAB8800EC85D1 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		0CC6A1C39E7F655B222615A2 /* Pods_Text_me.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Text_me.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C2D90E58A7DB97FF1144339 /* Pods-Text me.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Text me.debug.xcconfig"; path = "Target Support Files/Pods-Text me/Pods-Text me.debug.xcconfig"; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				0453261925D50E64008CBA34 /* GoogleVision.swift */,
 				040DBB4625E4A98900D86852 /* Structures.swift */,
 				04A6499525F4FC5A00741529 /* MemoVO.swift */,
+				04D08FC5260794E00048971B /* Functions.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -406,6 +409,7 @@
 				0436697C25FF798A008E5056 /* CropViewController.swift in Sources */,
 				04987A4525EE795300D0876C /* PickedImageViewController.swift in Sources */,
 				04A6499625F4FC5A00741529 /* MemoVO.swift in Sources */,
+				04D08FC6260794E00048971B /* Functions.swift in Sources */,
 				04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */,
 				0436697825FDBDC7008E5056 /* ResizingView.swift in Sources */,
 				040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */,

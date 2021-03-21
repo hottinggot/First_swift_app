@@ -20,7 +20,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
     let deleteButton = UIButton(frame: CGRect())
     let editButton = UIButton(frame: CGRect())
     let copyButton = UIButton(frame: CGRect())
-    
+    var imageView: UIImageView!
     
     
     override func viewDidLoad() {
@@ -62,7 +62,24 @@ class EditViewController: UIViewController, UITextViewDelegate{
         mainTextView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         
         //mainTextView.text = memo?.mainText
-        
+        if let memo = memo {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyyMMdd"
+            let dateString: String = dateFormatter.string(from: Date())
+            titleText.text = dateString
+            
+            if(memo.isNew == true) {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyyMMdd"
+                let dateString: String = dateFormatter.string(from: Date())
+                titleText.text = dateString
+                memo.titleText = dateString
+            } else {
+                titleText.text = memo.titleText
+            }
+            mainTextView.text = memo.mainText
+            
+        }
 
         
         //title
@@ -128,18 +145,19 @@ class EditViewController: UIViewController, UITextViewDelegate{
         copyButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
         
         copyButton.addTarget(self, action: #selector(onCopyButtonTouched), for: .touchUpInside)
-
-        if let memo = memo {
-            titleText.text = memo.titleText
-            mainTextView.text = memo.mainText
-            
-            //saveMemo
-            if(memo.isNew == true) {
-                
-                DataManager.shared.saveMemo(memo: memo)
-                
-            }
-        }
+        
+        //photo
+        imageView = UIImageView(image: memo?.refImage)
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 8
+        imageView.contentMode = .scaleAspectFill
+        view.addSubview(imageView)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.widthAnchor.constraint(equalToConstant: mainTextView.frame.width/3).isActive = true
+        imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        imageView.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 20).isActive = true
+        imageView.leadingAnchor.constraint(equalTo: mainTextView.leadingAnchor).isActive = true
+        
 
         //mainTextView.delegate = self
         mainTextView.isEditable = false
@@ -165,10 +183,6 @@ class EditViewController: UIViewController, UITextViewDelegate{
         
     }
     
-//    override func willMove(toParent parent: UIViewController?) {
-//        parent?.navigationItem.largeTitleDisplayMode = .always
-//    }
-//   
     private func makeDoneAtToolbar() {
         let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -183,17 +197,26 @@ class EditViewController: UIViewController, UITextViewDelegate{
     }
     
     @IBAction func touchBackBtn(_ sender: Any) {
+        
         dismiss(animated: true, completion: nil)
     }
 
     @objc func dismissMyKeyboard() {
         view.endEditing(true)
-        saveChanges()
-
+        if(memo?.isNew == false) {
+            saveChanges()
+        }
     }
     
 
     @objc func onOkayButtonTouched() {
+            
+        //saveMemo
+        if let memo = memo {
+            DataManager.shared.saveMemo(memo: memo)
+            showToast(message: "저장되었습니다.")
+        }
+        
         //모든 스택 비우고 첫 화면으로.
         self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
 
@@ -213,12 +236,15 @@ class EditViewController: UIViewController, UITextViewDelegate{
     
     @objc func onDeleteButtonTouched() {
         print("delete button touched")
-        if let indexNum = indexNum {
-            DataManager.shared.deleteMemo(indexNum: indexNum)
-        }
+        
+        alertMsg("삭제", message: "삭제하시겠습니까?")
+        
         if(memo?.isNew == true) {
             self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
         } else {
+            if let indexNum = indexNum {
+                DataManager.shared.deleteMemo(indexNum: indexNum)
+            }
             self.navigationController?.popToRootViewController(animated: true)
         }
         
@@ -257,7 +283,16 @@ class EditViewController: UIViewController, UITextViewDelegate{
         UIView.animate(withDuration: 10.0, delay: 0.1, options: .curveEaseOut, animations: { toastLabel.alpha = 0.0 }, completion: {(isCompleted) in toastLabel.removeFromSuperview() })
         
     }
-
+    
+    func alertMsg(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        let action = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
+        
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
         
 }
     

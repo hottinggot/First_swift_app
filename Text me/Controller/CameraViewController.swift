@@ -26,7 +26,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     let imagePicker: UIImagePickerController! = UIImagePickerController()
     
     var beforePreviewViewMode: Ratio?
-    var previewViewMode: Ratio = .ratio9per16
+    var previewViewMode: Ratio = .ratio3per4
     var camera: Bool = true
     
     var captureSession: AVCaptureSession!

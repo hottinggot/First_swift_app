@@ -98,6 +98,7 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         collectionView.layer.cornerRadius = 10
         collectionView.reloadData()
         
+        
         //cameraBtn
         cameraBtn.layer.cornerRadius = 8
         cameraBtn.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -106,6 +107,10 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         cameraBtn.layer.shadowOpacity = 0.6
         cameraBtn.layer.masksToBounds = false
         
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         
     }
     
@@ -121,14 +126,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     }
     
     
-    func alertMsg(_ title: String, message: String) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
-        
-        let action = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
-        
-        alert.addAction(action)
-        self.present(alert, animated: true, completion: nil)
-    }
     
     private func searchBarIsEmpty() -> Bool {
         return search.searchBar.text?.isEmpty ?? true
@@ -177,9 +174,8 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         //style
         collectionCell.collectionImage.layer.cornerRadius = 8
         collectionCell.collectionImage.layer.shadowOffset = CGSize(width: 1, height: 1)
-        collectionCell.collectionImage.layer.shadowOpacity = 0.9
-        collectionCell.collectionImage.layer.shadowRadius = 5
-        collectionCell.collectionImage.layer.shadowColor = UIColor.gray.cgColor
+        collectionCell.collectionImage.layer.borderColor = UIColor.lightGray.cgColor
+        collectionCell.collectionImage.layer.borderWidth = 0.5
         
         let target: [Memo]
         

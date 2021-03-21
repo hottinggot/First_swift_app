@@ -30,7 +30,7 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="CeM-NT-lcp">
-                                <rect key="frame" x="15" y="109" width="345" height="558"/>
+                                <rect key="frame" x="15" y="109" width="345" height="550"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hgA-et-bKA">
                                     <size key="itemSize" width="128" height="128"/>
@@ -79,8 +79,8 @@
                         <color key="backgroundColor" red="0.93825995081251679" green="0.90196078431372551" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="CeM-NT-lcp" firstAttribute="top" secondItem="0Dr-eT-1eq" secondAttribute="bottom" constant="15" id="B9G-oP-HaO"/>
-                            <constraint firstItem="CeM-NT-lcp" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="Jl6-J5-WmD"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="0Dr-eT-1eq" secondAttribute="trailing" constant="15" id="NvT-KG-NpM"/>
+                            <constraint firstAttribute="bottom" secondItem="CeM-NT-lcp" secondAttribute="bottom" constant="8" id="ja3-ie-UEx"/>
                             <constraint firstItem="0Dr-eT-1eq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="le3-bX-l8e"/>
                             <constraint firstItem="CeM-NT-lcp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="15" id="lqF-2S-NzM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CeM-NT-lcp" secondAttribute="trailing" constant="15" id="mJb-Sf-8Rj"/>
@@ -316,7 +316,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="75d-bU-ldS">
                                 <rect key="frame" x="169.5" y="591" width="36" height="36"/>
                                 <color key="backgroundColor" red="0.79215686269999996" green="0.74901960779999999" blue="0.71764705880000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <state key="normal" image="next.png"/>
+                                <state key="normal" image="check.png"/>
                                 <connections>
                                     <action selector="touchSelectBtn:" destination="Ghf-Xh-ogo" eventType="touchUpInside" id="WWX-kd-lny"/>
                                 </connections>
@@ -411,7 +411,6 @@
         <image name="cameraSwitch.png" width="72" height="72"/>
         <image name="check.png" width="36" height="36"/>
         <image name="crop.png" width="36" height="36"/>
-        <image name="next.png" width="36" height="36"/>
         <image name="photoLibrary.png" width="72" height="72"/>
         <image name="restore.png" width="36" height="36"/>
         <systemColor name="systemBackgroundColor">
