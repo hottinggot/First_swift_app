@@ -73,6 +73,28 @@ class ImageManager {
         
     }
     
+    func fetchOriginalImage(imageName:String) -> UIImage? {
+        let imagePath = documentsPath.appendingPathComponent(imageName).path
+        
+    
+        guard fileManager.fileExists(atPath: imagePath) else {
+            print("Image does not exist at path: \(imagePath)")
+            
+            return nil
+            
+        }
+        
+        if let imageData = UIImage(contentsOfFile: imagePath) {
+            return imageData
+        } else {
+            print("UIImage could not be created.")
+            return nil
+        }
+        
+    }
+    
+
+    
     func deleteImage(imageName: String) {
         let imagePath = documentsPath.appendingPathComponent(imageName)
         

@@ -156,7 +156,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
     }
     
-   
     
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let imageData = photo.fileDataRepresentation()
@@ -167,9 +166,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let image = UIImage(data: imageData)
         self.capturedImage = image
         
-
         fixOrientation(image: capturedImage, completion: { fixedImage -> Void in
-            self.cropImage(image: fixedImage, to: 3/4, completion: { image -> Void in
+            self.cropImage(image: fixedImage, completion: { image -> Void in
                 DispatchQueue.main.async {
                     let pickedImageVC = self.storyboard?.instantiateViewController(identifier: "pickedImageView") as? PickedImageViewController
                     
@@ -310,19 +308,35 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
    
-    private func cropImage(image: UIImage, to aspectRatio: CGFloat, completion: @escaping (UIImage) -> ()) {
+    private func cropImage(image: UIImage, completion: @escaping (UIImage) -> ()) {
+        
+        var toRatio: CGFloat
+        
+        switch previewViewMode {
+        case .ratio3per4:
+            toRatio = 4/3
+        case .ratio1per1:
+            toRatio = 1
+        case .ratio2per1:
+            toRatio = 1/2
+        case .ratio9per16:
+            toRatio = 16/9
+        }
         
         DispatchQueue.global(qos: .background).async {
-            let imageAspectRatio = image.size.height/image.size.width
+            
+        
             var newSize = image.size
             
-            if imageAspectRatio > aspectRatio {
-                newSize.height = image.size.height * aspectRatio
+            let imageAspectRatio = image.size.height/image.size.width
+            
+            if imageAspectRatio > toRatio {
+                newSize.height = image.size.width * toRatio
             } else {
                 completion(image)
             }
             
-            let cgCroppedImage = image.cgImage!.cropping(to: CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: newSize.width, height: newSize.height)))!
+            let cgCroppedImage = image.cgImage!.cropping(to: CGRect(origin: CGPoint(x: 0, y: (image.size.height - newSize.height)/2), size: CGSize(width: newSize.width, height: newSize.height)))!
             
             let croppedImage = UIImage(cgImage: cgCroppedImage)
             

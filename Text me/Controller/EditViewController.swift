@@ -86,11 +86,10 @@ class EditViewController: UIViewController, UITextViewDelegate{
         
         view.addSubview(titleText)
         
-        //titleText.text = "20210302"
         
         titleText.translatesAutoresizingMaskIntoConstraints = false
-        titleText.leadingAnchor.constraint(equalTo: view.trailingAnchor, constant: 20).isActive = false
-        titleText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = false
+        titleText.leadingAnchor.constraint(equalTo: mainTextView.leadingAnchor).isActive = true
+        titleText.trailingAnchor.constraint(equalTo: mainTextView.trailingAnchor).isActive = true
         titleText.topAnchor.constraint(equalTo: outerView.bottomAnchor, constant: 10).isActive = true
         titleText.font = UIFont.boldSystemFont(ofSize: 20)
         
@@ -147,18 +146,23 @@ class EditViewController: UIViewController, UITextViewDelegate{
         copyButton.addTarget(self, action: #selector(onCopyButtonTouched), for: .touchUpInside)
         
         //photo
-        imageView = UIImageView(image: memo?.refImage)
-        imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 8
-        imageView.contentMode = .scaleAspectFill
-        view.addSubview(imageView)
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.widthAnchor.constraint(equalToConstant: mainTextView.frame.width/3).isActive = true
-        imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        imageView.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 20).isActive = true
-        imageView.leadingAnchor.constraint(equalTo: mainTextView.leadingAnchor).isActive = true
+        if let memo = memo, let image = memo.refImage {
+            imageView = UIImageView(image: image)
+            imageView.layer.masksToBounds = true
+            imageView.layer.cornerRadius = 8
+            imageView.layer.borderWidth = 0.4
+            imageView.layer.borderColor = UIColor.lightGray.cgColor
+            imageView.contentMode = .scaleAspectFill
+            view.addSubview(imageView)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.widthAnchor.constraint(equalToConstant: view.frame.width/3).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            imageView.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 10).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: mainTextView.leadingAnchor).isActive = true
+            imageView.isUserInteractionEnabled = true
+            imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(buttonTapped)))
+        }
         
-
         //mainTextView.delegate = self
         mainTextView.isEditable = false
         mainTextView.dataDetectorTypes = .link
@@ -166,9 +170,9 @@ class EditViewController: UIViewController, UITextViewDelegate{
         makeDoneAtToolbar()
 
         
-            let okayButton = UIButton(frame: CGRect())
-            okayButton.addTarget(self, action: #selector(onOkayButtonTouched), for: .touchUpInside)
-            view.addSubview(okayButton)
+        let okayButton = UIButton(frame: CGRect())
+        okayButton.addTarget(self, action: #selector(onOkayButtonTouched), for: .touchUpInside)
+        view.addSubview(okayButton)
             
         okayButton.translatesAutoresizingMaskIntoConstraints = false
         okayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -177,10 +181,18 @@ class EditViewController: UIViewController, UITextViewDelegate{
         okayButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         okayButton.layer.cornerRadius = 8
         okayButton.setImage(UIImage(named: "check"), for: .normal)
-        okayButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10                                                                                                                                                                                                      )
+        okayButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         okayButton.layer.masksToBounds = true
         okayButton.backgroundColor = UIColor(rgb: 0xCABFB7)
         
+    }
+    
+    @objc func buttonTapped() {
+//        if(sender.state == .ended) {
+//            print("Button evet occured")
+//        }
+//
+        print("Button evet occured")
     }
     
     private func makeDoneAtToolbar() {

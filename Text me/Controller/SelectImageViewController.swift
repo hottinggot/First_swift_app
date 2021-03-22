@@ -25,6 +25,7 @@ class SelectImageViewController: UIViewController {
         
         selectButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         selectButton.layer.cornerRadius = 8
+        selectButton.isEnabled = false
         
         view.addSubview(outerView)
         
@@ -75,7 +76,6 @@ class SelectImageViewController: UIViewController {
             return
         }
         
-        
         editVC.memo = self.memo
         
         present(editVC, animated: true, completion: nil)
@@ -84,8 +84,12 @@ class SelectImageViewController: UIViewController {
     private func detectBoundingBoxes(for image: UIImage) {
         GoogleCloudOCR().detect(from: image) { ocrResult in
             self.activityIndicator.stopAnimating()
+            self.selectButton.isEnabled = true
             guard let ocrResult = ocrResult else {
-                fatalError("Did not recognize any text int this message.")
+                //fatalError("Did not recognize any text int this message.")
+                //alert meaasge and dismiss
+                return self.dismiss(animated: true, completion: nil)
+                
             }
             //print("Found \(ocrResult.annotations.count) bounding box annotations in the image!")
             self.displayBoundingBoxes(for: ocrResult)
@@ -136,7 +140,10 @@ class SelectImageViewController: UIViewController {
         let createdMemo = MemoVO()
         createdMemo.isNew = true
         createdMemo.mainText = ocrResult.annotations[0].text
-        createdMemo.refImage = receivedImage
+        
+        if let image = receivedImage {
+            createdMemo.refImage = image
+        }
         createdMemo.subText = ""
         
         return createdMemo

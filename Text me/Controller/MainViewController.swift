@@ -54,6 +54,9 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
                     m.mainText = target.mainText
                     m.upadateDate = target.updateDate
                     m.titleText = target.titleText
+                    if let imageName = target.refImage {
+                        m.refImage = ImageManager.shared.fetchOriginalImage(imageName: imageName)
+                    }
                    
                     editVc.memo = m
                 }
