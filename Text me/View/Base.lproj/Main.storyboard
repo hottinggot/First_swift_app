@@ -152,7 +152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nvh-BJ-FGZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1657" y="101"/>
+            <point key="canvasLocation" x="1656.8" y="100.29985007496252"/>
         </scene>
         <!--Camera View Controller-->
         <scene sceneID="cPQ-3m-Jik">
@@ -403,6 +403,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TLy-Am-FlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1502" y="1465"/>
+        </scene>
+        <!--Detail Image View Controller-->
+        <scene sceneID="dnj-17-cJI">
+            <objects>
+                <viewController storyboardIdentifier="detailImageView" id="7P7-hS-YJd" customClass="DetailImageViewController" customModule="Text_me" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GeO-w5-Lqf" customClass="DetailImageViewController">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="DKX-o5-E9Y"/>
+                        <color key="backgroundColor" red="0.95825654270000005" green="0.93315011260000003" blue="0.89340871570000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="xGz-Oq-bTp"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="az5-h0-TpF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2354" y="100"/>
         </scene>
     </scenes>
     <resources>

@@ -20,8 +20,17 @@ class EditViewController: UIViewController, UITextViewDelegate{
     let deleteButton = UIButton(frame: CGRect())
     let editButton = UIButton(frame: CGRect())
     let copyButton = UIButton(frame: CGRect())
+    let editTitleButton = UIButton(frame: CGRect())
+    let okayButton = UIButton(frame: CGRect())
     var imageView: UIImageView!
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "popOutPhotoDetail" {
+            let vc = segue.destination as! DetailImageViewController
+            vc.receivedImage = memo?.refImage
+        }
+    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +46,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         outerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         outerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         outerView.heightAnchor.constraint(equalToConstant: view.frame.height*3/5).isActive = true
-        outerView.widthAnchor.constraint(equalToConstant: view.frame.width*3/5).isActive = true
+        outerView.widthAnchor.constraint(equalToConstant: view.frame.width*0.85).isActive = true
         
         outerView.layer.masksToBounds = false
         outerView.layer.shadowOffset = CGSize(width: 0, height: 0)
@@ -46,15 +55,16 @@ class EditViewController: UIViewController, UITextViewDelegate{
         outerView.layer.shadowColor = UIColor.lightGray.cgColor
         
         //textView
-        
+        mainTextView.frame.size.width = self.view.frame.width*0.85
+        mainTextView.frame.size.height = self.view.frame.height*3/5
         outerView.addSubview(mainTextView)
         
-        mainTextView.translatesAutoresizingMaskIntoConstraints = false
-        mainTextView.centerXAnchor.constraint(equalTo: outerView.centerXAnchor).isActive = true
-        mainTextView.centerYAnchor.constraint(equalTo: outerView.centerYAnchor).isActive = true
-        mainTextView.heightAnchor.constraint(equalTo: outerView.heightAnchor).isActive = true
-        mainTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        mainTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
+//        mainTextView.translatesAutoresizingMaskIntoConstraints = false
+//        mainTextView.centerXAnchor.constraint(equalTo: outerView.centerXAnchor).isActive = true
+//        mainTextView.centerYAnchor.constraint(equalTo: outerView.centerYAnchor).isActive = true
+//        mainTextView.heightAnchor.constraint(equalTo: outerView.heightAnchor).isActive = true
+//        mainTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+//        mainTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
         
         mainTextView.layer.masksToBounds = true
         mainTextView.layer.cornerRadius = 10
@@ -83,32 +93,29 @@ class EditViewController: UIViewController, UITextViewDelegate{
 
         
         //title
-        
+        //플레이스홀더 코드는 수정하는 부분으로 옮가가
+        if(memo?.titleText == "") {
+            titleText.attributedPlaceholder = NSAttributedString(string: "제목을 입력하세요", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        }
+        titleText.isUserInteractionEnabled = false
         view.addSubview(titleText)
-        
         
         titleText.translatesAutoresizingMaskIntoConstraints = false
         titleText.leadingAnchor.constraint(equalTo: mainTextView.leadingAnchor).isActive = true
-        titleText.trailingAnchor.constraint(equalTo: mainTextView.trailingAnchor).isActive = true
+        //titleText.trailingAnchor.constraint(lessThanOrEqualTo: mainTextView.trailingAnchor).isActive = true
+        titleText.trailingAnchor.constraint(lessThanOrEqualTo: mainTextView.trailingAnchor, constant: -10).isActive = true
         titleText.topAnchor.constraint(equalTo: outerView.bottomAnchor, constant: 10).isActive = true
         titleText.font = UIFont.boldSystemFont(ofSize: 20)
         
-        
-        //delete button
-        deleteButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        deleteButton.setImage(UIImage(named: "delete"), for: .normal)
-        view.addSubview(deleteButton)
-        
-        deleteButton.translatesAutoresizingMaskIntoConstraints = false
-        deleteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-        deleteButton.bottomAnchor.constraint(equalTo: outerView.topAnchor, constant: -10).isActive = true
-        deleteButton.layer.masksToBounds = true
-        deleteButton.layer.cornerRadius = 8
-        deleteButton.backgroundColor = UIColor(rgb: 0xCABFB7)
-        deleteButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        deleteButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        deleteButton.addTarget(self, action: #selector(onDeleteButtonTouched), for: .touchUpInside)
+        //editTitleButton
+        editTitleButton.setImage(UIImage(named: "edit.png"), for: .normal)
+        view.addSubview(editTitleButton)
+        editTitleButton.translatesAutoresizingMaskIntoConstraints = false
+        editTitleButton.leadingAnchor.constraint(equalTo: titleText.trailingAnchor, constant: 8).isActive = true
+        editTitleButton.topAnchor.constraint(equalTo: outerView.bottomAnchor, constant: 10).isActive = true
+        editTitleButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
+        editTitleButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        editTitleButton.addTarget(self, action: #selector(onEditTitleButton), for: .touchUpInside)
         
         
         //edit button
@@ -145,6 +152,23 @@ class EditViewController: UIViewController, UITextViewDelegate{
         
         copyButton.addTarget(self, action: #selector(onCopyButtonTouched), for: .touchUpInside)
         
+        //delete button
+        deleteButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        deleteButton.setImage(UIImage(named: "delete"), for: .normal)
+        view.addSubview(deleteButton)
+        
+        deleteButton.translatesAutoresizingMaskIntoConstraints = false
+        //deleteButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
+        deleteButton.trailingAnchor.constraint(equalTo: copyButton.leadingAnchor, constant: -10).isActive = true
+        deleteButton.bottomAnchor.constraint(equalTo: outerView.topAnchor, constant: -10).isActive = true
+        deleteButton.layer.masksToBounds = true
+        deleteButton.layer.cornerRadius = 8
+        deleteButton.backgroundColor = UIColor(rgb: 0xCABFB7)
+        deleteButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        deleteButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        
+        deleteButton.addTarget(self, action: #selector(onDeleteButtonTouched), for: .touchUpInside)
+        
         //photo
         if let memo = memo, let image = memo.refImage {
             imageView = UIImageView(image: image)
@@ -155,9 +179,10 @@ class EditViewController: UIViewController, UITextViewDelegate{
             imageView.contentMode = .scaleAspectFill
             view.addSubview(imageView)
             imageView.translatesAutoresizingMaskIntoConstraints = false
-            imageView.widthAnchor.constraint(equalToConstant: view.frame.width/3).isActive = true
+            //imageView.widthAnchor.constraint(equalToConstant: view.frame.width/3).isActive = true
+            imageView.trailingAnchor.constraint(equalTo: deleteButton.leadingAnchor, constant: -50).isActive = true
             imageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-            imageView.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 10).isActive = true
+            imageView.bottomAnchor.constraint(equalTo: self.mainTextView.topAnchor, constant: -10).isActive = true
             imageView.leadingAnchor.constraint(equalTo: mainTextView.leadingAnchor).isActive = true
             imageView.isUserInteractionEnabled = true
             imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(buttonTapped)))
@@ -170,10 +195,8 @@ class EditViewController: UIViewController, UITextViewDelegate{
         makeDoneAtToolbar()
 
         
-        let okayButton = UIButton(frame: CGRect())
         okayButton.addTarget(self, action: #selector(onOkayButtonTouched), for: .touchUpInside)
         view.addSubview(okayButton)
-            
         okayButton.translatesAutoresizingMaskIntoConstraints = false
         okayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         okayButton.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 10).isActive = true
@@ -188,13 +211,20 @@ class EditViewController: UIViewController, UITextViewDelegate{
     }
     
     @objc func buttonTapped() {
-//        if(sender.state == .ended) {
-//            print("Button evet occured")
-//        }
-//
+
         print("Button evet occured")
+        
+        //performSegue(withIdentifier: "popOutPhotoDetail", sender: imageView)
+        
+        guard let imageVC = self.storyboard?.instantiateViewController(identifier: "detailImageView") as? DetailImageViewController else {
+            return
+        }
+        imageVC.receivedImage = memo?.refImage
+        self.present(imageVC, animated: true, completion: nil)
+        
     }
     
+
     private func makeDoneAtToolbar() {
         let toolbar: UIToolbar = UIToolbar(frame: CGRect(x: 0, y: 0,  width: self.view.frame.size.width, height: 30))
         let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -214,7 +244,11 @@ class EditViewController: UIViewController, UITextViewDelegate{
     }
 
     @objc func dismissMyKeyboard() {
+        self.view.frame.origin.y = 0
+        self.mainTextView.frame = CGRect(x: 0, y: 0, width: view.frame.width*0.85, height: view.frame.height*0.6)
         view.endEditing(true)
+        self.titleText.isUserInteractionEnabled = false
+        self.mainTextView.isEditable = false
         if(memo?.isNew == false) {
             saveChanges()
         }
@@ -222,19 +256,34 @@ class EditViewController: UIViewController, UITextViewDelegate{
     
 
     @objc func onOkayButtonTouched() {
-            
-        //saveMemo
-        if let memo = memo {
-            DataManager.shared.saveMemo(memo: memo)
-            showToast(message: "저장되었습니다.")
-        }
         
-        //모든 스택 비우고 첫 화면으로.
-        self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+        if(memo?.isNew == true) {
+            //saveMemo
+            if let memo = memo {
+                DataManager.shared.saveMemo(memo: memo)
+                showToast(message: "저장되었습니다.")
+            }
+            
+            //모든 스택 비우고 첫 화면으로.
+            self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+        } else {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+            
+        
 
     }
     
+    @objc func onEditTitleButton() {
+        self.view.frame.origin.y =  -180
+        titleText.isUserInteractionEnabled = true
+        titleText.allowsEditingTextAttributes = true
+        titleText.becomeFirstResponder()
+        
+    }
+    
     @objc func onEditButtonTouched () {
+        self.mainTextView.frame = CGRect(x: 0,y: 0,width: self.view.frame.width*0.85, height: self.view.frame.height*3/(5*1.6))
         self.mainTextView.isEditable = true
         self.mainTextView.becomeFirstResponder()
         
@@ -292,7 +341,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         toastLabel.clipsToBounds = true
         self.view.addSubview(toastLabel)
         
-        UIView.animate(withDuration: 10.0, delay: 0.1, options: .curveEaseOut, animations: { toastLabel.alpha = 0.0 }, completion: {(isCompleted) in toastLabel.removeFromSuperview() })
+        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: { toastLabel.alpha = 0.0 }, completion: {(isCompleted) in toastLabel.removeFromSuperview() })
         
     }
     

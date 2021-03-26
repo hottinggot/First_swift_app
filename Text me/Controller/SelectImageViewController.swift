@@ -11,9 +11,11 @@ class SelectImageViewController: UIViewController {
        
     @IBOutlet var backBtn: UIButton!
     
+    var compressedImage: UIImage?
     var receivedImage: UIImage?
     var activityIndicator: UIActivityIndicatorView!
     let outerView = UIView(frame: CGRect())
+    let selectedImageView = UIImageView(frame: CGRect())
     @IBOutlet var selectButton: UIButton!
     
     var memo = MemoVO()
@@ -33,6 +35,7 @@ class SelectImageViewController: UIViewController {
         outerView.translatesAutoresizingMaskIntoConstraints = false
         
         if let image = receivedImage {
+            //print("width: \(image.size.width), height: \(image.size.height)")
             outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
             outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
         }
@@ -46,7 +49,7 @@ class SelectImageViewController: UIViewController {
         outerView.layer.shadowOffset = CGSize(width: 0, height: 0)
         outerView.layer.shadowRadius = 10
         
-        let selectedImageView = UIImageView(image: receivedImage)
+        selectedImageView.image = receivedImage
         outerView.addSubview(selectedImageView)
         
         selectedImageView.layer.masksToBounds = true
@@ -61,7 +64,10 @@ class SelectImageViewController: UIViewController {
         setUpActivityIndicator()
         
         
-        if let image = receivedImage {
+        if let image = compressedImage {
+            
+//            print("view width: \(view.frame.size.width), view height: \(view.frame.size.height)")
+//            print("width: \(image.size.width), height: \(image.size.height)")
             detectBoundingBoxes(for: image)
             
         }
@@ -99,7 +105,7 @@ class SelectImageViewController: UIViewController {
     
     private func setUpActivityIndicator() {
         activityIndicator = UIActivityIndicatorView(style: .large)
-        activityIndicator.color = UIColor.white
+        activityIndicator.color = UIColor.black
         outerView.addSubview(activityIndicator)
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
         activityIndicator.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -113,11 +119,18 @@ class SelectImageViewController: UIViewController {
         let path = createBoundingBoxPath(along: annotation.boundingBox.vertices)
         let shape = shapeForBoundingBox(path: path)
         outerView.layer.addSublayer(shape)
+        //selectedImageView.layer.addSublayer(shape)
       }
     }
     
     private func createBoundingBoxPath(along vertices: [Vertex]) -> UIBezierPath {
       let path = UIBezierPath()
+//        if let scale = scale {
+//            let to0 = CGPoint(x: vertices[0].x! * scale, y: vertices[0].y! * scale)
+//        }
+        
+        print(vertices[0])
+    
       path.move(to: vertices[0].toCGPoint())
       for vertex in vertices[1...] {
         path.addLine(to: vertex.toCGPoint())

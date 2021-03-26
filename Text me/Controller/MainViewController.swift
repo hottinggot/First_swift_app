@@ -39,8 +39,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     //Segueway
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-
 
             if let cell = sender as? UICollectionViewCell, let indexPath = self.collectionView.indexPath(for: cell){
 
@@ -179,6 +177,7 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         collectionCell.collectionImage.layer.shadowOffset = CGSize(width: 1, height: 1)
         collectionCell.collectionImage.layer.borderColor = UIColor.lightGray.cgColor
         collectionCell.collectionImage.layer.borderWidth = 0.5
+        
         
         let target: [Memo]
         

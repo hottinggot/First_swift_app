@@ -15,8 +15,10 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
     @IBOutlet var nextBtn: UIButton!
     
     var pickedImage: UIImage?
+    var compressedImage: UIImage!
     let outerView = UIView(frame: CGRect())
     var pickedImageView: UIImageView!
+    var scaledRatio: CGFloat!
     
 
     override func viewWillAppear(_ animated: Bool) {
@@ -45,10 +47,15 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
         outerView.translatesAutoresizingMaskIntoConstraints = false
         
         
-        if let pickedImage = pickedImage, let image = resize(image: pickedImage, to: CGSize(width: view.frame.size.width-40, height: view.frame.size.height-190) )  {
+        if let pickedImage = pickedImage {
+            
+            let image = pickedImage.resize(size: CGSize(width: pickedImage.size.width, height: pickedImage.size.height), targetSize: CGSize(width: view.frame.size.width-40, height: view.frame.size.height-200))
+           let compress = resize(image: pickedImage, to: CGSize(width: view.frame.size.width-40, height: view.frame.size.height-200))
             outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
             outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
+            
             self.pickedImage = image
+            self.compressedImage = compress
         }
         
         outerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -102,7 +109,7 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
         cropVC.delegate = self
         cropVC.modalPresentationStyle = .fullScreen
         cropVC.receivedImage = pickedImage
-
+        
         present(cropVC, animated: true, completion: nil)
 
 
@@ -114,11 +121,10 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
         guard let selectVC = self.storyboard?.instantiateViewController(identifier: "selectImageView") as? SelectImageViewController else {
             return
         }
-        
+        selectVC.compressedImage = compressedImage
         selectVC.receivedImage = pickedImage
         present(selectVC, animated: true, completion: nil)
     }
-    
     
     
     private func resize(image: UIImage, to targetSize: CGSize) -> UIImage? {
@@ -154,4 +160,26 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
 protocol ModalViewControllerDelegate
 {
     func sendData(image: UIImage)
+}
+
+extension UIImage {
+
+    func resize(size: CGSize, targetSize: CGSize) -> UIImage {
+
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+
+        // Figure out what our orientation is, and use that to form the rectangle.
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+          newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+          newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+
+        return UIGraphicsImageRenderer(size:newSize).image { _ in
+            self.draw(in: CGRect(origin: .zero, size: newSize))
+        }
+    }
+
 }

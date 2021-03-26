@@ -12,7 +12,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
 
     
     enum Ratio {
-        case ratio9per16, ratio3per4, ratio1per1, ratio2per1
+        case ratio3per4, ratio1per1, ratio2per1
     }
     
     var constraintArray:[Ratio:[NSLayoutConstraint]] = [:]
@@ -53,7 +53,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         initializeConstaintDic()
         //print("DICTIONARY: \(constraintArray)")
         NSLayoutConstraint.activate(constraintArray[previewViewMode]!)
-        ratioButton.setImage(UIImage(named: "ratio9per16_"), for: .normal)
+        ratioButton.setImage(UIImage(named: "ratio3per4_"), for: .normal)
         ratioButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         ratioButton.tintColor = UIColor.white
 
@@ -112,13 +112,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     @IBAction func touchChangeRatioBtn(_ sender: Any) {
         switch previewViewMode {
-        case .ratio9per16:
-            beforePreviewViewMode = .ratio9per16
-            previewViewMode = .ratio3per4
-            //ratioButton.setImage(UIImage(named: "ratio9per16_"), for: .normal)
-            ratioButton.setImage(UIImage(named: "ratio3per4_"), for: .normal)
-            //setPreviewConstraint(before: .ratio9per16, ratio: .ratio3per4)
-            
+        
         case .ratio3per4:
             beforePreviewViewMode = .ratio3per4
             previewViewMode = .ratio1per1
@@ -135,9 +129,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             
         case .ratio2per1:
             beforePreviewViewMode = .ratio2per1
-            previewViewMode = .ratio9per16
+            previewViewMode = .ratio3per4
             //ratioButton.setImage(UIImage(named: "ratio2per1_"), for: .normal)
-            ratioButton.setImage(UIImage(named: "ratio9per16_"), for: .normal)
+            ratioButton.setImage(UIImage(named: "ratio3per4_"), for: .normal)
             //setPreviewConstraint(before: .ratio2per1, ratio: .ratio9per16)
             
         }
@@ -239,10 +233,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         let width: NSLayoutConstraint = previewView.widthAnchor.constraint(equalTo: view.widthAnchor)
         let xAnchor: NSLayoutConstraint = previewView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         
-        //9per16
-        let height1 = previewView.heightAnchor.constraint(equalToConstant: view.frame.height)
-        let top1 = previewView.topAnchor.constraint(equalTo: view.topAnchor)
-        constraintArray.updateValue([top1, xAnchor, height1, width], forKey: .ratio9per16)
         
         //3per4
         let height2 = previewView.heightAnchor.constraint(equalToConstant: view.frame.width * 4/3)
@@ -319,8 +309,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             toRatio = 1
         case .ratio2per1:
             toRatio = 1/2
-        case .ratio9per16:
-            toRatio = 16/9
+        
         }
         
         DispatchQueue.global(qos: .background).async {
