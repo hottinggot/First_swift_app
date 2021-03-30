@@ -10,8 +10,7 @@ import UIKit
 class SelectImageViewController: UIViewController {
        
     @IBOutlet var backBtn: UIButton!
-    
-    var compressedImage: UIImage?
+ 
     var receivedImage: UIImage?
     var activityIndicator: UIActivityIndicatorView!
     let outerView = UIView(frame: CGRect())
@@ -64,7 +63,7 @@ class SelectImageViewController: UIViewController {
         setUpActivityIndicator()
         
         
-        if let image = compressedImage {
+        if let image = receivedImage {
             
 //            print("view width: \(view.frame.size.width), view height: \(view.frame.size.height)")
 //            print("width: \(image.size.width), height: \(image.size.height)")

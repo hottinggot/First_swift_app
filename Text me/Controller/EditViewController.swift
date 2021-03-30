@@ -219,6 +219,15 @@ class EditViewController: UIViewController, UITextViewDelegate{
         guard let imageVC = self.storyboard?.instantiateViewController(identifier: "detailImageView") as? DetailImageViewController else {
             return
         }
+        
+//            if let memo = memo, let image = memo.refImage {
+//                if(memo.isNew == false) {
+//                    memo.refImage?.resize(size: CGSize(width: image.size.width, height: image.size.height), targetSize: CGSize)
+//                }
+//                
+//            }
+//            memo?.refImage?.resize(size: CGSize(width: , height: <#T##CGFloat#>), targetSize: <#T##CGSize#>)
+        
         imageVC.receivedImage = memo?.refImage
         self.present(imageVC, animated: true, completion: nil)
         

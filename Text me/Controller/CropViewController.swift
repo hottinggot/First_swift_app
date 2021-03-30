@@ -50,6 +50,7 @@ class CropViewController: UIViewController {
         imageView.centerYAnchor.constraint(equalTo: outerView.centerYAnchor).isActive = true
         imageView.heightAnchor.constraint(equalTo: outerView.heightAnchor).isActive = true
         imageView.widthAnchor.constraint(equalTo: outerView.widthAnchor).isActive = true
+        imageView.contentMode = .scaleAspectFit
         
         outerView.addSubview(resizingArea)
         
@@ -79,28 +80,42 @@ class CropViewController: UIViewController {
         let rect: CGRect = CGRect(x: resizingArea.mainRect.frame.origin.x, y: resizingArea.mainRect.frame.origin.y, width: resizingArea.mainRect.frame.width, height: resizingArea.mainRect.frame.height)
         
         if let receivedImage = receivedImage {
-            let image = cropImage(image: receivedImage, to: rect)
+            let image = CropImage(image: receivedImage, cropRect: rect)
             if let delegate = self.delegate {
                 delegate.sendData(image: image)
             }
             dismiss(animated: true, completion: nil)
 
         }
-        
-        
-        
+
     }
     
-    private func cropImage(image: UIImage, to rect: CGRect) -> UIImage {
-            
-        let cgCroppedImage = image.cgImage!.cropping(to: rect)!
-        
-        let croppedImage = UIImage(cgImage: cgCroppedImage)
-        
-        return croppedImage
+//    private func cropImage(image: UIImage, to rect: CGRect) -> UIImage {
+//
+//
+//        let cgCroppedImage = image.cgImage!.cropping(to: rect)!
+//
+//        let croppedImage = UIImage(cgImage: cgCroppedImage)
+//
+//        return croppedImage
+//
+//    }
     
+    private func CropImage(image:UIImage , cropRect:CGRect) -> UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions(cropRect.size, false, 0);
+        let context = UIGraphicsGetCurrentContext();
+        
+        context?.translateBy(x: 0.0, y: image.size.height);
+        context?.scaleBy(x: 1.0, y: -1.0);
+        context?.draw(image.cgImage!, in: CGRect(x:0, y:0, width:image.size.width, height:image.size.height), byTiling: false);
+        context?.clip(to: [cropRect]);
+    
+        let croppedImage = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+    
+        return croppedImage!;
     }
-    
     
 
      

@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import MetalKit
+//import ImageIO
+import Accelerate
 
 class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
     @IBOutlet var backBtn: UIButton!
@@ -15,7 +16,6 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
     @IBOutlet var nextBtn: UIButton!
     
     var pickedImage: UIImage?
-    var compressedImage: UIImage!
     let outerView = UIView(frame: CGRect())
     var pickedImageView: UIImageView!
     var scaledRatio: CGFloat!
@@ -49,13 +49,12 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
         
         if let pickedImage = pickedImage {
             
-            let image = pickedImage.resize(size: CGSize(width: pickedImage.size.width, height: pickedImage.size.height), targetSize: CGSize(width: view.frame.size.width-40, height: view.frame.size.height-200))
-           let compress = resize(image: pickedImage, to: CGSize(width: view.frame.size.width-40, height: view.frame.size.height-200))
-            outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
-            outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
+            if let image = pickedImage.resize(targetSize: CGSize(width: view.frame.size.width-40, height: view.frame.size.height-200)) {
+                outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
+                outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
+                self.pickedImage = image
+            }
             
-            self.pickedImage = image
-            self.compressedImage = compress
         }
         
         outerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -87,6 +86,7 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
         
         pickedImageView.layer.masksToBounds = true
         pickedImageView.layer.cornerRadius = 10
+        pickedImageView.contentMode = .scaleAspectFit
         
     }
     
@@ -121,7 +121,6 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
         guard let selectVC = self.storyboard?.instantiateViewController(identifier: "selectImageView") as? SelectImageViewController else {
             return
         }
-        selectVC.compressedImage = compressedImage
         selectVC.receivedImage = pickedImage
         present(selectVC, animated: true, completion: nil)
     }
@@ -151,6 +150,15 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
       return newImage
     }
     
+    private func resizeImage(_ imageSize: CGSize, image: UIImage) -> Data {
+        UIGraphicsBeginImageContext(imageSize)
+        image.draw(in: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        let resizedImage = newImage!.pngData()
+        UIGraphicsEndImageContext()
+        return resizedImage!
+    }
+    
     func sendData(image: UIImage) {
         self.pickedImage = image
     }
@@ -164,22 +172,43 @@ protocol ModalViewControllerDelegate
 
 extension UIImage {
 
-    func resize(size: CGSize, targetSize: CGSize) -> UIImage {
+//    func resize(targetSize: CGSize) -> Data {
+//
+//        let widthRatio  = targetSize.width  / size.width
+//        let heightRatio = targetSize.height / size.height
+//
+//        // Figure out what our orientation is, and use that to form the rectangle.
+//        var newSize: CGSize
+//        if(widthRatio > heightRatio) {
+//          newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+//        } else {
+//          newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+//        }
+//
+//        UIGraphicsBeginImageContext(newSize)
+//        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+//        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+//        let resizedImage = newImage!.pngData()
+//        UIGraphicsEndImageContext()
+//        return resizedImage!
+//    }
+    
+    func resize(targetSize: CGSize) -> UIImage? {
 
-        let widthRatio  = targetSize.width  / size.width
-        let heightRatio = targetSize.height / size.height
+            let widthRatio  = targetSize.width  / size.width
+            let heightRatio = targetSize.height / size.height
 
-        // Figure out what our orientation is, and use that to form the rectangle.
-        var newSize: CGSize
-        if(widthRatio > heightRatio) {
-          newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-        } else {
-          newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+            // Figure out what our orientation is, and use that to form the rectangle.
+            var newSize: CGSize
+            if(widthRatio > heightRatio) {
+              newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+            } else {
+              newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+            }
+
+            return UIGraphicsImageRenderer(size:newSize).image { _ in
+                self.draw(in: CGRect(origin: .zero, size: newSize))
+            }
         }
-
-        return UIGraphicsImageRenderer(size:newSize).image { _ in
-            self.draw(in: CGRect(origin: .zero, size: newSize))
-        }
-    }
 
 }
