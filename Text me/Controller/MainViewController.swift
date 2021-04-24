@@ -68,7 +68,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         
     }
     
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,16 +101,12 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         
         //cameraBtn
         cameraBtn.layer.cornerRadius = 8
-        cameraBtn.layer.shadowOffset = CGSize(width: 0, height: 0)
-        cameraBtn.layer.shadowColor = UIColor.gray.cgColor
-        cameraBtn.layer.shadowRadius = 5
-        cameraBtn.layer.shadowOpacity = 0.6
-        cameraBtn.layer.masksToBounds = false
+//        cameraBtn.layer.shadowOffset = CGSize(width: 0, height: 0)
+//        cameraBtn.layer.shadowColor = UIColor.gray.cgColor
+//        cameraBtn.layer.shadowRadius = 5
+//        cameraBtn.layer.shadowOpacity = 0.6
+//        cameraBtn.layer.masksToBounds = false
         
-        
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
         
     }
     
@@ -145,8 +140,8 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
     private func isFiltering() -> Bool {
         return search.isActive && !searchBarIsEmpty()
     }
- 
     
+ 
 }
 
 
@@ -189,11 +184,6 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
         
         collectionCell.titleLabel.text = target[indexPath.row].titleText
         if let imageName = target[indexPath.row].refImage {
-//            let decoder = WebPDecoder()
-//            var options = WebPDecoderOptions()
-//            options.scaledWidth = Int(25)
-//            options.scaledHeight = Int(25)
-//            let cgimage = try! decoder.decode(image, options: options)
             
             collectionCell.collectionImage.image = ImageManager.shared.fetchImage(imageName: imageName, to: collectionCell.collectionImage.bounds.size)
         }
@@ -203,37 +193,39 @@ extension MainViewController: UICollectionViewDelegate, UICollectionViewDataSour
 }
 
 extension MainViewController: UICollectionViewDelegateFlowLayout {
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var columns: CGFloat
         let orientation = UIApplication.shared.windows.first?.windowScene?.interfaceOrientation
-        
+
         if orientation == .landscapeLeft || orientation == .landscapeRight {
             columns = 4
         } else {
             columns = 2
         }
-        
+
         let spacing:CGFloat = 20
         let totalHorizontalSpacing = (columns+1)*spacing
-        
+
         let itemWidth = (collectionView.bounds.width - totalHorizontalSpacing)/columns
         let itemSize = CGSize(width: itemWidth, height: itemWidth*0.9)
-        
+
+
         return itemSize
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
     }
-    
+
 }
 
 

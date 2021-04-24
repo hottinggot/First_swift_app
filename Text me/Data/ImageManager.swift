@@ -52,24 +52,13 @@ class ImageManager {
             
         }
         
-//        if let imageData = UIImage(contentsOfFile: imagePath) {
-//            return imageData
-//        } else {
-//            print("UIImage could not be created.")
-//            return nil
-//        }
-        
-        
-        
-        
-            if let resizedImage = downsample(imageAt:  URL(fileURLWithPath: imagePath), to: pointSize){
-                print("Returned downSample Image.")
-                return resizedImage
-            }
-            else {
-                print("Cannot downSample Image.")
-                return nil
-            }
+        if let resizedImage = downsample(imageAt:  URL(fileURLWithPath: imagePath), to: pointSize){
+            return resizedImage
+        }
+        else {
+            print("Cannot downSample Image.")
+            return nil
+        }
         
     }
     
@@ -140,9 +129,5 @@ class ImageManager {
         // Return the downsampled image as UIImage
         return UIImage(cgImage: downsampledImage)
     }
-   
 
-    
-        
-    
 }

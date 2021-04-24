@@ -81,52 +81,27 @@ class CropViewController: UIViewController {
         
         if let receivedImage = receivedImage {
             let image = CropImage(image: receivedImage, cropRect: rect)
+            
             if let delegate = self.delegate {
                 delegate.sendData(image: image)
             }
+
             dismiss(animated: true, completion: nil)
 
         }
 
     }
     
-//    private func cropImage(image: UIImage, to rect: CGRect) -> UIImage {
-//
-//
-//        let cgCroppedImage = image.cgImage!.cropping(to: rect)!
-//
-//        let croppedImage = UIImage(cgImage: cgCroppedImage)
-//
-//        return croppedImage
-//
-//    }
     
-    private func CropImage(image:UIImage , cropRect:CGRect) -> UIImage
-    {
-        UIGraphicsBeginImageContextWithOptions(cropRect.size, false, 0);
-        let context = UIGraphicsGetCurrentContext();
-        
-        context?.translateBy(x: 0.0, y: image.size.height);
-        context?.scaleBy(x: 1.0, y: -1.0);
-        context?.draw(image.cgImage!, in: CGRect(x:0, y:0, width:image.size.width, height:image.size.height), byTiling: false);
-        context?.clip(to: [cropRect]);
-    
+    private func CropImage(image:UIImage , cropRect:CGRect) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(cropRect.size, false, 0)
+        image.draw(at: CGPoint(x: -cropRect.origin.x, y: -cropRect.origin.y))
+
         let croppedImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
     
         return croppedImage!;
     }
     
-
-     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

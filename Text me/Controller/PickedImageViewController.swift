@@ -23,8 +23,11 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
 
     override func viewWillAppear(_ animated: Bool) {
         if let image = pickedImage {
-            outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
-            outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
+            
+//            outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
+//            outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
+            outerView.frame.size.height = image.size.height
+            outerView.frame.size.width = image.size.width
             pickedImageView.heightAnchor.constraint(equalTo: outerView.heightAnchor).isActive = true
             pickedImageView.widthAnchor.constraint(equalTo: outerView.widthAnchor).isActive = true
             pickedImageView.image = pickedImage
@@ -50,8 +53,10 @@ class PickedImageViewController: UIViewController, ModalViewControllerDelegate {
         if let pickedImage = pickedImage {
             
             if let image = pickedImage.resize(targetSize: CGSize(width: view.frame.size.width-40, height: view.frame.size.height-200)) {
-                outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
-                outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
+                outerView.frame.size.height = image.size.height
+                outerView.frame.size.width = image.size.width
+//                outerView.heightAnchor.constraint(equalToConstant: image.size.height).isActive = true
+//                outerView.widthAnchor.constraint(equalToConstant: image.size.width).isActive = true
                 self.pickedImage = image
             }
             

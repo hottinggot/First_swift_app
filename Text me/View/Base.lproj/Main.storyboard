@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -42,12 +41,12 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionViewCell" id="R3v-Op-rTW" customClass="CustomCollectionViewCell" customModule="Text_me">
                                         <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="QSx-Ok-Vzi" customClass="CustomCollectionViewCell" customModule="Text_me">
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P21-xX-HOo">
-                                                    <rect key="frame" x="3" y="106" width="35" height="22"/>
+                                                    <rect key="frame" x="3" y="106" width="122" height="22"/>
                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -56,16 +55,17 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="128" height="103"/>
                                                 </imageView>
                                             </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="P21-xX-HOo" secondAttribute="bottom" id="2ji-K2-r4e"/>
-                                                <constraint firstItem="OoS-bs-z2t" firstAttribute="top" secondItem="QSx-Ok-Vzi" secondAttribute="top" id="LbB-0V-9iJ"/>
-                                                <constraint firstItem="P21-xX-HOo" firstAttribute="leading" secondItem="QSx-Ok-Vzi" secondAttribute="leading" constant="3" id="W40-7J-UGq"/>
-                                                <constraint firstItem="P21-xX-HOo" firstAttribute="top" secondItem="OoS-bs-z2t" secondAttribute="bottom" constant="3" id="njA-rw-4TO"/>
-                                                <constraint firstItem="OoS-bs-z2t" firstAttribute="leading" secondItem="QSx-Ok-Vzi" secondAttribute="leading" id="oqB-m3-2Hh"/>
-                                                <constraint firstAttribute="trailing" secondItem="OoS-bs-z2t" secondAttribute="trailing" id="tv8-oS-r8n"/>
-                                                <constraint firstAttribute="bottom" secondItem="OoS-bs-z2t" secondAttribute="bottom" constant="25" id="vPN-vX-SMv"/>
-                                            </constraints>
-                                        </collectionViewCellContentView>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="P21-xX-HOo" secondAttribute="bottom" id="2ji-K2-r4e"/>
+                                            <constraint firstItem="OoS-bs-z2t" firstAttribute="top" secondItem="R3v-Op-rTW" secondAttribute="top" id="LbB-0V-9iJ"/>
+                                            <constraint firstItem="P21-xX-HOo" firstAttribute="leading" secondItem="R3v-Op-rTW" secondAttribute="leading" constant="3" id="W40-7J-UGq"/>
+                                            <constraint firstAttribute="trailing" secondItem="P21-xX-HOo" secondAttribute="trailing" constant="3" id="l8c-Do-wzq"/>
+                                            <constraint firstItem="P21-xX-HOo" firstAttribute="top" secondItem="OoS-bs-z2t" secondAttribute="bottom" constant="3" id="njA-rw-4TO"/>
+                                            <constraint firstItem="OoS-bs-z2t" firstAttribute="leading" secondItem="R3v-Op-rTW" secondAttribute="leading" id="oqB-m3-2Hh"/>
+                                            <constraint firstAttribute="trailing" secondItem="OoS-bs-z2t" secondAttribute="trailing" id="tv8-oS-r8n"/>
+                                            <constraint firstAttribute="bottom" secondItem="OoS-bs-z2t" secondAttribute="bottom" constant="25" id="vPN-vX-SMv"/>
+                                        </constraints>
                                         <connections>
                                             <outlet property="collectionImage" destination="OoS-bs-z2t" id="aeX-Yo-ykt"/>
                                             <outlet property="titleLabel" destination="P21-xX-HOo" id="0Yw-BS-OKg"/>

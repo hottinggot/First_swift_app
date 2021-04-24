@@ -59,14 +59,8 @@ class EditViewController: UIViewController, UITextViewDelegate{
         mainTextView.frame.size.height = self.view.frame.height*3/5
         outerView.addSubview(mainTextView)
         
-//        mainTextView.translatesAutoresizingMaskIntoConstraints = false
-//        mainTextView.centerXAnchor.constraint(equalTo: outerView.centerXAnchor).isActive = true
-//        mainTextView.centerYAnchor.constraint(equalTo: outerView.centerYAnchor).isActive = true
-//        mainTextView.heightAnchor.constraint(equalTo: outerView.heightAnchor).isActive = true
-//        mainTextView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30).isActive = true
-//        mainTextView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30).isActive = true
-        
         mainTextView.layer.masksToBounds = true
+        mainTextView.isUserInteractionEnabled = false
         mainTextView.layer.cornerRadius = 10
         mainTextView.font = UIFont.systemFont(ofSize: 15)
         mainTextView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
@@ -200,13 +194,24 @@ class EditViewController: UIViewController, UITextViewDelegate{
         okayButton.translatesAutoresizingMaskIntoConstraints = false
         okayButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         okayButton.topAnchor.constraint(equalTo: titleText.bottomAnchor, constant: 10).isActive = true
-        okayButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        okayButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        okayButton.imageView?.contentMode = .scaleAspectFit
+        
         okayButton.layer.cornerRadius = 8
         okayButton.setImage(UIImage(named: "check"), for: .normal)
-        okayButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        
+        let title = "Save"
+        okayButton.setTitle("Save", for: .normal)
+        okayButton.setTitleColor(UIColor.white, for: .normal)
+        okayButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         okayButton.layer.masksToBounds = true
         okayButton.backgroundColor = UIColor(rgb: 0xCABFB7)
+        let imageWidth = okayButton.imageView!.frame.width
+        let textWidth = (title as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]).width
+        okayButton.imageEdgeInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: textWidth + 25)
+        okayButton.titleEdgeInsets = UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 10)
+        let width = textWidth + imageWidth + 24
+        okayButton.widthAnchor.constraint(equalToConstant: width).isActive = true
+        okayButton.heightAnchor.constraint(equalToConstant: 40).isActive = true
         
     }
     
@@ -219,14 +224,6 @@ class EditViewController: UIViewController, UITextViewDelegate{
         guard let imageVC = self.storyboard?.instantiateViewController(identifier: "detailImageView") as? DetailImageViewController else {
             return
         }
-        
-//            if let memo = memo, let image = memo.refImage {
-//                if(memo.isNew == false) {
-//                    memo.refImage?.resize(size: CGSize(width: image.size.width, height: image.size.height), targetSize: CGSize)
-//                }
-//                
-//            }
-//            memo?.refImage?.resize(size: CGSize(width: , height: <#T##CGFloat#>), targetSize: <#T##CGSize#>)
         
         imageVC.receivedImage = memo?.refImage
         self.present(imageVC, animated: true, completion: nil)
@@ -242,9 +239,14 @@ class EditViewController: UIViewController, UITextViewDelegate{
         toolbar.setItems([flexSpace, doneBtn], animated: false)
         toolbar.sizeToFit()
 
-        self.titleText.inputAccessoryView = toolbar
-        self.mainTextView.inputAccessoryView = toolbar
-
+        if(self.titleText.isEditing == false) {
+            self.titleText.inputAccessoryView = toolbar
+        }
+        
+        if(self.mainTextView.isEditable == false) {
+            self.mainTextView.inputAccessoryView = toolbar
+        }
+        
     }
     
     @IBAction func touchBackBtn(_ sender: Any) {
@@ -257,6 +259,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         self.mainTextView.frame = CGRect(x: 0, y: 0, width: view.frame.width*0.85, height: view.frame.height*0.6)
         view.endEditing(true)
         self.titleText.isUserInteractionEnabled = false
+        self.mainTextView.isUserInteractionEnabled = false
         self.mainTextView.isEditable = false
         if(memo?.isNew == false) {
             saveChanges()
@@ -271,16 +274,15 @@ class EditViewController: UIViewController, UITextViewDelegate{
             if let memo = memo {
                 DataManager.shared.saveMemo(memo: memo)
                 showToast(message: "저장되었습니다.")
+                //모든 스택 비우고 첫 화면으로.
+                self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
             }
             
-            //모든 스택 비우고 첫 화면으로.
-            self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
+            
+            
         } else {
             self.navigationController?.popToRootViewController(animated: true)
         }
-            
-        
-
     }
     
     @objc func onEditTitleButton() {
@@ -288,12 +290,12 @@ class EditViewController: UIViewController, UITextViewDelegate{
         titleText.isUserInteractionEnabled = true
         titleText.allowsEditingTextAttributes = true
         titleText.becomeFirstResponder()
-        
     }
     
     @objc func onEditButtonTouched () {
-        self.mainTextView.frame = CGRect(x: 0,y: 0,width: self.view.frame.width*0.85, height: self.view.frame.height*3/(5*1.6))
+        self.mainTextView.isUserInteractionEnabled = false
         self.mainTextView.isEditable = true
+        self.mainTextView.frame = CGRect(x: 0,y: 0,width: self.view.frame.width*0.85, height: self.view.frame.height*3/(5*1.6))
         self.mainTextView.becomeFirstResponder()
         
     }
@@ -308,17 +310,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         print("delete button touched")
         
         alertMsg("삭제", message: "삭제하시겠습니까?")
-        
-        if(memo?.isNew == true) {
-            self.view.window!.rootViewController?.dismiss(animated: true, completion: nil)
-        } else {
-            if let indexNum = indexNum {
-                DataManager.shared.deleteMemo(indexNum: indexNum)
-            }
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-        
-        
+    
     }
     
 
@@ -340,6 +332,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
     func showToast(message : String, font: UIFont = UIFont.systemFont(ofSize: 14.0)) {
         let toastLabel = UILabel(frame: CGRect(x: self.view.frame.size.width/2 - 125, y: self.view.frame.size.height-100, width: 250, height: 35))
         
+        
         toastLabel.backgroundColor = UIColor.black.withAlphaComponent(0.6)
         toastLabel.textColor = UIColor.white
         toastLabel.font = font
@@ -350,19 +343,28 @@ class EditViewController: UIViewController, UITextViewDelegate{
         toastLabel.clipsToBounds = true
         self.view.addSubview(toastLabel)
         
-        UIView.animate(withDuration: 3.0, delay: 0.1, options: .curveEaseOut, animations: { toastLabel.alpha = 0.0 }, completion: {(isCompleted) in toastLabel.removeFromSuperview() })
+        UIView.animate(withDuration: 0.5, delay: 0.2, options: .curveEaseOut, animations: { toastLabel.alpha = 0.0 }, completion: {(isCompleted) in toastLabel.removeFromSuperview() })
         
     }
     
     func alertMsg(_ title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let cancelAction = UIAlertAction(title: "취소", style: UIAlertAction.Style.default, handler: nil)
+        let deleteAction = UIAlertAction(title: "삭제", style: UIAlertAction.Style.default) { (action) in
+            if(self.memo?.isNew == true) {
+                self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+            } else {
+                if let indexNum = self.indexNum {
+                    DataManager.shared.deleteMemo(indexNum: indexNum)
+                }
+                self.navigationController?.popToRootViewController(animated: true)
+            }
+        }
         
-        let action = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil)
-        
-        alert.addAction(action)
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
         self.present(alert, animated: true, completion: nil)
     }
-    
         
 }
     

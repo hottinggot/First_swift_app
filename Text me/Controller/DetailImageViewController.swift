@@ -35,7 +35,4 @@ class DetailImageViewController: UIViewController {
             imageView.heightAnchor.constraint(equalToConstant: resizedImage.size.height).isActive = true
         }
     }
-    
-
-
 }
