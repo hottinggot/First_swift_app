@@ -1,7 +1,7 @@
 # First_swift_app
 
 
-iOS와 Swift를 공부하면서 만든 첫 번째 Swift 앱입니다 📕💡⏰📱🤳🏼
+iOS와 Swift를 공부하면서 만든 첫 번째 iOS Swift 앱입니다 📕💡⏰📱🤳🏼
 
 Google Vision API를 사용하여 OCR 기능을 제공해줍니다.
 
