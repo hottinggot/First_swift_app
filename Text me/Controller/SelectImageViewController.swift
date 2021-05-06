@@ -91,12 +91,12 @@ class SelectImageViewController: UIViewController {
             self.activityIndicator.stopAnimating()
             self.selectButton.isEnabled = true
             guard let ocrResult = ocrResult else {
-                //fatalError("Did not recognize any text int this message.")
+                
                 //alert meaasge and dismiss
                 return self.dismiss(animated: true, completion: nil)
                 
             }
-            //print("Found \(ocrResult.annotations.count) bounding box annotations in the image!")
+            
             self.displayBoundingBoxes(for: ocrResult)
             self.memo = self.createMemoVO(for: ocrResult)
         }
@@ -124,12 +124,7 @@ class SelectImageViewController: UIViewController {
     
     private func createBoundingBoxPath(along vertices: [Vertex]) -> UIBezierPath {
       let path = UIBezierPath()
-//        if let scale = scale {
-//            let to0 = CGPoint(x: vertices[0].x! * scale, y: vertices[0].y! * scale)
-//        }
-        
-        print(vertices[0])
-    
+   
       path.move(to: vertices[0].toCGPoint())
       for vertex in vertices[1...] {
         path.addLine(to: vertex.toCGPoint())

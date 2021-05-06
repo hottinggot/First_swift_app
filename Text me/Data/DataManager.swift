@@ -7,7 +7,6 @@
 
 import UIKit
 import CoreData
-import WebP
 
 class DataManager{
     static let shared = DataManager()
@@ -19,14 +18,7 @@ class DataManager{
     
     let modelName = "Memo"
     var memoList = [Memo]()
-    
-//    let psc = NSPersistentStoreCoordinator(managedObjectModel: Model)
-//    let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true]
-//    do {
-//        try psc.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: options)
-//    } catch {
-//        fatalError("Failed to add persistent store: \(error)")
-//    }
+
     
     func fetchMemo() {
         
@@ -53,10 +45,6 @@ class DataManager{
         if let imageName : String = ImageManager.shared.saveImage(image: memo.refImage!), let context = context , let entity :NSEntityDescription = NSEntityDescription.entity(forEntityName: modelName, in: context) {
                 if let newMemo: Memo = NSManagedObject(entity: entity, insertInto: context) as? Memo {
                     
-                    
-//                    let encoder = WebPEncoder()
-//                    let webPData = try! encoder.encode(memo.refImage!, config: .preset(.picture, quality: 95))
-//                    newMemo.refImage = webPData
                     newMemo.mainText = memo.mainText
                     newMemo.refImage = imageName
                     newMemo.titleText = memo.titleText

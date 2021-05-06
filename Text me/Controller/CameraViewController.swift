@@ -37,9 +37,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var capturedImage: UIImage!
     var previewView: UIView!
     
-    override func viewDidAppear(_ animated: Bool) {
-        reloadCamera()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +48,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         view.insertSubview(previewView, at: 0)
         previewView.translatesAutoresizingMaskIntoConstraints = false
         initializeConstaintDic()
-        //print("DICTIONARY: \(constraintArray)")
         NSLayoutConstraint.activate(constraintArray[previewViewMode]!)
         ratioButton.setImage(UIImage(named: "ratio3per4_"), for: .normal)
         ratioButton.imageEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
@@ -84,13 +80,14 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         photoLibraryBtn.centerYAnchor.constraint(equalTo: captureButton.centerYAnchor).isActive = true
         cameraSwitchBtn.centerYAnchor.constraint(equalTo: captureButton.centerYAnchor).isActive = true
         
-        
-        
-        //view.layoutIfNeeded()
 
     }
     
-    
+    override func viewDidAppear(_ animated: Bool) {
+        
+        reloadCamera()
+        
+    }
     
     @IBAction func touchPhotoAlbumBtn(_ sender: Any) {
         if(UIImagePickerController.isSourceTypeAvailable(.photoLibrary)) {
@@ -116,23 +113,17 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         case .ratio3per4:
             beforePreviewViewMode = .ratio3per4
             previewViewMode = .ratio1per1
-            //ratioButton.setImage(UIImage(named: "ratio3per4_"), for: .normal)
             ratioButton.setImage(UIImage(named: "ratio1per1_"), for: .normal)
-            //setPreviewConstraint(before: .ratio3per4, ratio: .ratio1per1)
-            
+                        
         case .ratio1per1:
             beforePreviewViewMode = .ratio1per1
             previewViewMode = .ratio2per1
-            //ratioButton.setImage(UIImage(named: "ratio1per1_"), for: .normal)
             ratioButton.setImage(UIImage(named: "ratio2per1_"), for: .normal)
-            //setPreviewConstraint(before: .ratio1per1, ratio: .ratio2per1)
             
         case .ratio2per1:
             beforePreviewViewMode = .ratio2per1
             previewViewMode = .ratio3per4
-            //ratioButton.setImage(UIImage(named: "ratio2per1_"), for: .normal)
             ratioButton.setImage(UIImage(named: "ratio3per4_"), for: .normal)
-            //setPreviewConstraint(before: .ratio2per1, ratio: .ratio9per16)
             
         }
         setPreviewConstraint()
@@ -182,12 +173,14 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         
         if(camera == false) {
             guard let videoDevices = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) else {
+                alertmsg("카메라 접근", message: "카메라에 접근할 수 없습니다.")
                 print("Unable to access front camera!")
                 return
             }
             self.cameraDevice = videoDevices
         } else {
             guard let videoDevices = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back) else {
+                alertmsg("카메라 접근", message: "카메라에 접근할 수 없습니다.")
                 print("Unable to access front camera!")
                 return
             }
@@ -255,14 +248,10 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
     private func setPreviewConstraint() {
-
        
         if let before = beforePreviewViewMode, let constraint = constraintArray[before] {
-            //print("BEFORE: \(constraint)")
             NSLayoutConstraint.deactivate(constraint)
-            
         }
-        
         
         NSLayoutConstraint.activate(self.constraintArray[previewViewMode]!)
            
@@ -350,5 +339,16 @@ extension CameraViewController: UINavigationControllerDelegate, UIImagePickerCon
         self.dismiss(animated: true, completion: nil)
         
         self.present(pickedImageVC, animated: true, completion: nil)
+    }
+    
+    private func alertmsg(_ title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        let action = UIAlertAction(title: "확인", style: UIAlertAction.Style.default) { (action) in
+            self.view.window!.rootViewController?.dismiss(animated: false, completion: nil)
+        }
+
+        
+        alert.addAction(action)
+        self.present(alert, animated: true, completion: nil)
     }
 }

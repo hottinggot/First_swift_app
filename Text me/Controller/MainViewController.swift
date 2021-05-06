@@ -7,7 +7,6 @@
 
 import UIKit
 import MobileCoreServices
-import WebP
 import ImageIO
 
 class MainViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
@@ -101,13 +100,6 @@ class MainViewController: UIViewController, UINavigationControllerDelegate, UIIm
         
         //cameraBtn
         cameraBtn.layer.cornerRadius = 8
-//        cameraBtn.layer.shadowOffset = CGSize(width: 0, height: 0)
-//        cameraBtn.layer.shadowColor = UIColor.gray.cgColor
-//        cameraBtn.layer.shadowRadius = 5
-//        cameraBtn.layer.shadowOpacity = 0.6
-//        cameraBtn.layer.masksToBounds = false
-        
-        
     }
     
     private func getAllMemoList() {

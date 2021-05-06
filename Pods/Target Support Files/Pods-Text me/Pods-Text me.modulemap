@@ -1,6 +1,0 @@
-framework module Pods_Text_me {
-  umbrella header "Pods-Text me-umbrella.h"
-
-  export *
-  module * { export * }
-}

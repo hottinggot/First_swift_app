@@ -36,8 +36,6 @@
 		04987A4525EE795300D0876C /* PickedImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04987A4425EE795300D0876C /* PickedImageViewController.swift */; };
 		04987A4925EE8DB500D0876C /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 04987A4825EE8DB500D0876C /* back.png */; };
 		04A6499625F4FC5A00741529 /* MemoVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04A6499525F4FC5A00741529 /* MemoVO.swift */; };
-		04BA711A25CB98840027B6E2 /* WebP.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; };
-		04BA711B25CB98840027B6E2 /* WebP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 04BA711925CB98840027B6E2 /* WebP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		04BDB5AD260341740072E0AB /* crop.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5AC260341740072E0AB /* crop.png */; };
 		04BDB5AF2603429D0072E0AB /* check.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5AE2603429D0072E0AB /* check.png */; };
 		04BDB5B1260344210072E0AB /* copy.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5B0260344210072E0AB /* copy.png */; };
@@ -50,25 +48,10 @@
 		04BDB5C72603A3F70072E0AB /* ratio1per1_.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5C62603A3F70072E0AB /* ratio1per1_.png */; };
 		04BDB5C92603A4270072E0AB /* ratio2per1_.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5C82603A4270072E0AB /* ratio2per1_.png */; };
 		04BDB5CB2603A49E0072E0AB /* ratio9per16_.png in Resources */ = {isa = PBXBuildFile; fileRef = 04BDB5CA2603A49E0072E0AB /* ratio9per16_.png */; };
-		04D08FC6260794E00048971B /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D08FC5260794E00048971B /* Functions.swift */; };
 		04D76995260D828D003875D3 /* DetailImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D76994260D828D003875D3 /* DetailImageViewController.swift */; };
 		04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F92B1425CFAB8800EC85D1 /* ImageManager.swift */; };
 		6DB46ADB060653820415EE3D /* Pods_Text_me.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CC6A1C39E7F655B222615A2 /* Pods_Text_me.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		04BA711C25CB98840027B6E2 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				04BA711B25CB98840027B6E2 /* WebP.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		040CA83C25B51AEB00F632FE /* Text me.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Text me.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,8 +86,6 @@
 		04987A4425EE795300D0876C /* PickedImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickedImageViewController.swift; sourceTree = "<group>"; };
 		04987A4825EE8DB500D0876C /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		04A6499525F4FC5A00741529 /* MemoVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoVO.swift; sourceTree = "<group>"; };
-		04BA711225CB92A40027B6E2 /* Swift-WebP */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "Swift-WebP"; path = "Carthage/Checkouts/Swift-WebP"; sourceTree = "<group>"; };
-		04BA711925CB98840027B6E2 /* WebP.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebP.framework; path = Carthage/Build/iOS/WebP.framework; sourceTree = "<group>"; };
 		04BDB5AC260341740072E0AB /* crop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = crop.png; sourceTree = "<group>"; };
 		04BDB5AE2603429D0072E0AB /* check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = check.png; sourceTree = "<group>"; };
 		04BDB5B0260344210072E0AB /* copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = copy.png; sourceTree = "<group>"; };
@@ -117,7 +98,6 @@
 		04BDB5C62603A3F70072E0AB /* ratio1per1_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratio1per1_.png; sourceTree = "<group>"; };
 		04BDB5C82603A4270072E0AB /* ratio2per1_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratio2per1_.png; sourceTree = "<group>"; };
 		04BDB5CA2603A49E0072E0AB /* ratio9per16_.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ratio9per16_.png; sourceTree = "<group>"; };
-		04D08FC5260794E00048971B /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		04D76994260D828D003875D3 /* DetailImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageViewController.swift; sourceTree = "<group>"; };
 		04F92B1425CFAB8800EC85D1 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		0CC6A1C39E7F655B222615A2 /* Pods_Text_me.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Text_me.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,7 +110,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04BA711A25CB98840027B6E2 /* WebP.framework in Frameworks */,
 				6DB46ADB060653820415EE3D /* Pods_Text_me.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -159,24 +138,6 @@
 		040CA83E25B51AEB00F632FE /* Text me */ = {
 			isa = PBXGroup;
 			children = (
-				04BDB5BC260397F40072E0AB /* cropfree.png */,
-				04BDB5CA2603A49E0072E0AB /* ratio9per16_.png */,
-				04BDB5C42603A3B10072E0AB /* ratio3per4_.png */,
-				04BDB5B826038FEB0072E0AB /* restore.png */,
-				04BDB5C82603A4270072E0AB /* ratio2per1_.png */,
-				04BDB5B4260344ED0072E0AB /* edit.png */,
-				04BDB5C62603A3F70072E0AB /* ratio1per1_.png */,
-				04873D83260B85DF0057206E /* splash2.png */,
-				04BDB5B62603879F0072E0AB /* next.png */,
-				04BDB5B0260344210072E0AB /* copy.png */,
-				04BDB5B22603445C0072E0AB /* delete.png */,
-				041317A2260A45C3007DD7F7 /* splash.png */,
-				04BDB5AE2603429D0072E0AB /* check.png */,
-				04BDB5AC260341740072E0AB /* crop.png */,
-				0458355625F661EE001C3546 /* task.png */,
-				0458355025F64FD9001C3546 /* photoLibrary.png */,
-				0458355425F650A2001C3546 /* cameraSwitch.png */,
-				04987A4825EE8DB500D0876C /* back.png */,
 				0487FB5725B70C29006DFD3D /* Data */,
 				040CA85925B51B6400F632FE /* Model */,
 				040CA85825B51B3900F632FE /* View */,
@@ -207,6 +168,7 @@
 		040CA85825B51B3900F632FE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				047D85EC2644126100CFEB26 /* image */,
 				040CA84B25B51AEC00F632FE /* Assets.xcassets */,
 				040CA84525B51AEB00F632FE /* Main.storyboard */,
 				04908F3225E6275B0077EF3D /* CustomCollectionViewCell.swift */,
@@ -227,6 +189,31 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		047D85EC2644126100CFEB26 /* image */ = {
+			isa = PBXGroup;
+			children = (
+				04BDB5BC260397F40072E0AB /* cropfree.png */,
+				04BDB5CA2603A49E0072E0AB /* ratio9per16_.png */,
+				04BDB5C42603A3B10072E0AB /* ratio3per4_.png */,
+				04BDB5B826038FEB0072E0AB /* restore.png */,
+				04BDB5C82603A4270072E0AB /* ratio2per1_.png */,
+				04BDB5B4260344ED0072E0AB /* edit.png */,
+				04BDB5C62603A3F70072E0AB /* ratio1per1_.png */,
+				04873D83260B85DF0057206E /* splash2.png */,
+				04BDB5B62603879F0072E0AB /* next.png */,
+				04BDB5B0260344210072E0AB /* copy.png */,
+				04BDB5B22603445C0072E0AB /* delete.png */,
+				041317A2260A45C3007DD7F7 /* splash.png */,
+				04BDB5AE2603429D0072E0AB /* check.png */,
+				04BDB5AC260341740072E0AB /* crop.png */,
+				0458355625F661EE001C3546 /* task.png */,
+				0458355025F64FD9001C3546 /* photoLibrary.png */,
+				0458355425F650A2001C3546 /* cameraSwitch.png */,
+				04987A4825EE8DB500D0876C /* back.png */,
+			);
+			path = image;
+			sourceTree = "<group>";
+		};
 		0487FB5725B70C29006DFD3D /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,7 +222,6 @@
 				0453261925D50E64008CBA34 /* GoogleVision.swift */,
 				040DBB4625E4A98900D86852 /* Structures.swift */,
 				04A6499525F4FC5A00741529 /* MemoVO.swift */,
-				04D08FC5260794E00048971B /* Functions.swift */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -243,8 +229,6 @@
 		04BA711125CB92A40027B6E2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				04BA711925CB98840027B6E2 /* WebP.framework */,
-				04BA711225CB92A40027B6E2 /* Swift-WebP */,
 				0CC6A1C39E7F655B222615A2 /* Pods_Text_me.framework */,
 			);
 			name = Frameworks;
@@ -270,7 +254,6 @@
 				040CA83825B51AEB00F632FE /* Sources */,
 				040CA83925B51AEB00F632FE /* Frameworks */,
 				040CA83A25B51AEB00F632FE /* Resources */,
-				04BA711C25CB98840027B6E2 /* Embed Frameworks */,
 				04BA711D25CB989F0027B6E2 /* ShellScript */,
 				FAA4378DFB0F7B90B94C63DA /* [CP] Embed Pods Frameworks */,
 			);
@@ -422,7 +405,6 @@
 				0436697C25FF798A008E5056 /* CropViewController.swift in Sources */,
 				04987A4525EE795300D0876C /* PickedImageViewController.swift in Sources */,
 				04A6499625F4FC5A00741529 /* MemoVO.swift in Sources */,
-				04D08FC6260794E00048971B /* Functions.swift in Sources */,
 				04F92B1525CFAB8800EC85D1 /* ImageManager.swift in Sources */,
 				0436697825FDBDC7008E5056 /* ResizingView.swift in Sources */,
 				040CA84025B51AEB00F632FE /* AppDelegate.swift in Sources */,

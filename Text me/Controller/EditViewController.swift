@@ -96,7 +96,7 @@ class EditViewController: UIViewController, UITextViewDelegate{
         
         titleText.translatesAutoresizingMaskIntoConstraints = false
         titleText.leadingAnchor.constraint(equalTo: mainTextView.leadingAnchor).isActive = true
-        //titleText.trailingAnchor.constraint(lessThanOrEqualTo: mainTextView.trailingAnchor).isActive = true
+
         titleText.trailingAnchor.constraint(lessThanOrEqualTo: mainTextView.trailingAnchor, constant: -10).isActive = true
         titleText.topAnchor.constraint(equalTo: outerView.bottomAnchor, constant: 10).isActive = true
         titleText.font = UIFont.boldSystemFont(ofSize: 20)

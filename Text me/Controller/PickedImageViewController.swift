@@ -177,27 +177,6 @@ protocol ModalViewControllerDelegate
 
 extension UIImage {
 
-//    func resize(targetSize: CGSize) -> Data {
-//
-//        let widthRatio  = targetSize.width  / size.width
-//        let heightRatio = targetSize.height / size.height
-//
-//        // Figure out what our orientation is, and use that to form the rectangle.
-//        var newSize: CGSize
-//        if(widthRatio > heightRatio) {
-//          newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
-//        } else {
-//          newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
-//        }
-//
-//        UIGraphicsBeginImageContext(newSize)
-//        self.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
-//        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-//        let resizedImage = newImage!.pngData()
-//        UIGraphicsEndImageContext()
-//        return resizedImage!
-//    }
-    
     func resize(targetSize: CGSize) -> UIImage? {
 
             let widthRatio  = targetSize.width  / size.width
